@@ -61,9 +61,14 @@ function form() {
                         </FormGroup>
                     </Col>
                 </Row>
-                <Button type="submit" className='bu'>submit</Button>
-
-                <Button type='reset'>clear</Button>
+                <Row>
+                    <Col>
+                        <Button type="submit" className="bu" color="primary">submit</Button>
+                    </Col>
+                    <Col>
+                        <Button type='reset' className="bu" color="danger">clear</Button>
+                    </Col>
+                </Row>
             </Form>
         </Container >
 
