@@ -1,25 +1,8 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
-function form() {
-    return (
-        <div>
-            <form >
-                <label>
-                    Trad Name:
-          <input type="text" />
-                </label>
-
-                <label>
-                    General Name:
-          <input type="text" />
-                </label>
-
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
-
-    )
-
+export default (props) => {
+  return (
+    <Button color="danger">Danger!</Button>
+  );
 }
-
-export default form;
