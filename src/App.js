@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom'
-import Form from './components/ItemRejesterForm/form'
+import { BrowserRouter } from 'react-router-dom'
+import Routes from "./router"
 function App() {
   return (
     <div>
-      <Form />
+      <BrowserRouter>
+          <Routes />
+      </BrowserRouter>
     </div>
 
   );
