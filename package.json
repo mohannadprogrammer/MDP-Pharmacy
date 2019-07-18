@@ -4,6 +4,7 @@
   "private": true,
   "description": "pharmacy",
   "author": "abubaker",
+  "homepage": "./",
   "build": {
     "appId": "com.example.app"
   },
@@ -21,7 +22,7 @@
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"yarn start --no-open-browser\" \"wait-on http://localhost:3000 && electron .\"",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "react-scripts build && electron-builder "
   },
   "eslintConfig": {
     "extends": "react-app"
