@@ -1,18 +1,25 @@
 import React from 'react';
 
-form = () => {
-    <form >
-        <label>
-            Trad Name:
+function form() {
+    return (
+        <div>
+            <form >
+                <label>
+                    Trad Name:
           <input type="text" />
-        </label>
+                </label>
 
-        <label>
-            Trad Name:
+                <label>
+                    General Name:
           <input type="text" />
-        </label>
-        <input type="submit" value="Submit" />
-    </form>
+                </label>
+
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+
+    )
+
 }
 
 export default form;
