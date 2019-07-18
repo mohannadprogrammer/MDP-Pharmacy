@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Form from './components/ItemRejesterForm/form'
 function App() {
   return (
-    <div>
+    <div className="main">
       <Form />
     </div>
 
