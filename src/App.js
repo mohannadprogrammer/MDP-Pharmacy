@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import Routes from "./router"
 function App() {
   return (
-    <div>
+    <div className="main">
       <BrowserRouter>
-          <Routes />
+        <Routes />
       </BrowserRouter>
     </div>
 
