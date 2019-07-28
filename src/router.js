@@ -1,13 +1,17 @@
-import React from "react"
-import {Route,Switch} from "react-router-dom"
-import Form from "./components/ItemRejesterForm/form"
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Login from "./Views/Login";
+import Dashboard from "./hoc/Dashboard";
+//it a moduals contant all routes in the app
 
-//it a moduals .
- function router(){
+class router extends React.Component {
+  render() {
     return (
-        <Switch>
-            <Route to ="/" component={Form}/>
-        </Switch>
-    )
- }
+      <Switch>
+          <Route path="/" exact component={Login} />
+          <Route path="/dashboard" exact component={Dashboard} />
+      </Switch>
+    );
+  }
+}
 export default router;
