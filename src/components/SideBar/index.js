@@ -14,10 +14,46 @@ class Dashboard extends Component {
   constructor(props){
       super(props)
       this.state={
-        acctive:true
+        acctive:true,
+        item:[
+          {
+            name : "Dashboard",
+            option :[
+
+
+            ]
+          }
+          ,{
+            name : "Sales",
+            option :[
+              
+
+            ]
+          },{
+            name : "Items",
+            option :[
+              
+
+            ]
+          },{
+            name : "Stores",
+            option :[
+              
+
+            ]
+          },{
+            name : "Users",
+            option :[
+              
+
+            ]
+          }
+        ]
       }
   }
+  
   render() {
+    const items=this.state.item
     return (
         <div className="page-wrapper">
             {/* <ul>
@@ -25,39 +61,22 @@ class Dashboard extends Component {
             </ul> */}
             
             <Nav className="ml-auto" navbar>
-            <UncontrolledDropdown className ={ this.state.acctive ?"sideItem active":"sideItem"}  nav inNavbar>
-                <DropdownToggle style={{color:"black"}}  nav >
-                Dashboard
+               {
+                 items.map((item,i)=>(
+                  <UncontrolledDropdown className ="sideItem"  nav inNavbar>
+                    <DropdownToggle style={{color:"black"}}  nav >
+                {item.name}
                 </DropdownToggle>
+                
                 <DropdownMenu right >
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
+                {item.option.map((option , i )=>(
+                    <DropdownItem>{option.name}</DropdownItem>
+                ))}
                 </DropdownMenu>
-              </UncontrolledDropdown>
-            <UncontrolledDropdown className ="sideItem" nav inNavbar>
-                <DropdownToggle  style={{color:"black"}}  nav >
-                Sales
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown className ="sideItem" nav inNavbar>
-                <DropdownToggle style={{color:"black"}}  nav >
-                  Stores
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Optio2112n 1</DropdownItem>
-                  <DropdownItem>Option21 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+                  </UncontrolledDropdown>
+                 ))
+               }
+                
               </Nav>
         </div>
         );
