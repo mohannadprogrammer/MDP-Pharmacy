@@ -1,0 +1,19 @@
+.page-wrapper{
+    float: left;
+    background: #fff;
+    height: 100%;
+    width: 200px;
+}
+.sideItem{
+    padding : 10px 16px;
+    color: black;
+}
+.sideItem:hover  {
+    background:whitesmoke; 
+    border-left: 5px solid #03a9f3;
+}
+
+.active {
+    background:whitesmoke; 
+    border-left: 5px solid #03a9f3;
+}
