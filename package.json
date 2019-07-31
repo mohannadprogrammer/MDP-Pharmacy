@@ -7,11 +7,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "electron-is-dev": "^1.1.0",
-<<<<<<< HEAD
-    "mssql": "^5.1.0",
-=======
     "mysql": "github:mysqljs/mysql",
->>>>>>> b74068a067a2365087557222b8bf25a90cc8cf04
     "react": "^16.8.6",
     "react-bootstrap-table-next": "^3.1.7",
     "react-dom": "^16.8.6",
