@@ -2,6 +2,7 @@ import React, { Component } from "react";
 //import css 
 import "./index.css"
 
+import {Link} from 'react-router-dom'
 import {
     UncontrolledDropdown,
     DropdownMenu,
@@ -18,6 +19,7 @@ class Dashboard extends Component {
         item:[
           {
             name : "Dashboard",
+            link:"./dashboard",
             option :[
 
 
@@ -25,24 +27,35 @@ class Dashboard extends Component {
           }
           ,{
             name : "Sales",
+            link:"./Sales",
             option :[
               
 
             ]
           },{
             name : "Items",
+            link:"./items",
             option :[
               
 
             ]
           },{
             name : "Stores",
+            link:"./stores",
             option :[
               
 
             ]
           },{
             name : "Users",
+            link:"./users",
+            option :[
+              
+
+            ]
+          },{
+            name : "Suppliers",
+            link:"./suppliers",
             option :[
               
 
@@ -64,8 +77,8 @@ class Dashboard extends Component {
                {
                  items.map((item,i)=>(
                   <UncontrolledDropdown className ="sideItem"  nav inNavbar>
-                    <DropdownToggle style={{color:"black"}}  nav >
-                {item.name}
+                   <DropdownToggle style={{color:"black"}}  nav >
+                   <Link to ={item.link}>{item.name}</Link>
                 </DropdownToggle>
                 
                 <DropdownMenu right >

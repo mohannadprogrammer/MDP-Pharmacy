@@ -1,0 +1,10 @@
+.bill{
+    background: #fff;
+    margin: 10px;
+}
+.info{
+    background: #fff;
+}
+.bill , .info{
+    width: 100%;
+}

@@ -4,14 +4,6 @@
   "private": true,
   "description": "pharmacy",
   "author": "abubaker",
-  "homepage": "./",
-  "build": {
-    "appId": "com.example.app",
-    "files": [
-      "packaged/",
-      "index.html"
-    ]
-  },
   "dependencies": {
     "bootstrap": "^4.3.1",
     "electron-is-dev": "^1.1.0",
@@ -25,15 +17,14 @@
     "react-toastify": "^5.3.2",
     "reactstrap": "^8.0.1"
   },
-  "main": "./public/electron.js",
+  "main": "public/electron.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"yarn start --no-open-browser\" \"wait-on http://localhost:3000 && electron .\"",
-    "pack": "electron-builder --dir",
-    "dist": "react-scripts build && electron-builder "
+    "release": "yarn build && electron-builder --publish=never"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,5 +46,16 @@
     "electron": "^5.0.7",
     "electron-builder": "^21.0.15",
     "wait-on": "^3.3.0"
-  }
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "homepage": "./"
 }

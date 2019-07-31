@@ -51,10 +51,10 @@ class Forms extends Component{
     }
     }
     render(){
-        const data = this.state.data
+        const data = this.props.data
         return (
             <Form>
-                {data.form.map((item,i)=>(
+                {data.map((item,i)=>(
                     <FormGroup key={i} row>
                         <Label sm={2} for={item.id}>{item.label}</Label>
                         <Col sm={10}>
@@ -72,7 +72,7 @@ class Forms extends Component{
                     </FormGroup>
                 ))}
                 <FormGroup row>
-                {data.buttons.map((item,i)=>(
+                {this.props.buttons.map((item,i)=>(
                     <Col sm={1 }>
                     <Button primary>{item.text}</Button>
                     </Col>

@@ -42,7 +42,7 @@ class Item extends Component {
     const buttons = config.buttons;
     return (
       <Dashoard>
-        <PHeader PageName="Supplier" toggle={this.toggle} />
+        <PHeader PageName="User" toggle={this.toggle} />
 
         <Row>
           {" "}
@@ -61,13 +61,13 @@ class Item extends Component {
           toggle={this.toggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Add supplier</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Add user</ModalHeader>
           <ModalBody>
             <Form data={form} buttons={buttons} />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>
-             ADD
+              ADD
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
               Cancel
