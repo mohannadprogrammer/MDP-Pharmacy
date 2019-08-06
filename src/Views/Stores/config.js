@@ -2,11 +2,11 @@ module.exports={
     form:[
         {
             //input props   
-            id :"username",
+            id :"xdjfkssf",
             name:"name",
             type:"text",
             //label
-            label:"username",
+            label:"moisfd",
            
             
         },

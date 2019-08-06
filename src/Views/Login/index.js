@@ -4,21 +4,50 @@ import {Redirect } from "react-router-dom";
 import "./index.css";
 //
 import { Col, Button, Input, FormGroup , Label } from "reactstrap";
-
+import axios from 'axios'
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      login:false
+      login:false,
+      username:"",
+      password:""
     };
   }
   submit=()=>{
     //  this.props.history.push("/dashboard");
 
-    this.setState({
-      login:true
-    })
+    const instance = axios.create();
+    instance.defaults.timeout = 100000;
+    
+    instance.defaults.headers = {
+      ContentType: "application/json",
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    const res = instance.post("http://localhost:3000/user/login",{ username :this.state.username ,password:this.state.password})
+         .then(res=>{
+            console.log(res.data);
+            localStorage.setItem("isAuth",true)
+            localStorage.setItem("token",res.data.token)
+         }).catch(err=>{
+            console.log(err)
+         })
+    console.log (( res.data )) 
+        // this.setState({
+        //   login:true
+        // })
 
+
+  }
+  setUsername=(event)=>{
+    this.setState({
+      username:event.target.value
+    })
+  }
+  setPassword=(event)=>{
+    this.setState({
+      password:event.target.value
+    })
   }
   render() {
     if (this.state.login){
@@ -40,12 +69,12 @@ class Login extends Component {
           </div>
           <FormGroup>
             <Col>
-              <Input type="text" name="usename" placeholder="username" />
+              <Input type="text" name="usename" placeholder="username" onChange={this.setUsername.bind(this)}/>
             </Col>
           </FormGroup>
           <FormGroup>
             <Col>
-              <Input type="password" name="password" placeholder="password" />
+              <Input type="password" name="password" placeholder="password" onChange={this.setPassword.bind(this)} />
             </Col>
           </FormGroup>
           <FormGroup check>

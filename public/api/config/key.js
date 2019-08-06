@@ -1,0 +1,1 @@
+process.env.KEY = process.env.KEY || "thjshdfjkIU3IU238790hfcnASlVDA?";

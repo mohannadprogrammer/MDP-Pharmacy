@@ -1,14 +1,25 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import Routes from "./router"
+
+
+import {createStore } from 'redux'
+import {Provider } from 'react-redux'
+import rootReducer from './reducer'
+
+
+const store = createStore(rootReducer)
 function App() {
   return (
-    <div className="main">
-      <BrowserRouter>
+    <Provider store={store}>
+      <div className="main">
+      <HashRouter>
         <Routes />
-      </BrowserRouter>
-    </div>
+      </HashRouter>
+      s</div>
+    </Provider>
+    
 
   );
 }
