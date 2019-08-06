@@ -19,6 +19,11 @@ import {
 } from "reactstrap";
 
 import config from "./config";
+
+import {connect} from 'react-redux'
+import {getitems} from '../../actions/itemsAction'
+
+import {bindActionCreators} from 'redux'
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +33,10 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
-
+ componentWillMount(){
+   this.props.getitems();
+   this.props.getitems();
+ }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -37,9 +45,10 @@ class Item extends Component {
 
   render() {
     const columns = config.columns;
-    const products = [];
+    const products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
+    console.log(this.props)
     return (
       <Dashoard>
         <PHeader PageName="Item" toggle={this.toggle} />
@@ -52,6 +61,11 @@ class Item extends Component {
               data={products}
               columns={columns}
               noDataIndication="Table is Empty"
+             
+          striped
+          hover
+          condensed
+          remote
             />
           </Col>
         </Row>
@@ -78,5 +92,12 @@ class Item extends Component {
     );
   }
 }
-
-export default Item;
+const mapStateToProps = (state) => {
+  return {
+    data: state.items
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getitems},dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Item);

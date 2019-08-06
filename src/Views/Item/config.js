@@ -2,7 +2,7 @@ module.exports={
     form:[
         {
             //input props   
-            id :"Trande",
+            id :"تقليدي",
             name:"Trande",
             type:"text",
             //label
@@ -32,8 +32,8 @@ module.exports={
             name:"email",
             type:"select",
             select:[
-                "",
-                "",
+                "car",
+                "ddf",
                 ""
             ],
             //label
@@ -47,31 +47,34 @@ module.exports={
 
     ],
     columns : [{
-        dataField: 'TradeN',
-        text: 'Trade name'
+        dataField: 'generalname',
+        text: 'sceintN'
       }, {
-        dataField: 'Generic',
-        text: 'Generic Name'
+        dataField: 'tradname',
+        text: 'generalN'
       }, {
-        dataField: 'catagory',
+        dataField: 'category',
         text: 'Catagory'
       }, {
-        dataField: 'supplier',
-        text: 'supplier'
+        dataField: 'company',
+        text: 'Company'
       }, {
-        dataField: 'sellingprice',
-        text: 'Catagory'
+        dataField: 'barcode',
+        text: 'barcode'
       }, {
-        dataField: 'MiniL',
+        dataField: 'minlevel',
         text: 'Minimum Level'
       }, {
-        dataField: 'unit',
-        text: 'unit'
+        dataField: 'salsunit',
+        text: 'salseU'
       }, {
-        dataField: 'pack size',
-        text: 'Catagory'
+        dataField: 'entryunit',
+        text: 'entry Unit'
       }, {
-        dataField: 'edit',
-        text: 'Edit'
+        dataField: 'packetsize',
+        text: 'packet Size'
+      }, {
+        dataField: 'price',
+        text: 'price'
       }
     ]}
