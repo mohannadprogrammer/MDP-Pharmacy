@@ -29,7 +29,7 @@ export function addUser (user){
 
 }
 //get   item for get items that in spacific store and with bar code 
-export function getForSales (search){
+export function getItemForSales (search){
 
   axios.defaults.headers = {
     ContentType: "application/json",
@@ -37,4 +37,13 @@ export function getForSales (search){
   }
   return axios.post(`${URL}/store/getItem`,search)
 
+}
+
+//HEAR  don sale invoice in 
+export function sale (saled){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/invoice/add`,saled)
 }
