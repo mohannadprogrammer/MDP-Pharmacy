@@ -8,6 +8,7 @@ import Items from "./Views/Item"
 import Stores from "./Views/Stores"
 import Users from "./Views/User"
 import suppliers from "./Views/supplier"
+import Buy from "./Views/invoice"
 //it a moduals contant all routes in the app
 
 class router extends React.Component {
@@ -18,6 +19,7 @@ class router extends React.Component {
                 <Route path="/dashboard" exact component={Dashboard} />
 
                 <Route path="/Sales" exact component={Sales} />
+                <Route path="/buy" exact component={Buy} />
                 <Route path="/items" exact component={Items} />
                 <Route path="/stores" exact component={Stores} />
                 <Route path="/suppliers" exact component={suppliers} />
