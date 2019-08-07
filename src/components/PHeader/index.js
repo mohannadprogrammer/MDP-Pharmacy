@@ -1,7 +1,20 @@
 import React, { Component } from "react";
-import {Row,Col,Button} from "reactstrap"
-import "./index.css"
+import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import "./index.css";
 class PHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        newusername: "",
+        password: "",
+        email: "",
+        jobtitle: "",
+        phone: ""
+      }
+    };
+  }
+  
   render() {
     const data = this.props;
     return (
@@ -11,12 +24,10 @@ class PHeader extends Component {
             <Col sm={11}>
               <h3>{data.PageName}</h3>
             </Col>
-            <Col sm={1}>
-              <Button className="addB" color="success" onClick={data.toggle}>
-                add
-              </Button>
-            </Col>
           </Row>
+          <Col>
+          {this.props.children}
+              </Col>
         </Col>
       </Row>
     );

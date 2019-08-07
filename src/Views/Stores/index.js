@@ -19,6 +19,12 @@ import {
 } from "reactstrap";
 
 import config from "./config";
+
+import {connect} from 'react-redux'
+import {getData} from '../../actions/itemsAction'
+import {bindActionCreators} from 'redux'
+
+
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +34,9 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
-
+  componentDidMount(){
+    this.props.getData("store");
+  }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -37,7 +45,7 @@ class Item extends Component {
 
   render() {
     const columns = config.columns;
-    const products = [];
+    const products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
     return (
@@ -78,5 +86,13 @@ class Item extends Component {
     );
   }
 }
-
-export default Item;
+const mapStateToProps = (state) => {
+  return {
+    data: state.items
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getData,
+  },dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Item);

@@ -30,14 +30,24 @@ module.exports={
         }
     ],
     buttons:[
-        
+       {
+           text:"save"
+       }
 
     ],
-    columns : [{
-        dataField: 'usenname',
+    columns : [
+        {
+        dataField: 'username',
         text: 'username'
+        },
+        {
+            dataField: 'email',
+        text: 'Email'
       }, {
-        dataField: 'edit',
-        text: 'Edit'
+        dataField: 'jobtitle',
+        text: 'job'
+      },{
+      dataField: 'phone',
+        text: 'phone'
       }
     ]}

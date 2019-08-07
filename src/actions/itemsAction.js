@@ -1,39 +1,25 @@
+import { getDatas , addUser} from "../api";
 
 
-export function getitems (){
-    
-    return {
-        type :'GET_ITEMS',
-        payload:[
-            {
-                "id": 1,
-                "generalname": "drag",
-                "tradname": "updated",
-                "company": null,
-                "category": null,
-                "barcode": "26157890",
-                "minlevel": 10,
-                "registerdate": "",
-                "registeduser": "admin",
-                "salsunit": 1,
-                "entryunit": 1,
-                "packetsize": 1,
-                "price": "2.5"
-            },{
-                "id": 1,
-                "generalname": "drag",
-                "tradname": "updated",
-                "company": null,
-                "category": null,
-                "barcode": "26157890",
-                "minlevel": 10,
-                "registerdate": "",
-                "registeduser": "admin",
-                "salsunit": 1,
-                "entryunit": 1,
-                "packetsize": 1,
-                "price": "2.5"
-            }
-        ]
-    }
-} 
+export  function getData(type) {
+    const data = getDatas(type).then(res => {
+            console.log("------------------------------------");
+            console.log(res);
+            return res.data.data;
+          });
+  return {
+    type: "GET_ITEMS",
+    payload: data
+  };
+}
+
+
+export  function add(user) {
+   addUser(user).then(res=>{
+     console.log(res)
+   })
+  return {
+    type: "ADD_USER",
+    payload: user
+  };
+}

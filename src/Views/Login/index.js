@@ -4,7 +4,7 @@ import {Redirect } from "react-router-dom";
 import "./index.css";
 //
 import { Col, Button, Input, FormGroup , Label } from "reactstrap";
-import axios from 'axios'
+import {login} from '../../api'
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -14,29 +14,32 @@ class Login extends Component {
       password:""
     };
   }
-  submit=()=>{
+   submit= async ()=>{
     //  this.props.history.push("/dashboard");
 
-    const instance = axios.create();
-    instance.defaults.timeout = 100000;
     
-    instance.defaults.headers = {
-      ContentType: "application/json",
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
-    };
-    const res = instance.post("http://localhost:3000/user/login",{ username :this.state.username ,password:this.state.password})
+    let res =await login(this.state.username ,this.state.password)
          .then(res=>{
-            console.log(res.data);
-            localStorage.setItem("isAuth",true)
-            localStorage.setItem("token",res.data.token)
+            // console.log(res.data.user.token);
+
+            localStorage.setItem("token",res.data.user.token)
+            return res.data
          }).catch(err=>{
             console.log(err)
+            return err.data
          })
-    console.log (( res.data )) 
-        // this.setState({
-        //   login:true
-        // })
 
+         console.log(res)
+         if (res.done){
+        this.setState({
+          login:true
+        })
+        }else{
+
+          alert(res.error.msg);
+        }
+        // handlle validation 
+         
 
   }
   setUsername=(event)=>{
