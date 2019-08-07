@@ -34,10 +34,10 @@ module.exports={
 
     ],
     columns : [{
-        dataField: 'usenname',
-        text: 'username'
+        dataField: 'name',
+        text: 'name'
       }, {
-        dataField: 'edit',
-        text: 'Edit'
+        dataField: 'location',
+        text: 'location'
       }
     ]}

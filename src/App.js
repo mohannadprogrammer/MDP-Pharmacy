@@ -4,15 +4,17 @@ import { HashRouter } from 'react-router-dom'
 import Routes from "./router"
 
 
-import {createStore } from 'redux'
+import {createStore ,applyMiddleware} from 'redux'
 import {Provider } from 'react-redux'
+import promiseMiddleWare from 'redux-promise'
 import rootReducer from './reducer'
 
+const createStoreWithMiddleware =applyMiddleware(promiseMiddleWare)(createStore)
 
-const store = createStore(rootReducer)
+// const store = createStore(rootReducer)
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={createStoreWithMiddleware(rootReducer)}>
       <div className="main">
       <HashRouter>
         <Routes />

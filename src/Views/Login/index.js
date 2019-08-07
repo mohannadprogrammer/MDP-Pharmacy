@@ -20,8 +20,9 @@ class Login extends Component {
     
     let res =await login(this.state.username ,this.state.password)
          .then(res=>{
-            console.log(res.data);
-            localStorage.setItem("token",res.data.token)
+            // console.log(res.data.user.token);
+
+            localStorage.setItem("token",res.data.user.token)
             return res.data
          }).catch(err=>{
             console.log(err)
@@ -33,7 +34,12 @@ class Login extends Component {
         this.setState({
           login:true
         })
+        }else{
+
+          alert(res.error.msg);
         }
+        // handlle validation 
+         
 
   }
   setUsername=(event)=>{

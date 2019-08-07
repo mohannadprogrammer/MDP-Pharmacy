@@ -8,13 +8,33 @@ export function login (username, password){
   axios.post(`${URL}/user/login`, { username, password }))
 }
 
-export function getDatas (){
+export function getDatas (type){
   
-    
+    console.log(localStorage.getItem('token'))
     axios.defaults.headers = {
       ContentType: "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     }
-    return axios.post(`${URL} /admin/login`)
+    return axios.post(`${URL}/getAll`,{type})
   
+}
+
+export function addUser (user){
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/user/register`,user)
+
+}
+//get   item for get items that in spacific store and with bar code 
+export function getForSales (search){
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/store/getItem`,search)
+
 }

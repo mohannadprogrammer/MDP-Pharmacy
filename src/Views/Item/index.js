@@ -5,7 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
+import Form from "../../components/Forms/addItems";
 import PHeader from "../../components/PHeader";
 
 import {
@@ -21,7 +21,7 @@ import {
 import config from "./config";
 
 import {connect} from 'react-redux'
-import {getitems} from '../../actions/itemsAction'
+import {getData} from '../../actions/itemsAction'
 
 import {bindActionCreators} from 'redux'
 class Item extends Component {
@@ -33,9 +33,8 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
- componentWillMount(){
-   this.props.getitems();
-   this.props.getitems();
+ componentDidMount(){
+   this.props.getData("item");
  }
   toggle() {
     this.setState(prevState => ({
@@ -51,7 +50,9 @@ class Item extends Component {
     console.log(this.props)
     return (
       <Dashoard>
-        <PHeader PageName="Item" toggle={this.toggle} />
+        <PHeader PageName="Item" toggle={this.toggle} >
+          <Form></Form>
+        </PHeader>
 
         <Row>
           {" "}
@@ -98,6 +99,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getitems},dispatch)
+  return bindActionCreators({getData,
+  },dispatch)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Item);

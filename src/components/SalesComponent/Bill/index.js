@@ -2,14 +2,36 @@ import React,{Component} from 'react'
 
 import {Col,Table} from 'reactstrap'
 
+import BootstrapTable from "react-bootstrap-table-next";
 import '../index.css'
 class Bill extends Component {
     render(){
+      const columns = [
+        {
+          dataField: "generalname",
+          text: "sceintN"
+        },
+        {
+          dataField: "tradname",
+          text: "generalN"
+        },
+        {
+          dataField: "available",
+          text: "Catagory"
+        }
+      ];
+      const products = [];
         return (
             <Col sm ={3} className="f" style={{paddingRight:"0"}}>
                 <div className ="bill">
                     <h3>Bill</h3>
-                    <Table>
+                    <BootstrapTable
+          keyField="id"
+          data={products}
+          columns={columns}
+          noDataIndication="Table is Empty"
+        />
+                    {/* <Table>
         <thead>
           <tr>
             <th>medicin</th>
@@ -33,7 +55,7 @@ class Bill extends Component {
             <td>4$</td>
           </tr>
         </tbody>
-      </Table>
+      </Table> */}
                 </div>
             </Col>
         )

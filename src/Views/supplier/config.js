@@ -47,29 +47,20 @@ module.exports={
 
     ],
     columns : [{
-        dataField: 'TradeN',
-        text: 'Trade name'
+        dataField: 'name',
+        text: 'name'
       }, {
-        dataField: 'Generic',
-        text: 'Generic Name'
+        dataField: 'email',
+        text: 'email'
       }, {
-        dataField: 'catagory',
-        text: 'Catagory'
+        dataField: 'address',
+        text: 'address'
       }, {
-        dataField: 'supplier',
-        text: 'supplier'
+        dataField: 'phone',
+        text: 'phone'
       }, {
-        dataField: 'sellingprice',
-        text: 'Catagory'
-      }, {
-        dataField: 'MiniL',
-        text: 'Minimum Level'
-      }, {
-        dataField: 'unit',
-        text: 'unit'
-      }, {
-        dataField: 'pack size',
-        text: 'Catagory'
+        dataField: 'updateduser',
+        text: 'updateduser'
       }, {
         dataField: 'edit',
         text: 'Edit'

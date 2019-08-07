@@ -5,7 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
+import Form from "../../components/Forms/UserForm";
 import PHeader from "../../components/PHeader";
 
 import {
@@ -19,30 +19,46 @@ import {
 } from "reactstrap";
 
 import config from "./config";
+
+
+import {connect} from 'react-redux'
+import {getData , add} from '../../actions/itemsAction'
+import {bindActionCreators} from 'redux'
+
 class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+     
     };
 
     this.toggle = this.toggle.bind(this);
   }
-
+  componentDidMount(){
+    this.props.getData("users");
+  }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
 
+  addfun = (user) => {
+    console.log('collaback')
+    console.log(user)
+    this.props.add(user)
+  }
   render() {
     const columns = config.columns;
-    const products = [];
+    const products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
     return (
       <Dashoard>
-        <PHeader PageName="User" toggle={this.toggle} />
+        <PHeader PageName="User" toggle={this.toggle}  >
+            <Form data={form} buttons={buttons} add={this.addfun} />
+        </PHeader>
 
         <Row>
           {" "}
@@ -66,7 +82,7 @@ class Item extends Component {
             <Form data={form} buttons={buttons} />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
+            <Button color="primary" onClick={this.add}>
               ADD
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
@@ -79,4 +95,15 @@ class Item extends Component {
   }
 }
 
-export default Item;
+const mapStateToProps = (state) => {
+  return {
+    data: state.items
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getData,add
+  },dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Item);
+
+
