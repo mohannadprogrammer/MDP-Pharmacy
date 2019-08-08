@@ -23,7 +23,7 @@ import {
 import config from "./config";
 
 import { connect } from 'react-redux'
-import { getData } from '../../actions/itemsAction'
+import { getAllInvoice } from '../../actions/itemsAction'
 import { bindActionCreators } from 'redux'
 
 
@@ -38,7 +38,9 @@ class Item extends Component {
     this.toggle = this.toggle.bind(this);
   }
   componentDidMount() {
-    this.props.getData("store");
+    this.props.getAllInvoice();
+    console.log(this.props)
+    console.log("*($*$($($($($$")
   }
   toggle() {
     this.setState(prevState => ({
@@ -49,7 +51,7 @@ class Item extends Component {
   render() {
     if (this.state.id) {
       return (
-        <Redirect to={"/stores/storeDetail/" + this.state.id} />
+        <Redirect to={"/invoice/invoiceDetail/" + this.state.id} />
       )
     }
     const rowEvents = {
@@ -61,12 +63,12 @@ class Item extends Component {
       }
     };
     const columns = config.columns;
-    const products = this.props.data.items;
+    const products = this.props.data.items.invoice;
     const form = config.form;
     const buttons = config.buttons;
     return (
       <Dashoard>
-        <PHeader PageName="Store" toggle={this.toggle} />
+        <PHeader PageName="Inovice" toggle={this.toggle} />
 
         <Row>
           {" "}
@@ -105,12 +107,12 @@ class Item extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    data: state.items
+    data: state
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getData,
+    getAllInvoice,
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item);
