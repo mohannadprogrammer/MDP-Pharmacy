@@ -41,6 +41,7 @@ export function getItemForSales (search){
 
 //HEAR  don sale invoice in 
 export function sale (saled){
+  console.log("saled")
   axios.defaults.headers = {
     ContentType: "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -10,11 +10,12 @@ export function getItemToSaleAction (info){
     }
 }
 
-export function saleAction (){
-    const res=sale().then(res=>res)
+export function saleAction (bill){
+    const data=sale(bill).then(res=>res.data.data)
+    console.log(data)
     return{
         type:"SALE",
-        payload:res
+        payload:data
     }
 
 }

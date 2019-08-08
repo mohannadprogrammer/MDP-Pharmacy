@@ -60,17 +60,21 @@ class Info extends Component {
         text: "available"
       },
       {
-        dataField: "quntaty",
-        text: "quntaty"
+        dataField: "quantity",
+        text: "quantity"
       }
     ];
-    const sales={...this.props.data.sales.sales,quntaty:0}
+    const sales={...this.props.data.sales.sales,quantity:0}
+    
     const products = [sales];
     const stores = this.props.data.items.items
-    console.log(this.state,"-----------------")
     const rowEvents = {
         onClick: (e, row, rowIndex) => {
-          console.log(e)
+              let passedRow=Object.assign({}, row);
+              delete passedRow.generalname
+              delete passedRow.available
+              passedRow.price=passedRow.price*passedRow.quantity
+              this.props.passToBill(passedRow)
         }
       };
     return (
@@ -80,7 +84,7 @@ class Info extends Component {
           <Col md={3}>
             <FormGroup>
               <Label>store</Label>
-              <Input type="select" placeholder="username" name="store" onChange={this.setData.bind()}>
+              <Input type="select" placeholder="username" name="store" onChange={this.setData.bind(this)}>
                 {stores.map((store,i)=>{
                     return (
                         <option value ={store.id}>{store.name}</option>
@@ -108,7 +112,8 @@ class Info extends Component {
           columns={columns}
           rowEvents={rowEvents}
           noDataIndication="Table is Empty"
-          cellEdit={ cellEditFactory({ mode: 'click' }) }
+          cellEdit={ cellEditFactory({ mode: 'click' ,
+          blurToSave: true}) }
           
         />
       </Col>
