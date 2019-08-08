@@ -1,15 +1,17 @@
-import api from "../api"
+import { getItemForSales,sale} from "../api";
 
-export function getItemToSale (){
-    const data = api.getItemToSale ().then (res=>res)
+
+export function getItemToSaleAction (info){
+    const data = getItemForSales (info).then (res=>res.data.data)
+    console.log(data)
     return{
         type:"GET_ITEM_TO_SALE",
         payload:data
     }
 }
 
-export function sale (){
-    const res=api.sale().then(res=>res)
+export function saleAction (){
+    const res=sale().then(res=>res)
     return{
         type:"SALE",
         payload:res
