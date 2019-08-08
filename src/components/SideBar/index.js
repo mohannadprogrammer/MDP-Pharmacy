@@ -19,7 +19,7 @@ class Dashboard extends Component {
       item: [
         {
           name: "Dashboard",
-          link: "./dashboard",
+          link: "/dashboard",
           option: [
 
 
@@ -27,35 +27,35 @@ class Dashboard extends Component {
         }
         , {
           name: "Sales",
-          link: "./Sales",
+          link: "/Sales",
           option: [
 
 
           ]
         }, {
           name: "Items",
-          link: "./items",
+          link: "/items",
           option: [
 
 
           ]
         }, {
           name: "Stores",
-          link: "./stores",
+          link: "/stores",
           option: [
 
 
           ]
         }, {
           name: "Users",
-          link: "./users",
+          link: "/users",
           option: [
 
 
           ]
         }, {
           name: "Suppliers",
-          link: "./suppliers",
+          link: "/suppliers",
           option: [
 
 
@@ -63,9 +63,16 @@ class Dashboard extends Component {
         },
         {
           name: "Buy",
-          link: "./buy",
+          link: "/buy",
           option: [
 
+
+          ]
+        },
+        {
+          name: "Manage Invoice",
+          link: "/manageInvoice",
+          option: [
 
           ]
         }
