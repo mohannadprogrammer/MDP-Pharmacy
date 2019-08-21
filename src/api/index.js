@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const URL = "http://172.18.130.106:3000";
+const URL = "http://172.18.130.103:3000";
 
 export function login(username, password) {
   console.log(`${URL} /admin/login`)
@@ -18,7 +18,18 @@ export function getDatas(type) {
   return axios.post(`${URL}/getAll`, { type })
 
 }
+//
+export function addItem(item) {
 
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/item/additem`, item)
+
+}
+
+//
 export function addUser(user) {
 
   axios.defaults.headers = {
@@ -26,6 +37,25 @@ export function addUser(user) {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   }
   return axios.post(`${URL}/user/register`, user)
+
+}
+export function addStore(store) {
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/store/addstore`, store)
+
+}
+
+export function addSupplier(supplier) {
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/supplier/addsupplier`, supplier)
 
 }
 //get   item for get items that in spacific store and with bar code 

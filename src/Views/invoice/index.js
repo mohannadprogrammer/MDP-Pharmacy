@@ -44,10 +44,11 @@ class Item extends Component {
 
   render() {
     const columns = config.columns;
-    const products = this.props.data.items;
+    let products = this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
-    console.log(this.props)
+
+    
     return (
       <Dashoard>
         <PHeader PageName="Item" toggle={this.toggle} >

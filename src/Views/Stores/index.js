@@ -5,7 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
+import Form from "../../components/Forms/addStore";
 import PHeader from "../../components/PHeader";
 
 import { Redirect } from "react-router-dom";
@@ -24,6 +24,7 @@ import config from "./config";
 
 import { connect } from 'react-redux'
 import { getData } from '../../actions/itemsAction'
+import {add} from '../../actions/storeAction'
 import { bindActionCreators } from 'redux'
 
 
@@ -45,7 +46,11 @@ class Item extends Component {
       modal: !prevState.modal
     }));
   }
-
+  addfun = (store) => {
+    console.log('collaback')
+    console.log(store)
+    this.props.add(store)
+  }
   render() {
     if (this.state.id) {
       return (
@@ -61,12 +66,16 @@ class Item extends Component {
       }
     };
     const columns = config.columns;
-    const products = this.props.data.items;
+    let products = this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
+
     return (
       <Dashoard>
-        <PHeader PageName="Store" toggle={this.toggle} />
+        <PHeader PageName="Store" toggle={this.toggle} >
+            <Form data={form} buttons={buttons} add={this.addfun} />
+        </PHeader>
+
 
         <Row>
           {" "}
@@ -110,7 +119,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getData,
+    getData,add
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item);

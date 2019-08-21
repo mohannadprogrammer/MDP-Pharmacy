@@ -21,7 +21,7 @@ import {
 import config from "./config";
 
 import {connect} from 'react-redux'
-import {getData} from '../../actions/itemsAction'
+import {getData,add} from '../../actions/itemsAction'
 
 import {bindActionCreators} from 'redux'
 class Item extends Component {
@@ -41,17 +41,21 @@ class Item extends Component {
       modal: !prevState.modal
     }));
   }
-
+  addfun = (user) => {
+    console.log('collaback')
+    console.log(user)
+    this.props.add(user)
+  }
   render() {
     const columns = config.columns;
-    const products =this.props.data.items;
+    let products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
-    console.log(this.props)
+    
     return (
       <Dashoard>
         <PHeader PageName="Item" toggle={this.toggle} >
-          <Form></Form>
+        <Form data={form} buttons={buttons} add={this.addfun} />
         </PHeader>
 
         <Row>
@@ -99,7 +103,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getData,
+  return bindActionCreators({getData,add
   },dispatch)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Item);

@@ -15,19 +15,8 @@ instance.interceptors.response.use(
     return response;
   },
   error => {
-    // Do something with response error
-    console.log("interceptors.response", error);
-    if (error && error.code && error.code === "ECONNABORTED") {
-      return Promise.reject("Timeout exceeded");
-    }
-    // if (!error.status) {
-    //     return Promise.reject('Network Error');
-    // }
-
-    if (error && error.response && error.response.status === 401) {
-      console.log("unauthorized, logging out ...");
-      //auth.logout();
-      ///router.replace('/auth/login');
+    if (!error.status) {
+        return Promise.reject({msg:'Network Error',done:false});
     }
     return Promise.reject(error.response);
   }

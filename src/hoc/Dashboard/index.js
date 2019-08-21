@@ -1,6 +1,7 @@
 import React ,{Component} from 'react';
 
 //
+import 'react-notifications/lib/notifications.css';
 import './index.css'
 
 //component :-
@@ -8,6 +9,11 @@ import './index.css'
 import SideBar from "../../components/SideBar"
 import NavBar from "../../components/NavBar"
 import PgFluid from  "../../components/PgFluid"
+
+import {NotificationContainer} from "react-notifications"
+
+
+
 class Dashboard extends Component{
     render(){
         return (
@@ -17,6 +23,7 @@ class Dashboard extends Component{
                 <PgFluid>
                     {this.props.children}
                 </PgFluid>
+                <NotificationContainer/>
             </div>
         )
     }

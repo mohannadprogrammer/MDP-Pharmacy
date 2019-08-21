@@ -22,7 +22,7 @@ import config from "./config";
 
 
 import {connect} from 'react-redux'
-import {getData , add} from '../../actions/itemsAction'
+import {getData , add} from '../../actions/userAction'
 import {bindActionCreators} from 'redux'
 
 class Item extends Component {
@@ -51,9 +51,10 @@ class Item extends Component {
   }
   render() {
     const columns = config.columns;
-    const products =this.props.data.items;
+    let products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
+    
     return (
       <Dashoard>
         <PHeader PageName="User" toggle={this.toggle}  >

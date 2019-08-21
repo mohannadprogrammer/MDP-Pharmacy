@@ -13,19 +13,21 @@ import {bindActionCreators} from 'redux'
 class Bill extends Component {
   constructor(props) {
     super(props);
-    let m = {"tradname":"asss","id":1,"quantity":3,"price":12.5 }
-    delete m.tradname
     this.state={
       "transtype":"sale",
-      "itemsDetail":[m],
+      "itemsDetail":[],
       "storeid":1,
       "discount":0
     }
   }
-  componentDidMount(){
-     
+  componentWillMount(){
+    
   }
   pay=()=>{
+    this.setState({
+      ...this.state,
+      itemsDetail:[this.props.row],
+    })
     console.log("pay")
     this.props.saleAction(this.state)
     // product.pop()
@@ -47,6 +49,7 @@ class Bill extends Component {
         text: "total price"
       }
     ];
+    
     const products = [this.props.row];
     return (
       <Col sm={3} className="f" style={{ paddingRight: "0" }}>

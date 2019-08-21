@@ -14,6 +14,7 @@ import {
   DropdownItem
 } from "reactstrap";
 
+import {NotificationManager} from 'react-notifications'; 
 class NavBar extends Component {
     constructor(props) {
         super(props);
@@ -30,9 +31,11 @@ class NavBar extends Component {
 }  
   render() {
     return (
-      <div >
+      <div>
+         
+
         <Navbar className="nav-style" expand="md">
-          <NavbarBrand>Pharmacy</NavbarBrand>
+          <NavbarBrand onClick={()=>NotificationManager.success('Success message')} >Pharmacy</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -51,6 +54,7 @@ class NavBar extends Component {
             </Nav>
           </Collapse>
         </Navbar>
+        
       </div>
     );
   }

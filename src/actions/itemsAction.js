@@ -1,4 +1,4 @@
-import { getDatas, addUser, getStock, getAllInvoic } from "../api";
+import { getDatas, addItem, getStock, getAllInvoic } from "../api";
 
 
 export function getData(type) {
@@ -7,20 +7,23 @@ export function getData(type) {
     console.log(res);
     return res.data.data;
   });
+  var actionName="GET_ITEMS";
+  if (type==="unit")
+    actionName="GET_ITEMS_UNIT"
   return {
-    type: "GET_ITEMS",
-    payload: data
+    type: actionName,
+    payload:data
   };
 }
 
 
-export function add(user) {
-  addUser(user).then(res => {
+export function add(item) {
+  addItem(item).then(res => {
     console.log(res)
   })
   return {
-    type: "ADD_USER",
-    payload: user
+    type: "ADD_ITEM",
+    payload: item
   };
 }
 
@@ -43,7 +46,7 @@ export function getAllInvoice() {
     console.log(res);
     return res.data.data
   })
-  console.log("lskdflksdlf")
+  
   return {
     type: "GET_INVOICE",
     payload: invoice

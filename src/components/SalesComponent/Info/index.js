@@ -66,8 +66,10 @@ class Info extends Component {
     ];
     const sales={...this.props.data.sales.sales,quantity:0}
     
-    const products = [sales];
-    const stores = this.props.data.items.items
+    let products = [sales];
+    let stores = this.props.data.items.items
+    
+      
     const rowEvents = {
         onClick: (e, row, rowIndex) => {
               let passedRow=Object.assign({}, row);

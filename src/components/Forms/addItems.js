@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import {connect} from 'react-redux'
+import {getData} from '../../actions/itemsAction'
+import {getItemToSaleAction,saleAction} from '../../actions/salesAction'
+import {bindActionCreators} from 'redux' 
+
 
 import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
 
@@ -7,48 +11,84 @@ import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
 class UserForm extends Component {
   constructor(props) {
     super(props);
+    //state content addItemform data reqiuerd
     this.state = {
-        newusername: "",
-        password: "",
-        email: "",
-        jobtitle: "",
-        phone: ""
+      // "generalname":"drag",
+      //   "tradname":"drag 1",
+      //   "barcode":"26157890",
+      //   "minlevel":10,
+      //   "salsunit":1,
+      //   "entryunit":1,
+      //   "packetsize":1,
+      //   "price":2.5
+      generalname: "",
+      tradname: "",
+      barcode: "",
+      //number
+      minlevel: 1,
+      salsunit: 1,
+      entryunit:1,
+      packetsize:2,
+      price:30
     };
   }
+componentDidMount(){
 
+  this.props.getData("unit")
+  
+}
   submit = e => {
-    console.log(e.target);
+    console.log(this.state);
     this.props.add(this.state);
   };
   setData = e => {
     switch (e.target.name) {
-      case "name":
+      case "generalname":
         this.setState({
-            newusername: e.target.value
+          generalname: e.target.value
           
         });
         break;
-      case "password":
+      case "tradname":
         this.setState({
-            password: e.target.value
+          tradname: e.target.value
           
         });
         break;
-      case "email":
+      case "barcode":
         this.setState({
-            email: e.target.value
+          barcode: e.target.value
           
         });
         break;
-      case "jobtitle":
+      case "minlevel":
         this.setState({
-            jobtitle: e.target.value
+          minlevel: e.target.value
           
         });
         break;
-      case "phone":
+      case "salsunit":
         this.setState({
-            phone: e.target.value
+          salsunit: e.target.value
+          
+        });
+        break;
+      
+        case "entryunit":
+        this.setState({
+          entryunit: e.target.value
+          
+        });
+        break;
+        case "price":
+        this.setState({
+          price: e.target.value
+          
+        });
+        break;
+        case "packetsize":
+        this.setState({
+          price: e.target.value
           
         });
         break;
@@ -56,6 +96,8 @@ class UserForm extends Component {
     }
   };
   render() {
+    console.log(this.props.data)
+    const unit=this.props.data.units
     return (
       <div>
         <Row form>
@@ -94,15 +136,27 @@ class UserForm extends Component {
           <Col md={3}>
             <FormGroup>
               <Label>salsunit</Label>
-              <Input type="text" placeholder="1" name="salsunit"
-                onChange={this.setData.bind()}/>
+              <Input type="select" placeholder="1" name="salsunit"
+                onChange={this.setData.bind()}>
+                {unit.map((store,i)=>{
+                    return (
+                        <option value ={store.id}>{store.name}</option>
+                    )
+                })}
+                </Input>
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
               <Label>entryuni</Label>
-              <Input type="text" placeholder="1" name="entryuni"
-                onChange={this.setData.bind()}/>
+              <Input type="select" placeholder="1" name="entryuni"
+                onChange={this.setData.bind()}>
+                {unit.map((store,i)=>{
+                    return (
+                        <option value ={store.id}>{store.name}</option>
+                    )
+                })}
+                </Input>
             </FormGroup>
           </Col>
           <Col md={3}>
@@ -126,4 +180,14 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm;
+const mapStateToProps = (state) => {
+  return {
+      data: state.items
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getItemToSaleAction,saleAction,getData
+  },dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps) (UserForm);

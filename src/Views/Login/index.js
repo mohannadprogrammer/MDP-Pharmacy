@@ -26,7 +26,7 @@ class Login extends Component {
             return res.data
          }).catch(err=>{
             console.log(err)
-            return err.data
+            return err
          })
 
          console.log(res)
@@ -36,7 +36,7 @@ class Login extends Component {
         })
         }else{
 
-          alert(res.error.msg);
+          alert(res.msg);
         }
         // handlle validation 
          

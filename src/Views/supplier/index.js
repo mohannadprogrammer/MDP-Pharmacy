@@ -5,7 +5,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
+import Form from "../../components/Forms/addSupplier";
 import PHeader from "../../components/PHeader";
 
 import {
@@ -23,6 +23,7 @@ import config from "./config";
 
 import {connect} from 'react-redux'
 import {getData} from '../../actions/itemsAction'
+import {add} from '../../actions/supplierAction'
 import {bindActionCreators} from 'redux'
 
 
@@ -44,14 +45,22 @@ class Item extends Component {
   componentDidMount(){
     this.props.getData("supplier");
   }
+  addfun = (supplier) => {
+    console.log('collaback')
+    console.log(supplier)
+    this.props.add(supplier)
+  }
   render() {
     const columns = config.columns;
-    const products =this.props.data.items;
+    let products =this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
+    
     return (
       <Dashoard>
-        <PHeader PageName="Supplier" toggle={this.toggle} />
+        <PHeader PageName="Supplier" toggle={this.toggle}  >
+            <Form data={form} buttons={buttons} add={this.addfun} />
+        </PHeader>
 
         <Row>
           {" "}
@@ -90,11 +99,11 @@ class Item extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.items
+    data: state.items,
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getData,
+  return bindActionCreators({getData,add
   },dispatch)
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Item);

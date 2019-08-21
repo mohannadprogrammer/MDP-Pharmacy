@@ -23,7 +23,7 @@ import {
 import config from "./config";
 
 import { connect } from 'react-redux'
-import { getAllInvoice } from '../../actions/itemsAction'
+import { getAllInvoice ,getData} from '../../actions/itemsAction'
 import { bindActionCreators } from 'redux'
 
 
@@ -63,9 +63,10 @@ class Item extends Component {
       }
     };
     const columns = config.columns;
-    const products = this.props.data.items.invoice;
+    let products = this.props.data.items.invoice;
     const form = config.form;
     const buttons = config.buttons;
+    
     return (
       <Dashoard>
         <PHeader PageName="Inovice" toggle={this.toggle} />
@@ -112,7 +113,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getAllInvoice,
+    getAllInvoice,getData
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item);

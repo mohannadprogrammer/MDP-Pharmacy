@@ -19,7 +19,7 @@ function App() {
         <HashRouter>
           <Routes />
         </HashRouter>
-        s</div>
+        </div>
     </Provider>
 
 
