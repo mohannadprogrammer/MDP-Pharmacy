@@ -67,7 +67,7 @@ class Info extends Component {
     const sales={...this.props.data.sales.sales,quantity:0}
     
     let products = [sales];
-    let stores = this.props.data.items.items
+    let stores = this.props.data.items.stores
     
       
     const rowEvents = {

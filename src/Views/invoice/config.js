@@ -47,34 +47,16 @@ module.exports={
 
     ],
     columns : [{
-        dataField: 'generalname',
-        text: 'sceintN'
+        dataField: 'name',
+        text: 'product'
       }, {
-        dataField: 'tradname',
-        text: 'generalN'
-      }, {
-        dataField: 'category',
-        text: 'Catagory'
-      }, {
-        dataField: 'company',
-        text: 'Company'
-      }, {
-        dataField: 'barcode',
-        text: 'barcode'
-      }, {
-        dataField: 'minlevel',
-        text: 'Minimum Level'
-      }, {
-        dataField: 'salsunit',
-        text: 'salseU'
-      }, {
-        dataField: 'entryunit',
-        text: 'entry Unit'
-      }, {
-        dataField: 'packetsize',
-        text: 'packet Size'
+        dataField: 'quantity',
+        text: 'quantity'
       }, {
         dataField: 'price',
         text: 'price'
+      }, {
+        dataField: 'expiredate',
+        text: 'expire date'
       }
     ]}

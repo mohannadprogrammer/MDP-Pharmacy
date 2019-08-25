@@ -43,34 +43,16 @@ class Item extends Component {
   }
 
   render() {
-    const columns = config.columns;
-    let products = this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
 
     
     return (
       <Dashoard>
-        <PHeader PageName="Item" toggle={this.toggle} >
-          <Form></Form>
+        <PHeader PageName="add Invoice" toggle={this.toggle} >
+          <Form  c={config.columns}></Form>
         </PHeader>
 
-        <Row>
-          {" "}
-          <Col sm={12} className="contants">
-            <BootstrapTable
-              keyField="id"
-              data={products}
-              columns={columns}
-              noDataIndication="Table is Empty"
-
-              striped
-              hover
-              condensed
-              remote
-            />
-          </Col>
-        </Row>
 
         <Modal
           isOpen={this.state.modal}

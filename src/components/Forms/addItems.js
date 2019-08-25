@@ -140,7 +140,7 @@ componentDidMount(){
                 onChange={this.setData.bind()}>
                 {unit.map((store,i)=>{
                     return (
-                        <option value ={store.id}>{store.name}</option>
+                        <option key={i} value ={store.id}>{store.name}</option>
                     )
                 })}
                 </Input>

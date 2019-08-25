@@ -12,7 +12,7 @@ export function getItemToSaleAction (info){
 
 export function saleAction (bill){
     const data=sale(bill).then(res=>res.data.data)
-    console.log(data)
+    console.log(bill)
     return{
         type:"SALE",
         payload:data

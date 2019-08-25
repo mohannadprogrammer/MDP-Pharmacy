@@ -66,7 +66,7 @@ class Item extends Component {
       }
     };
     const columns = config.columns;
-    let products = this.props.data.items;
+    let products = this.props.data.items.stores;
     const form = config.form;
     const buttons = config.buttons;
 
@@ -74,6 +74,7 @@ class Item extends Component {
       <Dashoard>
         <PHeader PageName="Store" toggle={this.toggle} >
             <Form data={form} buttons={buttons} add={this.addfun} />
+            
         </PHeader>
 
 
@@ -114,7 +115,7 @@ class Item extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    data: state.items
+    data: state
   }
 }
 const mapDispatchToProps = (dispatch) => {

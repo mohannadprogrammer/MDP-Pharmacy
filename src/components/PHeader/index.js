@@ -21,9 +21,13 @@ class PHeader extends Component {
       <Row>
         <Col sm={12} className="title">
           <Row>
-            <Col sm={11}>
+            <Col sm={10}>
               <h3>{data.PageName}</h3>
             </Col>
+            <Col sm={2}>
+            <Button color="primary" id="toggler" style={{ marginBottom: '1rem' ,width:"100%"}}>
+      add
+    </Button></Col>
           </Row>
           <Col>
           {this.props.children}

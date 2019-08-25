@@ -52,7 +52,7 @@ class Item extends Component {
   }
   render() {
     const columns = config.columns;
-    let products =this.props.data.items;
+    let products =this.props.data.suppliers;
     const form = config.form;
     const buttons = config.buttons;
     

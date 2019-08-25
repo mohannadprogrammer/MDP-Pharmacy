@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const URL = "http://172.18.130.103:3000";
+const URL = "http://172.18.130.106:3000";
 
 export function login(username, password) {
   console.log(`${URL} /admin/login`)
