@@ -1,0 +1,49 @@
+.card{
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    border: none;
+    color: #ffffff;
+    margin-bottom: 20px;
+    
+}
+.green-card{
+    background: linear-gradient(to right, #0ac282, #0df3a3);
+}
+.orange-card{
+    background: -webkit-gradient(linear, left top, right top, from(#fe9365), to(#feb798));
+    background: linear-gradient(to right, #fe9365, #feb798);
+}
+.red-card{
+    background: -webkit-gradient(linear, left top, right top, from(#fe5d70), to(#fe909d));
+    background: linear-gradient(to right, #fe5d70, #fe909d);
+}
+.blue-card{
+    background: -webkit-gradient(linear, left top, right top, from(#01a9ac), to(#01dbdf));
+    background: linear-gradient(to right, #01a9ac, #01dbdf);
+}
+.card-value {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.1rem;
+}
+.card-type{
+    
+    margin: 0;
+}
+.card-block{
+    padding: 20px;
+    
+}
+.card-footer{
+    border-color: white;
+    font-size: 13px;
+    padding: 12px 10px;
+}
+p{
+    margin: 0;
+    font-size: 13px;
+    
+}

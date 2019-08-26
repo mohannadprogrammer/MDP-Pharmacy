@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {getData} from '../../actions/itemsAction'
 import {getItemToSaleAction,saleAction} from '../../actions/salesAction'
 import {bindActionCreators} from 'redux' 
+import Validation from '../Validation'
 
-
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse} from "reactstrap";
 
 
 class UserForm extends Component {
@@ -100,6 +100,7 @@ componentDidMount(){
     const unit=this.props.data.units
     return (
       <div>
+        <UncontrolledCollapse toggler="#toggler">
         <Row form>
           <Col md={3}>
             <FormGroup>
@@ -164,6 +165,12 @@ componentDidMount(){
               <Label>packet size</Label>
               <Input type="number" placeholder="1" name="packetsize"
                 onChange={this.setData.bind()}/>
+                <Validation info={[
+                  {
+                    condition :true,
+                    msg:"kasdlf"
+                  }
+                ]}/>
             </FormGroup>
           </Col>
           <Col md={3}>
@@ -174,7 +181,7 @@ componentDidMount(){
             </FormGroup>
           </Col>
         </Row>
-        <Button onClick={this.submit.bind()}>save</Button>
+        <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
       </div>
     );
   }

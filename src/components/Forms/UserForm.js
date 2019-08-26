@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse ,Modal,ModalHeader,ModalBody,ModalFooter} from "reactstrap";
 
 
 class UserForm extends Component {
@@ -11,13 +11,46 @@ class UserForm extends Component {
         password: "",
         email: "",
         jobtitle: "",
-        phone: ""
+        phone: "",
+        validationModals:false,
+        validMsg:""
     };
+    this.toggle = this.toggle.bind(this);
   }
+  toggle() {
+    this.setState(prevState => ({
+      validationModals: !prevState.validationModals
+    }));
+  }
+  validation(){
+    var {username , password , email , phone }=this.state
+    if (username==="" 
+          || password===""
+          || email===""
+          || phone==="" ){
+            this.setState({
 
+              validMsg:"make sure that you are enter (username , password , email or phone) at least ."
+            });
+            return false
+          }else{
+            this.setState({
+
+              validMsg:"successfull"
+            });
+          }
+
+          return true
+    
+  }
   submit = e => {
-    console.log(e.target);
-    this.props.add(this.state);
+    if (this.validation()){
+      console.log(e.target);
+      
+      this.props.add(this.state);
+    }
+    this.toggle();
+    
   };
   setData = e => {
     switch (e.target.name) {
@@ -57,6 +90,7 @@ class UserForm extends Component {
   render() {
     return (
       <div>
+      <UncontrolledCollapse toggler="#toggler">
         <Row form>
           <Col md={3}>
             <FormGroup>
@@ -98,7 +132,16 @@ class UserForm extends Component {
             </FormGroup>
           </Col>
         </Row>
-        <Button onClick={this.submit.bind()}>save</Button>
+        <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+        <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={{"color":"red"}} >
+          <ModalHeader toggle={this.toggle}>add result</ModalHeader>
+          <ModalBody>
+           {this.state.validMsg}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

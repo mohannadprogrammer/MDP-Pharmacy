@@ -13,9 +13,10 @@ class Form extends Component {
         vmsg:"error",
         toggle:false
     };
+    
   }
   validation=()=>{
-    if(this.state.name===""|| this.state.location===""){
+    if(this.state.name==="" || this.state.location===""){
       this.setState({
         ... this.state,
         invalid:true,
@@ -66,6 +67,7 @@ class Form extends Component {
                 name="name"
                 onChange={this.setData.bind()}
               invalid ={this.state.invalid}/>
+              
               <FormFeedback invalid ={this.state.invalid}>{this.state.vmsg}</FormFeedback>
             </FormGroup>
           </Col>

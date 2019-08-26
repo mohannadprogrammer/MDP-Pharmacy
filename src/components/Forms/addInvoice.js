@@ -4,7 +4,7 @@ import { getData } from "../../actions/itemsAction";
 import { getItemToSaleAction, saleAction } from "../../actions/salesAction";
 import { bindActionCreators } from "redux";
 
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse} from "reactstrap";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
@@ -90,6 +90,8 @@ class UserForm extends Component {
     const items = this.props.data.items.items;
     return (
       <div>
+          
+        <UncontrolledCollapse toggler="#toggler">
         <Row form>
           <Col md={3}>
             <FormGroup>
@@ -189,6 +191,7 @@ class UserForm extends Component {
           
         <Button onClick={this.submit.bind()}>add invoice</Button>
         </Row>
+        </UncontrolledCollapse>
       </div>
     );
   }
