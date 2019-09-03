@@ -5,7 +5,7 @@ import {getItemToSaleAction,saleAction} from '../../actions/salesAction'
 import {bindActionCreators} from 'redux' 
 import Validation from '../Validation'
 
-import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse} from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse ,Modal,ModalHeader,ModalBody,ModalFooter} from "reactstrap";
 
 
 class UserForm extends Component {
@@ -26,21 +26,58 @@ class UserForm extends Component {
       barcode: "",
       //number
       minlevel: 1,
-      salsunit: 1,
-      entryunit:1,
-      packetsize:2,
-      price:30
-    };
-  }
+      salsunit: null,
+      entryunit:null,
+      packetsize:null,
+      price:0,
+      result:false,
+      validationModals:false,
+      validMsg:""
+  };
+  this.toggle = this.toggle.bind(this);
+}
+toggle() {
+  this.setState(prevState => ({
+    validationModals: !prevState.validationModals
+  }));
+}
 componentDidMount(){
 
   this.props.getData("unit")
   
 }
-  submit = e => {
-    console.log(this.state);
+validation(){
+  var {barcode , tradname , generalname , price,salsunit,entryunit }=this.state
+  if (barcode==="" 
+        || tradname===""
+        || generalname===""
+        || price===""
+        || salsunit ===""
+        || entryunit==="" ){
+          this.setState({
+            result:false,
+            validMsg:"make sure that you are enter (barcode , tradname , generalname ,price,salsunit or entryunit) at least ."
+          });
+          return false
+        }else{
+          this.setState({
+            result:true,
+            validMsg:"added successfull "
+          });
+        }
+
+        return true
+  
+}
+submit = e => {
+  if (this.validation()){
+    console.log(e.target);
+    
     this.props.add(this.state);
-  };
+  }
+  this.toggle();
+  
+};
   setData = e => {
     switch (e.target.name) {
       case "generalname":
@@ -139,6 +176,7 @@ componentDidMount(){
               <Label>salsunit</Label>
               <Input type="select" placeholder="1" name="salsunit"
                 onChange={this.setData.bind()}>
+                <option>select unit </option>
                 {unit.map((store,i)=>{
                     return (
                         <option key={i} value ={store.id}>{store.name}</option>
@@ -152,6 +190,7 @@ componentDidMount(){
               <Label>entryuni</Label>
               <Input type="select" placeholder="1" name="entryuni"
                 onChange={this.setData.bind()}>
+                <option>select unit </option>
                 {unit.map((store,i)=>{
                     return (
                         <option value ={store.id}>{store.name}</option>
@@ -182,6 +221,15 @@ componentDidMount(){
           </Col>
         </Row>
         <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+        <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={this.state.result ?{"color":"green"}:{"color":"red"}} >
+          <ModalHeader toggle={this.toggle}>add result</ModalHeader>
+          <ModalBody>
+           {this.state.validMsg}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

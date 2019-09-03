@@ -12,6 +12,10 @@ import Stock from "./Views/stock"
 import Buy from "./Views/invoice"
 import manageInvoice from "./Views/allInvoice"
 import invoiceDetail from "./Views/invoiceDetail"
+
+
+//report commponents 
+import StoreReport from './Views/reports/Store'
 //it a moduals contant all routes in the app
 
 class router extends React.Component {
@@ -30,6 +34,7 @@ class router extends React.Component {
 
                 <Route path="/stores/storeDetail/:id" exact component={Stock} />
                 <Route path="/invoice/invoiceDetail/:id" exact component={invoiceDetail} />
+                <Route path="/reports/store" exact component={StoreReport} />
             </Switch>
         );
     }

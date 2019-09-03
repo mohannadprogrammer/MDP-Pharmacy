@@ -25,7 +25,12 @@ class PHeader extends Component {
               <h3>{data.PageName}</h3>
             </Col>
             <Col sm={2}>
-            {data.PageName==="Inovice" || data.PageName==="Sales" || data.PageName==="Stock" ? null : <Button color="primary" id="toggler" style={{ marginBottom: '1rem' ,width:"100%"}}>
+            {data.PageName==="Inovice" || data.PageName==="Sales" || data.PageName==="Stock" || data.PageName==="Invioce Details"
+            ? 
+            data.PageName==="Invioce Details" || this.props.isReturn?<Button color="primary" onClick={this.props.toggle} style={{ marginBottom: '1rem' ,width:"100%"}}>
+            return invoice
+          </Button>:null
+            :<Button color="primary" id="toggler" style={{ marginBottom: '1rem' ,width:"100%"}}>
       add
     </Button>}
             </Col>

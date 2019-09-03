@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const URL = "http://172.18.130.106:3000";
+const URL = "http://172.18.130.108:3000";
 
 export function login(username, password) {
   console.log(`${URL} /admin/login`)
@@ -95,4 +95,19 @@ export function getAllInvoic() {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   }
   return axios.post(`${URL}/getAll`, { type: "invoice" })
+}
+export function getInvoiceDetails(invoiceid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/invoice/invoiceDetails`, { invoiceid })
+}
+
+export function disposeInvoice(invoiceid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/invoice/reject`, {invoiceid})
 }

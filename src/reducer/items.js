@@ -5,7 +5,16 @@ export default (
     invoice: [],
     units: [],
     stores: [],
-    suppliers: []
+    suppliers: [],
+    invoiceDetails: {
+      isreturned:false,
+      id: "",
+      trandate: "",
+      transtype: "",
+      creater: "",
+      name: " ",
+      invoiceItems: [{}]
+    }
   },
   action
 ) => {
@@ -14,9 +23,9 @@ export default (
       return { ...state, items: action.payload };
     case "GET_ITEMS_UNIT":
       return { ...state, units: action.payload };
-      case "GET_STORES":
+    case "GET_STORES":
       return { ...state, stores: action.payload };
-      case "GET_SUPPLIERS":
+    case "GET_SUPPLIERS":
       return { ...state, suppliers: action.payload };
     case "ADD_USER":
       const { newusername, ...rest } = action.payload;
@@ -43,7 +52,11 @@ export default (
 
     case "GET_INVOICE":
       return { ...state, invoice: action.payload };
-
+    case "DISPOSE_INVOICE":
+      console.log("-----------",action.payload);
+      return { ...state, invoice: action.payload };
+    case "GET_INVOICE_DETAILS":
+      return { ...state, invoiceDetails: action.payload };
     default:
       return state;
   }

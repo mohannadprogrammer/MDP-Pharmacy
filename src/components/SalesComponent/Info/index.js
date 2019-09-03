@@ -20,10 +20,10 @@ class Info extends Component {
         }
     }
   getItems = (e) => {
-    if (e.key === "Enter") {
+    // if (e.key === "Enter") {
       //do something
       this.props.getItemToSaleAction(this.state);
-    }
+    // }
   };
   componentDidMount(){
       this.props.getData("store");
@@ -41,6 +41,7 @@ class Info extends Component {
             barcode: e.target.value
           
         });
+        this.getItems.bind(this)
         break;
       default:
     }

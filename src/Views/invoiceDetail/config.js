@@ -53,8 +53,8 @@ module.exports = {
     dataField: 'tradname',
     text: 'Trad Name'
   }, {
-    dataField: 'available',
-    text: 'available'
+    dataField: 'quantity',
+    text: 'quantity'
   }
   ]
 }

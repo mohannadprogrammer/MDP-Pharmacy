@@ -32,7 +32,8 @@ class Item extends Component {
     super(props);
     this.state = {
       modal: false,
-      id: null
+      id:"",
+      row:{}
     };
 
     this.toggle = this.toggle.bind(this);
@@ -58,14 +59,13 @@ class Item extends Component {
       onClick: (e, row, rowIndex) => {
         console.log(row)
         this.setState({
-          id: row.id
+          id: row.id,
+          row:row
         })
       }
     };
     const columns = config.columns;
     let products = this.props.data.items.invoice;
-    const form = config.form;
-    const buttons = config.buttons;
     
     return (
       <Dashoard>
@@ -83,25 +83,6 @@ class Item extends Component {
             />
           </Col>
         </Row>
-
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle}>Add STORE</ModalHeader>
-          <ModalBody>
-            <Form data={form} buttons={buttons} />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>
-              ADD
-            </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
       </Dashoard>
     );
   }

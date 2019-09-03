@@ -8,7 +8,6 @@ class UserForm extends Component {
     super(props);
     this.state = {
         name: "",
-        "accnum":"715267351",
         address: "",
         email: "",
         phone: ""
@@ -44,8 +43,6 @@ class UserForm extends Component {
   }
   submit = e => {
     if (this.validation()){
-      console.log(e.target);
-      
       this.props.add(this.state);
     }
     this.toggle();

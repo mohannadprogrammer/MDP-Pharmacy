@@ -13,6 +13,7 @@ class UserForm extends Component {
         jobtitle: "",
         phone: "",
         validationModals:false,
+        result:false,
         validMsg:""
     };
     this.toggle = this.toggle.bind(this);
@@ -29,13 +30,13 @@ class UserForm extends Component {
           || email===""
           || phone==="" ){
             this.setState({
-
+              result:false,
               validMsg:"make sure that you are enter (username , password , email or phone) at least ."
             });
             return false
           }else{
             this.setState({
-
+              result:true,
               validMsg:"successfull"
             });
           }
@@ -133,7 +134,7 @@ class UserForm extends Component {
           </Col>
         </Row>
         <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
-        <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={{"color":"red"}} >
+        <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={this.state.result ?{"color":"green"}:{"color":"red"}} >
           <ModalHeader toggle={this.toggle}>add result</ModalHeader>
           <ModalBody>
            {this.state.validMsg}
