@@ -42,10 +42,10 @@ export default (
       state.items.push(action.payload);
       return { ...state };
     case "ADD_STORE":
-      state.items.push(action.payload);
+      state.stores.push(action.payload);
       return { ...state };
     case "ADD_SUPPLIER":
-      state.items.push(action.payload);
+      state.suppliers.push(action.payload);
       return { ...state };
     case "GET_STOCK":
       return { ...state, stock: action.payload };

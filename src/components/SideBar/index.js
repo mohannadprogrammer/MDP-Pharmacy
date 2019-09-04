@@ -10,6 +10,7 @@ import {
   DropdownItem,
   Nav
 } from "reactstrap";
+import FontAwesome from "react-fontawesome";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -19,61 +20,74 @@ class Dashboard extends Component {
         {
           name: "Dashboard",
           link: "/dashboard",
+          icon: "bar-chart",
           option: []
         },
         {
           name: "Sales",
           link: "/Sales",
+          icon: "calculator",
           option: []
         },
         {
           name: "Buy",
           link: "/buy",
+          icon: "cog",
           option: []
         },
 
         {
           name: "Manage Invoice",
           link: "/manageInvoice",
+          icon: "cog",
           option: []
         },
         {
           name: "Reports",
           link: "/manageInvoice",
+          icon: "database",
           option: [
             {
               name: "Stores",
-              link: "/reports/store"
+              link: "/reports/store",
+              icon: "database"
             },
             {
               name: "invoice",
-              link: "/manageInvoice"
+              link: "/manageInvoice",
+              icon: "database"
             },
             {
               name: "Sales",
-              link: "/manageInvoice"
+              link: "/manageInvoice",
+              icon: "database"
             }
           ]
         },
         {
           name: "Setting",
           link: "/manageInvoice",
+          icon: "cog",
           option: [
             {
               name: "Items",
-              link: "/items"
+              link: "/items",
+              icon: "database"
             },
             {
               name: "Stores",
-              link: "/stores"
+              link: "/stores",
+              icon: "database"
             },
             {
               name: "Users",
-              link: "/users"
+              link: "/users",
+              icon: "id-card"
             },
             {
               name: "Suppliers",
-              link: "/suppliers"
+              link: "/suppliers",
+              icon: "database"
             }
           ]
         }
@@ -93,12 +107,26 @@ class Dashboard extends Component {
           {items.map((item, i) => (
             <UncontrolledDropdown className="sideItem" nav inNavbar>
               <DropdownToggle style={{ color: "black" }} nav>
-                <Link to={item.link}>{item.name}</Link>
+              <h5><Link to={item.link}>
+                  <FontAwesome
+                    name={item.icon}
+                    style={{ width: "40px", height: "40px", fontSize: "20px" }}
+                  />
+                  {item.name}
+                </Link></h5>
               </DropdownToggle>
 
               <DropdownMenu right>
                 {item.option.map((option, i) => (
                   <DropdownItem>
+                    <FontAwesome
+                      name={option.icon}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        fontSize: "20px"
+                      }}
+                    />
                     <Link to={option.link}>{option.name}</Link>
                   </DropdownItem>
                 ))}

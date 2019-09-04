@@ -8,6 +8,7 @@ class UserForm extends Component {
     super(props);
     this.state = {
         name: "",
+        accnum:"",
         address: "",
         email: "",
         phone: ""
@@ -67,6 +68,12 @@ class UserForm extends Component {
           
         });
         break;
+        case "accnum":
+        this.setState({
+          accnum: e.target.value
+          
+        });
+        break;
       case "phone":
         this.setState({
             phone: e.target.value
@@ -103,6 +110,13 @@ class UserForm extends Component {
             <FormGroup>
               <Label>Email</Label>
               <Input type="email" placeholder="password placeholder"name="email"
+                onChange={this.setData.bind()} />
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup>
+              <Label>Account number</Label>
+              <Input type="text" placeholder="password placeholder"name="accnum"
                 onChange={this.setData.bind()} />
             </FormGroup>
           </Col>

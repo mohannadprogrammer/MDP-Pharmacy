@@ -3,7 +3,7 @@
     background: white;
     background: #fff;
     height: 100%;
-    width: 200px;
+    width: fit-content;
 }
 .sideItem{
     padding : 10px 16px;

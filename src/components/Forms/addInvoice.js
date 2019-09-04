@@ -57,18 +57,19 @@ class UserForm extends Component {
         });
         break;
       case "items":
+        let name =this.props.data.items.items.find(o => o.id == e.target.value).generalname;
+        //console.log(name);
         this.setState({
           ...this.state,
           temp: {
             ...this.state.temp,
             id: e.target.value,
-            name: this.props.data.items.items[e.target.value].generalname
+            name: name
           }
         });
         break;
       case "quantity":
-        let price =
-          this.props.data.items.items[this.state.temp.id].price * e.target.value;
+      let price = this.props.data.items.items.find(o => o.id == this.state.temp.id).price * e.target.value;
         this.setState({
           ...this.state,
           temp: { ...this.state.temp, quantity: e.target.value, price }
@@ -121,7 +122,7 @@ class UserForm extends Component {
                 type="select"
                 name="supplierid"
                 onChange={this.setData.bind()}
-              >
+              ><option placeholder="select :">select please</option>
                 {supplier.map((supplier, i) => {
                   return (
                     <option key={i} value={supplier.id}>
@@ -140,6 +141,7 @@ class UserForm extends Component {
             <FormGroup>
               <Label>items</Label>
               <Input type="select" name="items" onChange={this.setData.bind()}>
+              <option placeholder="select :">select please</option>
                 {items.map((item, i) => {
                   return (
                     <option key={i} value={item.id}>

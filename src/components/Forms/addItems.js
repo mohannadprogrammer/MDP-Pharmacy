@@ -41,11 +41,6 @@ toggle() {
     validationModals: !prevState.validationModals
   }));
 }
-componentDidMount(){
-
-  this.props.getData("unit")
-  
-}
 validation(){
   var {barcode , tradname , generalname , price,salsunit,entryunit }=this.state
   if (barcode==="" 
@@ -69,6 +64,12 @@ validation(){
         return true
   
 }
+componentDidMount(){
+
+  this.props.getData("unit")
+  
+}
+
 submit = e => {
   if (this.validation()){
     console.log(e.target);

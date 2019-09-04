@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
@@ -12,12 +13,7 @@ import { Redirect } from "react-router-dom";
 
 import {
   Row,
-  Button,
   Col,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
 } from "reactstrap";
 
 import config from "./config";
@@ -80,6 +76,7 @@ class Item extends Component {
               columns={columns}
               rowEvents={rowEvents}
               noDataIndication="Table is Empty"
+              pagination={ paginationFactory() }
             />
           </Col>
         </Row>

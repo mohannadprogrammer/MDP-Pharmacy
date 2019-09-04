@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Col, Row, FormGroup, Input, Label, Button,FormFeedback,UncontrolledCollapse  } from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button,FormFeedback,UncontrolledCollapse ,Modal,ModalHeader,ModalBody,ModalFooter } from "reactstrap";
 
 
 class Form extends Component {
@@ -9,29 +9,46 @@ class Form extends Component {
     this.state = {
         name: "",
         location: "",
-        invalid:false,
-        vmsg:"error",
-        toggle:false
-    };
-    
-  }
-  validation=()=>{
-    if(this.state.name==="" || this.state.location===""){
-      this.setState({
-        ... this.state,
-        invalid:true,
-        vmsg:"insert data "
-      })
-    }
-  }
-  submit = e => {
-    console.log(this.state);
-    
-    this.validation();
-    if(this.state.invalid)
-      this.props.add(this.state);
-    
+        result:false,
+      validationModals:false,
+      validMsg:""
   };
+  this.toggle = this.toggle.bind(this);
+}
+toggle() {
+  this.setState(prevState => ({
+    validationModals: !prevState.validationModals
+  }));
+}
+validation(){
+  var {name , location  }=this.state
+  if (name==="" 
+        || location===""
+        ){
+          this.setState({
+            result:false,
+            validMsg:"make sure that you are enter (location , name ) at least ."
+          });
+          return false
+        }else{
+          this.setState({
+            result:true,
+            validMsg:"added successfull "
+          });
+        }
+
+        return true
+  
+}
+submit = e => {
+  if (this.validation()){
+    console.log(e.target);
+    
+    this.props.add(this.state);
+  }
+  this.toggle();
+  
+};
   setData = e => {
     this.setState({
       invalid:false,  
@@ -85,6 +102,15 @@ class Form extends Component {
           </Col>
         </Row>
         <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+        <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={this.state.result ?{"color":"green"}:{"color":"red"}} >
+          <ModalHeader toggle={this.toggle}>add result</ModalHeader>
+          <ModalBody>
+           {this.state.validMsg}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
@@ -71,6 +72,7 @@ class Item extends Component {
           hover
           condensed
           remote
+          pagination={ paginationFactory() }
             />
           </Col>
         </Row>

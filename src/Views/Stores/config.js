@@ -40,4 +40,6 @@ module.exports={
         dataField: 'location',
         text: 'location'
       }
-    ]}
+    ]
+
+}

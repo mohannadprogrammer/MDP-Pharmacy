@@ -1,54 +1,77 @@
 import React, { Component } from "react";
-import Pdf from "react-to-pdf";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
-import Dashboard from '../../../hoc/Dashboard'
+
+import Dashoard from "../../../hoc/Dashboard";
+import "./index.css";
+import Form from "../../../components/Forms/Fliters/stockFilter";
 import PHeader from "../../../components/PHeader";
 
 import {
   Row,
+  Button,
   Col,
-  Button
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
 
+import config from "./config";
+
+
+import { connect } from 'react-redux'
+import { getStockData } from '../../../actions/itemsAction'
+import { bindActionCreators } from 'redux'
+
+import Pdf from "react-to-pdf";
 const ref = React.createRef();
-const options = {
-    orientation: 'landscape',
-    unit: 'in',
-    format: [4,2]
-};
-class index extends Component {
+
+class Item extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+  componentDidMount() {
+    console.log(this.props.match.params.id)
+    // this.props.getStockData(this.props.match.params.id);
+  }
   render() {
+   
+    const columns = config.columns;
+    let products = [];
+    const form = config.form;
+    const buttons = config.buttons;
     
     return (
-      <Dashboard>
+      <Dashoard>
         <Pdf targetRef={ref} filename="div-blue.pdf">
-          {({ toPdf }) => <Button onClick={toPdf} color="success">Generate pdf</Button>}
+          {({ toPdf }) => (
+            <Button onClick={toPdf} color="success">
+              print pdf
+            </Button>
+          )}
         </Pdf>
-        <br/>
-        <br/>
+        
         <div
           ref={ref}
-          style={{background:"gray",margin:"10px"}}
+          style={{ height: "100%", width: "100%" }}
+          className="container"
         >
-        <PHeader PageName="Invioce Details" toggle={this.toggle} >
-        <hr/>
-        <Row>
-        <Col sm={6}>
-        <h5>invoice id :{""}</h5>
-        </Col> 
-        <Col sm={6}>
-        <h5>Supplier Name : </h5>{"res.Supplier"}
-        </Col> 
-        <Col sm={6}>
-        <h5>Store : {""}</h5>
-        </Col>
-        <Col sm={6}>
-        <h5>date : {"res.date.toString()"}</h5>
-        </Col>
-          
-        </Row>
+        <br/>
+        <PHeader PageName="Stock" toggle={this.toggle} >
+            <Form ></Form>
         </PHeader>
 
         <Row>
@@ -56,98 +79,27 @@ class index extends Component {
           <Col sm={12} className="contants">
             <BootstrapTable
               keyField="id"
-              data={[]}
-              columns={[{
-                dataField: 'name',
-                text: 'name'
-              }, {
-                dataField: 'location',
-                text: 'location'
-              }
-            ]}
+              data={products}
+              columns={columns}
               noDataIndication="Table is Empty"
             />
           </Col>
-        </Row>
+        </Row></div>
 
-        <PHeader PageName="Invioce Details" toggle={this.toggle} >
-        <hr/>
-        <Row>
-        <Col sm={6}>
-        <h5>invoice id :{""}</h5>
-        </Col> 
-        <Col sm={6}>
-        <h5>Supplier Name : </h5>{"res.Supplier"}
-        </Col> 
-        <Col sm={6}>
-        <h5>Store : {""}</h5>
-        </Col>
-        <Col sm={6}>
-        <h5>date : {"res.date.toString()"}</h5>
-        </Col>
-          
-        </Row>
-        </PHeader>
-
-        <Row>
-          {" "}
-          <Col sm={12} className="contants">
-            <BootstrapTable
-              keyField="id"
-              data={[]}
-              columns={[{
-                dataField: 'name',
-                text: 'name'
-              }, {
-                dataField: 'location',
-                text: 'location'
-              }
-            ]}
-              noDataIndication="Table is Empty"
-            />
-          </Col>
-        </Row>
-        <PHeader PageName="Invioce Details" toggle={this.toggle} >
-        <hr/>
-        <Row>
-        <Col sm={6}>
-        <h5>invoice id :{""}</h5>
-        </Col> 
-        <Col sm={6}>
-        <h5>Supplier Name : </h5>{"res.Supplier"}
-        </Col> 
-        <Col sm={6}>
-        <h5>Store : {""}</h5>
-        </Col>
-        <Col sm={6}>
-        <h5>date : {"res.date.toString()"}</h5>
-        </Col>
-          
-        </Row>
-        </PHeader>
-
-        <Row>
-          {" "}
-          <Col sm={12} className="contants">
-            <BootstrapTable
-              keyField="id"
-              data={[]}
-              columns={[{
-                dataField: 'name',
-                text: 'name'
-              }, {
-                dataField: 'location',
-                text: 'location'
-              }
-            ]}
-              noDataIndication="Table is Empty"
-            />
-          </Col>
-        </Row>
-        </div>
-      </Dashboard>
+      </Dashoard>
     );
   }
 }
 
-export default index;
+const mapStateToProps = (state) => {
+  return {
+    data: state
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    getStockData,
+  }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
+
