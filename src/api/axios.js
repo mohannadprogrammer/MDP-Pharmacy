@@ -11,7 +11,7 @@ instance.defaults.headers = {
 
 instance.interceptors.response.use(
   response => {
-    console.log("Response from interceptors");
+    console.log("Response from interceptors",response);
     return response;
   },
   error => {

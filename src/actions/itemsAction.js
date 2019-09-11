@@ -1,11 +1,22 @@
 import { getDatas, addItem, getStock, getAllInvoic } from "../api";
 
-export function getData(type) {
-  const data = getDatas(type).then(res => {
+export async function getData(type) {
+  let data = await getDatas(type).then(res => {
     console.log("------------------------------------");
-    console.log(res);
-    return res.data.data;
+    console.log(res.status);
+    if(res.status==200){
+     return res.data.data;
+
+    }else{
+      return false
+    }
   });
+  console.log(data)
+  if (!data ){
+
+    data=[]
+  }
+  
   var actionName = "GET_ITEMS";
   switch (type) {
     case "unit":

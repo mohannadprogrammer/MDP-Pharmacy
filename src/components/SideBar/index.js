@@ -44,7 +44,7 @@ class Dashboard extends Component {
         },
         {
           name: "Reports",
-          link: "/manageInvoice",
+          
           icon: "database",
           option: [
             {
@@ -53,20 +53,19 @@ class Dashboard extends Component {
               icon: "database"
             },
             {
-              name: "invoice",
-              link: "/manageInvoice",
+              name: "Store movements",
+              link: "/reports/storemovement",
               icon: "database"
             },
             {
               name: "Sales",
-              link: "/manageInvoice",
+              link: "/reports/salesReport",
               icon: "database"
             }
           ]
         },
         {
           name: "Setting",
-          link: "/manageInvoice",
           icon: "cog",
           option: [
             {
@@ -107,13 +106,13 @@ class Dashboard extends Component {
           {items.map((item, i) => (
             <UncontrolledDropdown className="sideItem" nav inNavbar>
               <DropdownToggle style={{ color: "black" }} nav>
-              <h5><Link to={item.link}>
+              <h7><Link to={item.link} style={{color:"white",fontWeight:"bold"}}>
                   <FontAwesome
                     name={item.icon}
-                    style={{ width: "40px", height: "40px", fontSize: "20px" }}
+                    style={{ width: "32px", height: "32px" ,color:"#00A697"}}
                   />
-                  {item.name}
-                </Link></h5>
+                   {item.name} 
+                </Link></h7>
               </DropdownToggle>
 
               <DropdownMenu right>
@@ -122,12 +121,12 @@ class Dashboard extends Component {
                     <FontAwesome
                       name={option.icon}
                       style={{
-                        width: "40px",
-                        height: "40px",
-                        fontSize: "20px"
+                        width: "23px",
+                        height: "23px",
+                        color:"#00A697"
                       }}
                     />
-                    <Link to={option.link}>{option.name}</Link>
+                    <Link to={option.link} style={{color:"black",fontWeight:"bold"}}>{option.name}</Link>
                   </DropdownItem>
                 ))}
               </DropdownMenu>

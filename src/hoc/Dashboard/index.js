@@ -10,6 +10,7 @@ import SideBar from "../../components/SideBar"
 import NavBar from "../../components/NavBar"
 import PgFluid from  "../../components/PgFluid"
 
+import { NotificationManager } from "react-notifications";
 import {NotificationContainer} from "react-notifications"
 
 import socketIOClient from "socket.io-client";
@@ -23,14 +24,29 @@ class Dashboard extends Component{
           endpoint: "http://172.18.130.108:3000"
         };
       }
-      componentDidMount() {
+      componentDidMount()  {
+        this.socket()
+        
+      }
+      socket =async()=>{
         const { endpoint } = this.state;
         const socket = socketIOClient(endpoint);
-        socket.on("data", data =>{
-            //  this.setState({ response: data })
-             console.log(data)
+        await socket.on("notification", data =>{
+             
+             for(let i=0;i<data.length;i++){
+                let msg='<h4>';
+                 msg=data[i].generalname +" item ";
+                 if(data[i].type ==="exp")
+                     msg+="had been expired"
+                 else
+                     msg+="had reach minumam level "
+                 msg+=" in store : "+data[i].name
+     
+                 NotificationManager.info(msg)
+             }
             });
         
+
       }
     render(){
         return (
@@ -40,7 +56,7 @@ class Dashboard extends Component{
                 <PgFluid>
                     {this.props.children}
                 </PgFluid>
-                <NotificationContainer/>
+                <NotificationContainer style={{width:"500px"}}/>
             </div>
         )
     }

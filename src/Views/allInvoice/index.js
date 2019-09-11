@@ -1,28 +1,24 @@
 import React, { Component } from "react";
-
 //import
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from 'react-bootstrap-table2-paginator';
-
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
 import PHeader from "../../components/PHeader";
-
 import { Redirect } from "react-router-dom";
-
 import {
   Row,
   Col,
 } from "reactstrap";
 
-import config from "./config";
 
+//import redux states and actions 
 import { connect } from 'react-redux'
 import { getAllInvoice ,getData} from '../../actions/itemsAction'
 import { bindActionCreators } from 'redux'
 
-
+//immport configration json .
+import config from "./config";
 class Item extends Component {
   constructor(props) {
     super(props);

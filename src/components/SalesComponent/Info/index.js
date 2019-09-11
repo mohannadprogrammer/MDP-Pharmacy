@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import "../index.css";
 
 import { Col, Row, FormGroup, Input, Label } from "reactstrap";
-import BootstrapTable from "react-bootstrap-table-next";
+
 
 
 import {connect} from 'react-redux'
 import {getData} from '../../../actions/itemsAction'
 import {getItemToSaleAction,saleAction} from '../../../actions/salesAction'
 import {bindActionCreators} from 'redux' 
-
+import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from 'react-bootstrap-table2-editor';
 class Info extends Component {
     constructor(props){

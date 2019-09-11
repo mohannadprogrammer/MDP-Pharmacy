@@ -5,7 +5,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms";
 import PHeader from "../../components/PHeader";
 
 
@@ -68,8 +67,6 @@ class Item extends Component {
     
     const columns = config.columns;
     let products =this.props.data.items.invoiceDetails.invoiceItems;
-    const form = config.form;
-    const buttons = config.buttons;
     const res = this.props.data.items.invoiceDetails;
     return (
       <Dashoard>

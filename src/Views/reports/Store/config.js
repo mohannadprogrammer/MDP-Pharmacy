@@ -1,4 +1,5 @@
 module.exports = {
+  home:"Stock",
   form: [
     {
       //input props   
@@ -53,10 +54,10 @@ module.exports = {
     dataField: 'tradname',
     text: 'Trad Name'
   } ,{
-    dataField: 'in',
+    dataField: 'Qin',
     text: 'in'
   }, {
-    dataField: 'out',
+    dataField: 'Qout',
     text: 'out'
   }, {
     dataField: 'available',

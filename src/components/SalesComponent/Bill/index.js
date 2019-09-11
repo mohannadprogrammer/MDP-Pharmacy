@@ -16,7 +16,7 @@ class Bill extends Component {
     this.state={
       "transtype":"sale",
       "itemsDetail":[],
-      "storeid":1,
+      "storeid":0,
       "discount":0
     }
   }
@@ -34,7 +34,7 @@ class Bill extends Component {
 
   }
   render() {
-    console.log("-------***************",this.props.row)
+    
     const columns = [
       {
         dataField: "tradname",
@@ -51,6 +51,7 @@ class Bill extends Component {
     ];
     
     const products = [this.props.row];
+    console.log("product",this.props.row)
     return (
       <Col sm={3} className="f" style={{ paddingRight: "0" }}>
         <div className="bill">
@@ -62,31 +63,7 @@ class Bill extends Component {
             noDataIndication="Table is Empty"
           />
           <Button onClick={this.pay.bind(this)}>payed</Button>
-          {/* <Table>
-        <thead>
-          <tr>
-            <th>medicin</th>
-            <th>Quntity</th>
-            <th>price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>2</td>
-            <td>2$</td>
-          </tr>
-          <tr><td>Mark</td>
-            <td>2</td>
-            <td>2$</td>
-          </tr>
-          <tr>
-            <th scope="row">Total</th>
-            <td></td>
-            <td>4$</td>
-          </tr>
-        </tbody>
-      </Table> */}
+         
         </div>
       </Col>
     );

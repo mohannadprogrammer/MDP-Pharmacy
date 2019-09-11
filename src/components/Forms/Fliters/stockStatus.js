@@ -1,66 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../../actions/itemsAction";
-import {
-  stockMovementAction,
-  stockMovementDownloadAction
-} from "../../../actions/reportAction";
+import { stockStatusAction } from "../../../actions/reportAction";
 import { bindActionCreators } from "redux";
 
 import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      invoicetype:this.props.type,
-      startDate: "",
-      endDate: "",
-      storeid: ""
+	    "storeid":0
+     
     };
   }
   componentDidMount() {
     this.props.getData("store");
-
-    this.props.getData("item");
-    this.props.getData("supplier");
   }
-
+  
   submit = e => {
-    this.props.stockMovementAction(this.state);
-    console.log(this.props.data);
+     this.props.stockStatusAction(this.state)
   };
   setData = e => {
     switch (e.target.name) {
+      
       case "storeid":
         this.setState({
-          storeid: e.target.value
-        });
-        break;
-      case "item":
-        this.setState({
-          item: e.target.value
-        });
-        break;
-      case "startDate":
-        this.setState({
-          startDate: e.target.value
-        });
-        break;
-      case "endDate":
-        this.setState({
-          endDate: e.target.value
-        });
+            storeid :e.target.value
+               });
         break;
       default:
     }
   };
   render() {
-    console.log(this.props.data);
     const store = this.props.data.items.stores;
-    const items = this.props.data.items.items;
     return (
       <div>
+          
         <Row form>
           <Col md={3}>
             <FormGroup>
@@ -84,29 +61,9 @@ class UserForm extends Component {
             </FormGroup>
           </Col>
          
-
-          <Col md={3}>
-            <FormGroup>
-              <Label>Start date</Label>
-              <Input
-                type="date"
-                name="startDate"
-                onChange={this.setData.bind()}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={3}>
-            <FormGroup>
-              <Label> End date</Label>
-              <Input
-                type="date"
-                name="endDate"
-                onChange={this.setData.bind()}
-              />
-            </FormGroup>
-          </Col>
         </Row>
         <Button onClick={this.submit.bind()}>filter</Button>
+
       </div>
     );
   }
@@ -120,7 +77,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { stockMovementAction, stockMovementDownloadAction, getData },
+    { stockStatusAction, getData },
     dispatch
   );
 };

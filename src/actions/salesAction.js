@@ -10,9 +10,10 @@ export function getItemToSaleAction (info){
     }
 }
 
-export function saleAction (bill){
+export function saleAction (bill,storeid){
+    bill.storeid=storeid;
     const data=sale(bill).then(res=>res.data.data)
-    console.log(bill)
+    console.log(data)
     return{
         type:"SALE",
         payload:data

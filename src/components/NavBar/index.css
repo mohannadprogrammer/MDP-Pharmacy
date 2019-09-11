@@ -1,9 +1,13 @@
 
 .nav-style{
     color:#fff;
-    background: #03a9f3;
+    background: #2A2A2A;
     
 }
 .notification{
     color:#fff;
+}
+.noti-menu{
+    height: fit-content;
+    width: 700px;
 }

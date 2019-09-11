@@ -111,3 +111,29 @@ export function disposeInvoice(invoiceid){
   }
   return axios.post(`${URL}/invoice/reject`, {invoiceid})
 }
+
+//reports 
+
+export function stockMovement (filters){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/report/movmentReport`, filters)
+}
+
+export function stockMovementDownload (filters){
+  axios.defaults.headers = {
+    ContentType: "application/pdf",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/report/movmentReport/download`, filters)
+}
+
+export function stockStatus (storeid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/report/stockStatus`, storeid)
+}

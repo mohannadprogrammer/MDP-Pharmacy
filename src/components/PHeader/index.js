@@ -30,7 +30,8 @@ class PHeader extends Component {
               {data.PageName === "Inovice" ||
               data.PageName === "Sales" ||
               data.PageName === "Stock" ||
-              data.PageName === "Invioce Details" ? (
+              data.PageName === "Invioce Details" ||
+              data.PageName === "Store Moviement"? (
                 data.PageName === "Invioce Details" || this.props.isReturn ? (
                   <Button
                     color="primary"

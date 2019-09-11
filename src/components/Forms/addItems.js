@@ -112,7 +112,7 @@ submit = e => {
         });
         break;
       
-        case "entryunit":
+        case "entryuni":
         this.setState({
           entryunit: e.target.value
           
@@ -126,7 +126,7 @@ submit = e => {
         break;
         case "packetsize":
         this.setState({
-          price: e.target.value
+          packetsize: e.target.value
           
         });
         break;
@@ -134,7 +134,7 @@ submit = e => {
     }
   };
   render() {
-    console.log(this.props.data)
+    console.log(this.state)
     const unit=this.props.data.units
     return (
       <div>
@@ -174,7 +174,7 @@ submit = e => {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>salsunit</Label>
+              <Label>salse unit</Label>
               <Input type="select" placeholder="1" name="salsunit"
                 onChange={this.setData.bind()}>
                 <option>select unit </option>
@@ -188,9 +188,9 @@ submit = e => {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>entryuni</Label>
+              <Label>entry unit</Label>
               <Input type="select" placeholder="1" name="entryuni"
-                onChange={this.setData.bind()}>
+                 onChange={this.setData.bind()}>
                 <option>select unit </option>
                 {unit.map((store,i)=>{
                     return (

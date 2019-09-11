@@ -24,6 +24,7 @@ export default (
     case "GET_ITEMS_UNIT":
       return { ...state, units: action.payload };
     case "GET_STORES":
+      console.log(action.payload)
       return { ...state, stores: action.payload };
     case "GET_SUPPLIERS":
       return { ...state, suppliers: action.payload };
