@@ -44,21 +44,20 @@ class UserForm extends Component {
         break;
       case "startDate":
         this.setState({
-          startDate: e.target.value
+          startDate: e.target.value+" 00:00:01"
         });
         break;
       case "endDate":
         this.setState({
-          endDate: e.target.value
+          endDate: e.target.value+" 23:59:59"
         });
         break;
       default:
     }
   };
   render() {
-    console.log(this.props.data);
+    console.log(this.state);
     const store = this.props.data.items.stores;
-    const items = this.props.data.items.items;
     return (
       <div>
         <Row form>

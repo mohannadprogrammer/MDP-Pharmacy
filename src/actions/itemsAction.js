@@ -4,19 +4,17 @@ export async function getData(type) {
   let data = await getDatas(type).then(res => {
     console.log("------------------------------------");
     console.log(res.status);
-    if(res.status==200){
-     return res.data.data;
-
-    }else{
-      return false
+    if (res.status === 200) {
+      return res.data.data;
+    } else {
+      return false;
     }
   });
-  console.log(data)
-  if (!data ){
-
-    data=[]
+  console.log(data);
+  if (!data) {
+    data = [];
   }
-  
+
   var actionName = "GET_ITEMS";
   switch (type) {
     case "unit":
@@ -28,6 +26,9 @@ export async function getData(type) {
     case "supplier":
       actionName = "GET_SUPPLIERS";
       break;
+    default:
+      break;
+    
   }
 
   return {
@@ -36,8 +37,8 @@ export async function getData(type) {
   };
 }
 
-export function add(item) {
-  addItem(item).then(res => {
+export async function add(item) {
+  await addItem(item).then(res => {
     console.log(res);
   });
   return {
@@ -51,7 +52,6 @@ export function getStockData(storeid) {
     console.log(res);
     return res.data.data;
   });
-  console.log("lskdflksdlf");
   return {
     type: "GET_STOCK",
     payload: stock

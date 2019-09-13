@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 //import
+import paginationFactory from "react-bootstrap-table2-paginator";
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from "react-bootstrap-table-next";
 
 import Dashoard from "../../hoc/Dashboard";
@@ -50,6 +52,9 @@ class Item extends Component {
     console.log('collaback')
     console.log(store)
     this.props.add(store)
+    this.props.getData("store");
+
+    
   }
   render() {
     if (this.state.id) {
@@ -66,14 +71,14 @@ class Item extends Component {
       }
     };
     const columns = config.columns;
-    let products = this.props.data.items.stores;
+    let products =this.props.data.items.stores;
     const form = config.form;
     const buttons = config.buttons;
 
     return (
       <Dashoard>
-        <PHeader PageName="Store" toggle={this.toggle} >
-            <Form data={form} buttons={buttons} add={this.addfun} />
+        <PHeader PageName="Store info" toggle={this.toggle} >
+            <Form data={form} buttons={buttons} add={this.addfun} getData={()=>this.props.getData("store")}/>
             
         </PHeader>
 
@@ -87,6 +92,10 @@ class Item extends Component {
               columns={columns}
               rowEvents={rowEvents}
               noDataIndication="Table is Empty"
+              striped
+              hover
+              condensed
+              pagination={paginationFactory()}
             />
           </Col>
         </Row>

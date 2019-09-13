@@ -1,17 +1,25 @@
 import React from "react";
 
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+import { Col, Row, FormGroup, Input, Button, Alert } from "reactstrap";
 import Dashboard from "../../hoc/Dashboard";
 import PHeader from "../../components/PHeader";
 //sales component
 import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 //it a moduals contant all routes in the app
 import "./index.css";
 import { connect } from "react-redux";
 import { getData } from "../../actions/itemsAction";
-import { getItemToSaleAction, saleAction } from "../../actions/salesAction";
+import {
+  getItemToSaleAction,
+  saleAction,
+  deleteFromSaleBill
+} from "../../actions/salesAction";
 import { bindActionCreators } from "redux";
+
+import FontAwesome from "react-fontawesome";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+
 class Sales extends React.Component {
   constructor(props) {
     super(props);
@@ -19,22 +27,40 @@ class Sales extends React.Component {
       transtype: "sale",
       itemsDetail: [],
       storeid: 0,
-      discount: 0
+      discount: 0,
+      visible: false,
+      complete: false,
+      errmsg: ""
     };
+
+    this.onDismiss = this.onDismiss.bind(this);
+  }
+
+  onDismiss() {
+    this.setState({ visible: false });
   }
   getItems = e => {
-     this.props.getItemToSaleAction(this.state);
+    this.props.getItemToSaleAction(this.state);
     e.target.value = null;
   };
   componentDidMount() {
     this.props.getData("store");
   }
   pay = () => {
-
-    this.props.saleAction(this.props.data.sales.requist,this.state.storeid);
-    
+    console.log(this.props.data.sales.requist.itemsDetail.length);
+    if (this.props.data.sales.requist.itemsDetail.length !== 0) {
+      this.props.saleAction(this.props.data.sales.requist, this.state.storeid);
+      this.setState({ complete: true });
+    } else {
+      var errmsg = "";
+      if (this.state.storeid === 0) {
+        errmsg += "store undetected  and ,";
+      }
+      errmsg += "there is no items add to sales ";
+      this.setState({ visible: true, complete: false, errmsg });
+    }
   };
-  setData = async (e) => {
+  setData = async e => {
     switch (e.target.name) {
       case "store":
         this.setState({
@@ -43,48 +69,28 @@ class Sales extends React.Component {
         break;
       case "barcode":
         await this.setState({
-          barcode: e.target.value
+          barcode: e.target.value,
+          visible: false,
+          complete: false
         });
-        // this.getItems.bind(this);
-        // let temp = { ...this.props.data.sales.sales, quantity: 1 }
-        // this.addTobill(temp);
-        // // this.setState({
-        // //   ...this.state,
-        // //   itemsDetail: [...this.state.itemsDetail, temp]
-        // // });
         break;
       default:
     }
   };
-  
-  addTobill(temp){
-    if (temp.id) {
-      if(this.isAddIt(temp)){
-      this.setState({
-        ...this.state,
-        itemsDetail: [...this.state.itemsDetail, temp]
-      });
-    }
-      
-    }
-  }
-  render() { 
-    
+  render() {
     const columns = [
       {
         dataField: "generalname",
-        text: "sceintN",
-        editable: (content, row, rowIndex, columnIndex) => columnIndex < 0
+        text: "sceintN"
+        // editable: (content, row, rowIndex, columnIndex) => columnIndex < 0
       },
       {
         dataField: "tradname",
-        text: "generalN",
-        editable: (content, row, rowIndex, columnIndex) => columnIndex < 0
+        text: "generalN"
       },
       {
         dataField: "available",
-        text: "available",
-        editable: (content, row, rowIndex, columnIndex) => columnIndex < 0
+        text: "available"
       },
       {
         dataField: "quantity",
@@ -103,13 +109,26 @@ class Sales extends React.Component {
       }
     ];
 
-    
-    console.log("salse :",this.props.data.sales.sales);
+    console.log("salse :", this.props.data.sales.sales);
     let products = this.props.data.sales.requist.itemsDetail;
     let stores = this.props.data.items.stores;
     const rowEvents = {
       onClick: (e, row, rowIndex) => {
-           alert("asldkfkl")
+        confirmAlert({
+          title: "remove item from sale list ?",
+          message: "Are you sure to do this.",
+          buttons: [
+            {
+              label: "Yes",
+              onClick: () => {
+                this.props.deleteFromSaleBill(rowIndex);
+              }
+            },
+            {
+              label: "No"
+            }
+          ]
+        });
       }
     };
     return (
@@ -117,18 +136,17 @@ class Sales extends React.Component {
         <PHeader PageName="Sales" toggle={this.toggle} button />
         <Row>
           {/* <Info passToBill={this.passToBill.bind()}/> */}
-          <Col className="info">
-            <h3>Info</h3>
+          <Col className=" info">
             <Row form>
               <Col md={3}>
                 <FormGroup>
-                  <Label>store</Label>
                   <Input
                     type="select"
                     placeholder="username"
                     name="store"
                     onChange={this.setData.bind(this)}
                   >
+                    <option>Select Store :</option>;
                     {stores.map((store, i) => {
                       return <option value={store.id}>{store.name}</option>;
                     })}
@@ -137,7 +155,6 @@ class Sales extends React.Component {
               </Col>
               <Col md={3}>
                 <FormGroup>
-                  <Label>barcode</Label>
                   <Input
                     type="text"
                     placeholder="barecode"
@@ -148,18 +165,51 @@ class Sales extends React.Component {
                 </FormGroup>
               </Col>
               <Col md={6}>
-                <Button onClick={this.pay.bind(this)} style={{float:"right"}}>payed</Button>
-                
+                <Button
+                  onClick={this.pay.bind(this)}
+                  color="success"
+                  style={{ float: "right" }}
+                >
+                  payed
+                </Button>
               </Col>
             </Row>
-           <BootstrapTable
+            <BootstrapTable
               keyField="id"
               data={products}
               columns={columns}
               noDataIndication="Table is Empty"
+              striped
+              hover
+              condensed
               rowEvents={rowEvents}
-              cellEdit={cellEditFactory({ mode: "click", blurToSave: true })}
             />
+            <Alert
+              color="danger"
+              isOpen={this.state.visible}
+              toggle={this.onDismiss}
+            >
+              {this.state.errmsg + "  "}
+              <FontAwesome
+                name="thumbs-down"
+                style={{
+                  fontSize: "20px"
+                }}
+              />
+            </Alert>
+            <Alert
+              color="success "
+              isOpen={this.state.complete}
+              style={{ float: "left" }}
+            >
+              {"saled  "}
+              <FontAwesome
+                name="thumbs-up"
+                style={{
+                  fontSize: "20px"
+                }}
+              />
+            </Alert>
           </Col>
         </Row>
       </Dashboard>
@@ -174,7 +224,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { getItemToSaleAction, saleAction, getData },
+    { getItemToSaleAction, saleAction, getData, deleteFromSaleBill },
     dispatch
   );
 };

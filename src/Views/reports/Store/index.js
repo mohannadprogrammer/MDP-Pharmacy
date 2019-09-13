@@ -10,7 +10,6 @@ import PHeader from "../../../components/PHeader";
 
 import {
   Row,
-  Button,
   Col
 } from "reactstrap";
 
@@ -20,10 +19,6 @@ import config from "./config";
 import { connect } from 'react-redux'
 import { getStockData } from '../../../actions/itemsAction'
 import { bindActionCreators } from 'redux'
-
-import Pdf from "react-to-pdf";
-const ref = React.createRef();
-
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -58,16 +53,8 @@ class Item extends Component {
     
     return (
       <Dashoard>
-        <Pdf targetRef={ref} filename="div-blue.pdf">
-          {({ toPdf }) => (
-            <Button onClick={toPdf} color="success">
-              print pdf
-            </Button>
-          )}
-        </Pdf>
         
         <div
-          ref={ref}
           style={{ height: "100%", width: "100%" }}
           className="container"
         >

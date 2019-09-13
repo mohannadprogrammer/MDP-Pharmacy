@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
@@ -20,22 +21,20 @@ import {
 
 import config from "./config";
 
-
-import {connect} from 'react-redux'
-import {getData , add} from '../../actions/userAction'
-import {bindActionCreators} from 'redux'
+import { connect } from "react-redux";
+import { getData, add } from "../../actions/userAction";
+import { bindActionCreators } from "redux";
 
 class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
-     
+      modal: false
     };
 
     this.toggle = this.toggle.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.getData("users");
   }
   toggle() {
@@ -44,21 +43,22 @@ class Item extends Component {
     }));
   }
 
-  addfun = (user) => {
-    console.log('collaback')
-    console.log(user)
-    this.props.add(user)
-  }
+  addfun = user => {
+    console.log("collaback");
+    console.log(user);
+    this.props.add(user);
+    this.props.getData("users");
+  };
   render() {
     const columns = config.columns;
-    let products =this.props.data.items;
+    let products = this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
-    
+
     return (
       <Dashoard>
-        <PHeader PageName="User" toggle={this.toggle}  >
-            <Form data={form} buttons={buttons} add={this.addfun} />
+        <PHeader PageName="User info" toggle={this.toggle}>
+          <Form data={form} buttons={buttons} add={this.addfun} />
         </PHeader>
 
         <Row>
@@ -69,6 +69,10 @@ class Item extends Component {
               data={products}
               columns={columns}
               noDataIndication="Table is Empty"
+              striped
+              hover
+              condensed
+              pagination={paginationFactory()}
             />
           </Col>
         </Row>
@@ -96,15 +100,15 @@ class Item extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     data: state.items
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getData,add
-  },dispatch)
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Item);
-
-
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ getData, add }, dispatch);
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Item);

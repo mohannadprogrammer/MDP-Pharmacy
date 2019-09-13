@@ -16,6 +16,15 @@ class UserForm extends Component {
     
     this.toggle = this.toggle.bind(this);
   }
+  reset=()=>{
+    this.setState({
+      name: "",
+      accnum:"",
+      address: "",
+      email: "",
+      phone: ""
+    })
+  }
   toggle() {
     this.setState(prevState => ({
       validationModals: !prevState.validationModals
@@ -96,39 +105,49 @@ class UserForm extends Component {
                 placeholder="name"
                 name="name"
                 onChange={this.setData.bind()}
+                value={this.state.name}
               />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>address</Label>
+              <Label>Address</Label>
               <Input type="text" placeholder="address" name="address"
-                onChange={this.setData.bind()} />
+                onChange={this.setData.bind()} 
+                value={this.state.address}
+                />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
               <Label>Email</Label>
-              <Input type="email" placeholder="password placeholder"name="email"
+              <Input type="email" placeholder="Example@mail.com"name="email"
+                value={this.state.email}
                 onChange={this.setData.bind()} />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
               <Label>Account number</Label>
-              <Input type="text" placeholder="password placeholder"name="accnum"
+              <Input type="text" placeholder="Acounnt number"name="accnum"
+                value={this.state.accnum}
                 onChange={this.setData.bind()} />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>phone</Label>
-              <Input type="text" placeholder="phone" name="phone"
-                onChange={this.setData.bind()}/>
+              <Label>Phone</Label>
+              <Input type="text" placeholder="09xxxxxxxx" name="phone"
+                onChange={this.setData.bind()}
+                value={this.state.phone}
+                />
             </FormGroup>
           </Col>
         </Row>
-        <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+        <Row>
+          <Col md={1} ><Button color="success" onClick={this.submit.bind()}>save</Button></Col>
+        <Col md={1}><Button onClick={this.reset.bind()}>reset</Button></Col>
+        </Row></UncontrolledCollapse>
         <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={{"color":"red"}} >
           <ModalHeader toggle={this.toggle}>add result</ModalHeader>
           <ModalBody>

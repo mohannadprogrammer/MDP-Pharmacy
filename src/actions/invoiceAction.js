@@ -1,4 +1,4 @@
-import { getInvoiceDetails,disposeInvoice} from "../api";
+import { getInvoiceDetails,disposeInvoice,sale} from "../api";
 
 
 export function getInvoiceDetailsAction (id){
@@ -16,6 +16,16 @@ export function disposeInvoiceAction (id){
     console.log(data)
     return{
         type:"DISPOSE_INVOICE",
+        payload:data
+    }
+
+}
+export function addInvoice (bill){
+    // bill.storeid=storeid;
+    const data=sale(bill).then(res=>res.data.data)
+    console.log(data)
+    return{
+        type:"ADD_INVOICE",
         payload:data
     }
 

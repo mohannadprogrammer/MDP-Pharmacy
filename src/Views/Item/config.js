@@ -1,80 +1,58 @@
-module.exports={
-    form:[
-        {
-            //input props   
-            id :"تقليدي",
-            name:"Trande",
-            type:"text",
-            //label
-            label:"Trande name",
-           
-            
-        },
-        {
-            id :"1",
-            name:"number",
-            type:"number",
-            //label
-            label:"text",
-            
-            
-        },
-        {
-            id :"exampleCheck",
-            name:"email",
-            type:"number",
-            //label
-            label:"Gerneric number",
-            
-            
-        },{
-            id :"exampleCheck",
-            name:"email",
-            type:"select",
-            select:[
-                "car",
-                "ddf",
-                ""
-            ],
-            //label
-            label:"text",
-            
-            
-        },
-    ],
-    buttons:[
-        
-
-    ],
+import React from"react";
+import {Button} from 'reactstrap'
+import FontAwesome from 'react-fontawesome'
+const config={
+  
     columns : [{
-        dataField: 'generalname',
-        text: 'sceintN'
-      }, {
+      dataField: 'barcode',
+      text: 'Barcode'
+    },{
         dataField: 'tradname',
-        text: 'generalN'
+        text: 'Scientific name',
+        headerFormatter:()=>{
+          return(
+            <div>Scientific name</div>
+          )
+        }
       }, {
-        dataField: 'category',
-        text: 'Catagory'
-      }, {
-        dataField: 'company',
-        text: 'Company'
-      }, {
-        dataField: 'barcode',
-        text: 'barcode'
+        dataField: 'generalname',
+        text: 'General Name'
       }, {
         dataField: 'minlevel',
-        text: 'Minimum Level'
+        text: 'Min.Level'
       }, {
         dataField: 'salsunit',
-        text: 'salseU'
+        text: 'Sale Unit'
       }, {
         dataField: 'entryunit',
-        text: 'entry Unit'
+        text: 'Entry Unit'
       }, {
         dataField: 'packetsize',
-        text: 'packet Size'
+        text: 'Packet Size'
       }, {
         dataField: 'price',
-        text: 'price'
+        text: 'Price'
+      } , {
+        text: 'Control',
+         headerStyle: {
+            width:"130px"
+          },
+        formatter: (cellCnotent, row) => {
+            return (
+                <div>
+                    <Button color="primary"> <FontAwesome
+                name="edit"
+                style={{  fontSize: "20px"  }}
+              /></Button> <Button color="danger"> <FontAwesome
+                    name="trash"
+                    style={{  fontSize: "20px" }}
+                  /></Button>
+                </div>
+                
+              
+            );
+          }
       }
     ]}
+
+export default config;

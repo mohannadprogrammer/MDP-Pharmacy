@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from 'react-bootstrap-table2-paginator';
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
@@ -21,10 +21,10 @@ import {
 
 import config from "./config";
 
-import {connect} from 'react-redux'
-import {getData,add} from '../../actions/itemsAction'
+import { connect } from "react-redux";
+import { getData, add } from "../../actions/itemsAction";
 
-import {bindActionCreators} from 'redux'
+import { bindActionCreators } from "redux";
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -34,29 +34,31 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
- componentDidMount(){
-   this.props.getData("item");
- }
+  componentDidMount() {
+    this.props.getData("item");
+  }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
-  addfun = (user) => {
-    console.log('collaback')
-    console.log(user)
-    this.props.add(user)
-  }
+  addfun = user => {
+    console.log("collaback");
+    console.log(user);
+    this.props.add(user);
+    this.props.getData("item");
+
+  };
   render() {
     const columns = config.columns;
-    let products =this.props.data.items;
+    let products = this.props.data.items;
     const form = config.form;
     const buttons = config.buttons;
-    
+
     return (
       <Dashoard>
-        <PHeader PageName="Item" toggle={this.toggle} >
-        <Form data={form} buttons={buttons} add={this.addfun} />
+        <PHeader PageName="Item info" toggle={this.toggle}>
+          <Form data={form} buttons={buttons} add={this.addfun} />
         </PHeader>
 
         <Row>
@@ -67,12 +69,10 @@ class Item extends Component {
               data={products}
               columns={columns}
               noDataIndication="Table is Empty"
-             
-          striped
-          hover
-          condensed
-          remote
-          pagination={ paginationFactory() }
+              striped
+              hover
+              condensed
+              pagination={paginationFactory()}
             />
           </Col>
         </Row>
@@ -99,13 +99,15 @@ class Item extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     data: state.items
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getData,add
-  },dispatch)
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Item);
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ getData, add }, dispatch);
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Item);

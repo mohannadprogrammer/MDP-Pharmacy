@@ -9,7 +9,12 @@ export function getItemToSaleAction (info){
         payload:data
     }
 }
-
+export function deleteFromSaleBill (id){
+    return{
+        type:"DELETE_FROM_ITEMSDETAILS",
+        payload:id
+    }
+}
 export function saleAction (bill,storeid){
     bill.storeid=storeid;
     const data=sale(bill).then(res=>res.data.data)

@@ -72,6 +72,9 @@ class Item extends Component {
               columns={columns}
               rowEvents={rowEvents}
               noDataIndication="Table is Empty"
+              striped
+              hover
+              condensed
               pagination={ paginationFactory() }
             />
           </Col>

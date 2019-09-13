@@ -15,6 +15,20 @@ class Form extends Component {
   };
   this.toggle = this.toggle.bind(this);
 }
+// componentDidMount(){
+//   console.log("did");
+//   // this.props.getData();
+// }
+// componentWillUpdate(){
+//   console.log("will update");
+//   this.props.getData();
+// }
+reset=()=>{
+  this.setState({
+    name: "",
+    location: "",
+  })
+}
 toggle() {
   this.setState(prevState => ({
     validationModals: !prevState.validationModals
@@ -40,11 +54,13 @@ validation(){
         return true
   
 }
-submit = e => {
+ submit = async (e) => {
   if (this.validation()){
     console.log(e.target);
     
-    this.props.add(this.state);
+    await this.props.add(this.state);
+    // this.props.getData();
+    this.reset();
   }
   this.toggle();
   
@@ -80,9 +96,10 @@ submit = e => {
               <Label>Name</Label>
               <Input
                 type="text"
-                placeholder="name"
+                placeholder="Store name"
                 name="name"
                 onChange={this.setData.bind()}
+                value={this.state.name}
               invalid ={this.state.invalid}/>
               
               <FormFeedback invalid ={this.state.invalid}>{this.state.vmsg}</FormFeedback>
@@ -94,14 +111,22 @@ submit = e => {
               <Input type="text" placeholder="Enter Location" name="location"
                 onChange={this.setData.bind()} 
                 invalid ={this.state.invalid}
+                value={this.state.location}
+
                 />
                 
               <FormFeedback  invalid ={this.state.invalid}>{this.state.vmsg}</FormFeedback>
 
             </FormGroup>
+            
           </Col>
+          
         </Row>
-        <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+        <Row>
+          <Col md={1} ><Button color="success" onClick={this.submit.bind()}>save</Button></Col>
+        <Col md={1}><Button onClick={this.reset.bind()}>reset</Button></Col>
+        </Row>
+        </UncontrolledCollapse>
         <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={this.state.result ?{"color":"green"}:{"color":"red"}} >
           <ModalHeader toggle={this.toggle}>add result</ModalHeader>
           <ModalBody>

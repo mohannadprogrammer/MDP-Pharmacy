@@ -54,7 +54,7 @@ module.exports = {
     text: 'Trad Name'
   }, {
     dataField: 'available',
-    text: 'available'
+    text: 'Available'
   }
   ]
 }

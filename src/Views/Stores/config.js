@@ -1,4 +1,7 @@
-module.exports={
+import React from"react";
+import {Button} from 'reactstrap'
+import FontAwesome from "react-fontawesome"
+const config={
     form:[
         {
             //input props   
@@ -35,11 +38,33 @@ module.exports={
     ],
     columns : [{
         dataField: 'name',
-        text: 'name'
+        text: 'Name'
       }, {
         dataField: 'location',
-        text: 'location'
+        text: 'Location'
+      }
+      ,{
+        text: 'Control',
+        headerStyle: {
+            width:"130px"
+          },
+        formatter: (cellCnotent, row) => {
+            return (
+                <div>
+                    <Button color="primary"> <FontAwesome
+                name="edit"
+                style={{  fontSize: "20px"  }}
+              /></Button> <Button color="danger"> <FontAwesome
+                    name="trash"
+                    style={{  fontSize: "20px" }}
+                  /></Button>
+                </div>
+                
+              
+            );
+          }
       }
     ]
 
 }
+export default config;

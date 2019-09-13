@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import Routes from "./router"
 
 
@@ -16,9 +16,9 @@ function App() {
   return (
     <Provider store={createStoreWithMiddleware(rootReducer)}>
       <div className="main">
-        <HashRouter>
+        <BrowserRouter>
           <Routes />
-        </HashRouter>
+        </BrowserRouter>
         </div>
     </Provider>
 

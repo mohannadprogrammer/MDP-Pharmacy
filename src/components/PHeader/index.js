@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Row, Col, Button} from "reactstrap";
 import "./index.css";
 import FontAwesome from "react-fontawesome";
 
@@ -24,7 +24,7 @@ class PHeader extends Component {
         <Col sm={12} className="title">
           <Row>
             <Col sm={10}>
-              <h3>{data.PageName}</h3>
+              <font style={{fontSize:"25px",fontWeight:"bold"}} >{data.PageName}</font>
             </Col>
             <Col sm={2}>
               {data.PageName === "Inovice" ||
@@ -36,7 +36,7 @@ class PHeader extends Component {
                   <Button
                     color="primary"
                     onClick={this.props.toggle}
-                    style={{ marginBottom: "1rem", width: "100%" }}
+                    style={{  marginBottom: "1rem", width: "100%" }}
                   >
                     return invoice
                   </Button>
@@ -45,13 +45,12 @@ class PHeader extends Component {
                 <Button
                   color="primary"
                   id="toggler"
-                  style={{ margin: "0", width: "100%" }}
+                  style={{float:"right", margin: "0",height:"40px", width: "72px" }}
                 >
                   <FontAwesome
                     name="plus"
-                    style={{  fontSize: "30px" ,float:"right" }}
+                    style={{  fontSize: "30px"  }}
                   />
-                 <h4 style={{   margin: "0"}}>add</h4> 
                 </Button>
               )}
             </Col>

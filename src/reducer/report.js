@@ -1,4 +1,4 @@
-export const report = (
+ export const report = (
   state = {
     stockmovement: { storeid: "", storename: "", invoices: [] },
     stockStatus:[ ],

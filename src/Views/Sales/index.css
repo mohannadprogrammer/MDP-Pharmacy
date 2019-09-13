@@ -1,9 +1,9 @@
-.bill{
-    background: #fff;
-    margin: 10px;
-}
+
 .info{
     background: #fff;
+    padding: 16px 10px;
+    border-radius: 10px;
+    
 }
 .bill , .info{
     width: 100%;

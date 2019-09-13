@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../actions/itemsAction";
-import { getItemToSaleAction, saleAction } from "../../actions/salesAction";
+import {addInvoice } from "../../actions/invoiceAction";
 import { bindActionCreators } from "redux";
 
 import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse} from "reactstrap";
@@ -26,7 +26,6 @@ class UserForm extends Component {
   }
   componentDidMount() {
     this.props.getData("store");
-
     this.props.getData("item");
     this.props.getData("supplier");
   }
@@ -42,7 +41,7 @@ class UserForm extends Component {
       let {temp , ...reset} =this.state
     console.log(reset);
 
-    this.props.saleAction(reset);
+    this.props.addInvoice(reset);
   };
   setData = e => {
     switch (e.target.name) {
@@ -57,7 +56,7 @@ class UserForm extends Component {
         });
         break;
       case "items":
-        let name =this.props.data.items.items.find(o => o.id == e.target.value).generalname;
+        let name =this.props.data.items.items.find(o => o.id === e.target.value).generalname;
         //console.log(name);
         this.setState({
           ...this.state,
@@ -69,7 +68,7 @@ class UserForm extends Component {
         });
         break;
       case "quantity":
-      let price = this.props.data.items.items.find(o => o.id == this.state.temp.id).price * e.target.value;
+      let price = this.props.data.items.items.find(o => o.id === this.state.temp.id).price * e.target.value;
         this.setState({
           ...this.state,
           temp: { ...this.state.temp, quantity: e.target.value, price }
@@ -88,7 +87,7 @@ class UserForm extends Component {
     console.log(this.props.data);
     const supplier = this.props.data.items.suppliers;
     const store = this.props.data.items.stores;
-    const items = this.props.data.items.items;
+    const items =this.props.data.items.items;
     return (
       <div>
           
@@ -165,7 +164,18 @@ class UserForm extends Component {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>date</Label>
+              <Label>price</Label>
+              <Input
+                type="number"
+                placeholder="0"
+                name="price"
+                onChange={this.setData.bind()}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup>
+              <Label>Expired date</Label>
               <Input
                 type="date"
                 name="expiredate"
@@ -207,7 +217,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { getItemToSaleAction, saleAction, getData },
+    { addInvoice, getData },
     dispatch
   );
 };

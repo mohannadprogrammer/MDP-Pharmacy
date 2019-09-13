@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 
-//import
-import BootstrapTable from "react-bootstrap-table-next";
-
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
 import Form from "../../components/Forms/addInvoice";
 import PHeader from "../../components/PHeader";
 
 import {
-  Row,
   Button,
-  Col,
   Modal,
   ModalHeader,
   ModalBody,

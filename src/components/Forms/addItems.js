@@ -26,15 +26,28 @@ class UserForm extends Component {
       barcode: "",
       //number
       minlevel: 1,
-      salsunit: null,
-      entryunit:null,
-      packetsize:null,
+      salsunit: "",
+      entryunit:"",
+      packetsize:1,
       price:0,
       result:false,
       validationModals:false,
       validMsg:""
   };
   this.toggle = this.toggle.bind(this);
+}
+reset=()=>{
+  this.setState({
+    generalname: "",
+      tradname: "",
+      barcode: "",
+      //number
+      minlevel: 1,
+      salsunit: "",
+      entryunit:"",
+      packetsize:1,
+      price:0,
+  })
 }
 toggle() {
   this.setState(prevState => ({
@@ -48,7 +61,7 @@ validation(){
         || generalname===""
         || price===""
         || salsunit ===""
-        || entryunit==="" ){
+        || entryunit===""){
           this.setState({
             result:false,
             validMsg:"make sure that you are enter (barcode , tradname , generalname ,price,salsunit or entryunit) at least ."
@@ -75,6 +88,8 @@ submit = e => {
     console.log(e.target);
     
     this.props.add(this.state);
+    this.props.getData("item");
+    this.reset();
   }
   this.toggle();
   
@@ -142,42 +157,47 @@ submit = e => {
         <Row form>
           <Col md={3}>
             <FormGroup>
-              <Label>scientific name</Label>
+              <Label>Scientific name</Label>
               <Input
                 type="text"
                 placeholder="scientific"
-                name="generalname"
+                name="tradname"
                 onChange={this.setData.bind()}
+                value={this.state.tradname}
               />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>tradtional name</Label>
-              <Input type="text" placeholder="traditional name" name="tradname"
-                onChange={this.setData.bind()} />
+              <Label>General name</Label>
+              <Input type="text" placeholder="General name" name="generalname"
+                onChange={this.setData.bind()} value={this.state.generalname}></Input>
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>barcode</Label>
+              <Label>Barcode</Label>
               <Input type="text" placeholder="barcode"name="barcode"
-                onChange={this.setData.bind()} />
+                onChange={this.setData.bind()} 
+                value={this.state.barcode}/>
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>minlevel</Label>
+              <Label>Min.Level</Label>
               <Input type="number" placeholder="1" name="minlevel"
-                onChange={this.setData.bind()} />
+                onChange={this.setData.bind()} 
+                value={this.state.minlevel}/>
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>salse unit</Label>
+              <Label>Sale unit</Label>
               <Input type="select" placeholder="1" name="salsunit"
-                onChange={this.setData.bind()}>
-                <option>select unit </option>
+                onChange={this.setData.bind()}
+                value={this.state.salsunit}
+                >
+                <option value="">select unit </option>
                 {unit.map((store,i)=>{
                     return (
                         <option key={i} value ={store.id}>{store.name}</option>
@@ -188,10 +208,11 @@ submit = e => {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label>entry unit</Label>
+              <Label>Entry unit</Label>
               <Input type="select" placeholder="1" name="entryuni"
-                 onChange={this.setData.bind()}>
-                <option>select unit </option>
+                 onChange={this.setData.bind()}
+                 value={this.state.entryunit}>
+                <option value={null}>select unit </option>
                 {unit.map((store,i)=>{
                     return (
                         <option value ={store.id}>{store.name}</option>
@@ -204,7 +225,8 @@ submit = e => {
             <FormGroup>
               <Label>packet size</Label>
               <Input type="number" placeholder="1" name="packetsize"
-                onChange={this.setData.bind()}/>
+                onChange={this.setData.bind()}
+                value={this.state.packetsize}/>
                 <Validation info={[
                   {
                     condition :true,
@@ -216,12 +238,17 @@ submit = e => {
           <Col md={3}>
             <FormGroup>
               <Label>price</Label>
-              <Input type="number" placeholder="0.0" name="price"
-                onChange={this.setData.bind()}/>
+              <Input type="number" placeholder="0.0" name="Price"
+                onChange={this.setData.bind()}
+                value={this.state.price}/>
             </FormGroup>
           </Col>
+          <Col md={1} ><Button color="success" onClick={this.submit.bind()}>save</Button></Col>
+        <Col md={1}><Button onClick={this.reset.bind()}>reset</Button></Col>
         </Row>
-        <Button onClick={this.submit.bind()}>save</Button></UncontrolledCollapse>
+       
+
+        </UncontrolledCollapse>
         <Modal isOpen={this.state.validationModals} toggle={this.toggle} style={this.state.result ?{"color":"green"}:{"color":"red"}} >
           <ModalHeader toggle={this.toggle}>add result</ModalHeader>
           <ModalBody>
