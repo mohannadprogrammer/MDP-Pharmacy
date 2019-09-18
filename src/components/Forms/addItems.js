@@ -134,6 +134,7 @@ submit = e => {
         });
         break;
         case "price":
+          console.log("price")
         this.setState({
           price: e.target.value
           
@@ -238,7 +239,7 @@ submit = e => {
           <Col md={3}>
             <FormGroup>
               <Label>price</Label>
-              <Input type="number" placeholder="0.0" name="Price"
+              <Input type="number" placeholder="0.0" name="price"
                 onChange={this.setData.bind()}
                 value={this.state.price}/>
             </FormGroup>

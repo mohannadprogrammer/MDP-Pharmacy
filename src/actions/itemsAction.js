@@ -1,4 +1,4 @@
-import { getDatas, addItem, getStock, getAllInvoic } from "../api";
+import { getDatas, addItem,updateItem,deleteItem, getStock, getAllInvoic } from "../api";
 
 export async function getData(type) {
   let data = await getDatas(type).then(res => {
@@ -47,6 +47,32 @@ export async function add(item) {
   };
 }
 
+export async function update(item){
+
+  var {id ,...reset }=item;
+  var requset = {
+    id,
+    updatedData:reset
+  }
+  console.log(requset)
+  await updateItem(requset).then(res=>{
+    console.log(res)
+  })
+  return {
+    type:"UPDATE_ITEM",
+    payload:"udated"
+  }
+}
+
+export function deleteItemAction(itemid){
+  deleteItem({id:itemid}).then(res=>{
+
+  })
+  return {
+    type:"DELETE_STORE",
+    payload:""
+  }
+}
 export function getStockData(storeid) {
   const stock = getStock(storeid).then(res => {
     console.log(res);

@@ -1,4 +1,4 @@
-import { getDatas, addUser} from "../api";
+import { getDatas, addUser ,deleteUser,updateItem} from "../api";
 
 
 export function getData(type) {
@@ -22,4 +22,29 @@ export function add(user) {
     type: "ADD_USER",
     payload: user
   };
+}
+export async function update(user){
+  var {id ,...reset }=user;
+  var requset = {
+    id,
+    updatedData:reset
+  }
+  console.log(requset)
+  await updateItem(requset).then(res=>{
+    console.log(res)
+  })
+  return {
+    type:"UPDATE_STORE",
+    payload:""
+  }
+}
+
+export  async function deleteUserAction (user){
+  await deleteUser(user).then(res=>{
+
+  })
+  return {
+    type:"DELETE_USER",
+    payload:""
+  }
 }

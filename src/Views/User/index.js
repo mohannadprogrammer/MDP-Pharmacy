@@ -9,6 +9,7 @@ import "./index.css";
 import Form from "../../components/Forms/UserForm";
 import PHeader from "../../components/PHeader";
 
+import FontAwesome from "react-fontawesome"
 import {
   Row,
   Button,
@@ -16,20 +17,24 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter, FormGroup, Input, Label, FormFeedback, Badge
 } from "reactstrap";
 
-import config from "./config";
 
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { connect } from "react-redux";
-import { getData, add } from "../../actions/userAction";
+import { getData, add, update, deleteUserAction } from "../../actions/userAction";
 import { bindActionCreators } from "redux";
+import { async } from "q";
 
 class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      row: {}
+
     };
 
     this.toggle = this.toggle.bind(this);
@@ -43,22 +48,180 @@ class Item extends Component {
     }));
   }
 
-  addfun = user => {
+  addfun = async user => {
     console.log("collaback");
     console.log(user);
-    this.props.add(user);
+    await this.props.add(user);
     this.props.getData("users");
   };
+
+  setData = e => {
+    switch (e.target.name) {
+      case "name":
+        this.setState({
+          row: {
+            ...this.state.row,
+            username: e.target.value
+          }
+
+        });
+        break;
+      case "password":
+        this.setState({
+          row: {
+            ...this.state.row,
+            password: e.target.value
+          }
+
+        });
+        break;
+      case "email":
+        this.setState({
+          row: {
+            ...this.state.row,
+            email: e.target.value
+          }
+
+        });
+        break;
+      case "jobtitle":
+        this.setState({
+          row: {
+            ...this.state.row,
+            jobtitle: e.target.value
+          }
+
+        });
+        break;
+      case "phone":
+        if (e.target.value.length === 10 && !isNaN(Number(e.target.value))) {
+          this.setState({
+            invalid: false
+
+          });
+        } else {
+
+          this.setState({
+            invalid: true
+
+          });
+
+        }
+        this.setState({
+          row: {
+            ...this.state.row,
+            phone: e.target.value
+          }
+
+        });
+        break;
+      default:
+    }
+  };
+  async update(row) {
+    await this.setState({
+      row
+    })
+    this.toggle();
+  }
   render() {
-    const columns = config.columns;
+    const columns = [{
+      dataField: 'username',
+      text: 'Username',
+      formatter: (cellCnotent, row) => {
+        return (
+          <per style={{
+            fontSize: "20px", maxWidth: "10px",
+            wordWrap: "break-word"
+          }}>{row.username}</per>
+        )
+      }
+    },
+    {
+      dataField: 'email',
+      text: 'Email',
+      formatter: (cellCnotent, row) => {
+        return (
+          <per style={{
+            fontSize: "20px", maxWidth: "10px",
+            wordWrap: "break-word"
+          }}>{row.email}</per>
+        )
+      }
+    }, {
+      dataField: 'jobtitle',
+      text: 'Job',
+      formatter: (cellCnotent, row) => {
+        return (
+          <per style={{
+            fontSize: "20px", maxWidth: "10px",
+            wordWrap: "break-word"
+          }}>{row.jobtitle}</per>
+        )
+      }
+    }, {
+      dataField: 'phone',
+      text: 'Phone',
+      formatter: (cellCnotent, row) => {
+        return (
+          <per style={{
+            fontSize: "20px", maxWidth: "10px",
+            wordWrap: "break-word"
+          }}>{row.phone}</per>
+        )
+      }
+    }, {
+      dataField: 'active',
+      text: 'active',
+      formatter: (cellCnotent, row) => {
+        if (row.active === 1) {
+          return (
+            <Badge color="success">active</Badge>
+
+          )
+        } else {
+          return (
+            <Badge color="danger">inactive</Badge>
+          )
+        }
+
+        // <per style={{fontSize:"20px", maxWidth:"10px",
+        // wordWrap:"break-word"}}>{row.active}</per>
+
+      }
+    }
+      , {
+      text: 'Control',
+      headerStyle: {
+        width: "130px"
+      },
+      formatter: (cellCnotent, row) => {
+
+        return (
+          <div>
+            <Button color="primary" onClick={() => { this.update(row) }}> <FontAwesome
+              name="edit"
+              style={{ fontSize: "20px" }}
+            /></Button> <Button color="danger" onClick={async () => {
+              await this.props.deleteUserAction({ username: row.username, value: 0 });
+              this.props.getData('user')
+            }}> <FontAwesome
+                name="trash"
+                style={{ fontSize: "20px" }}
+              /></Button>
+          </div>
+
+
+        );
+      }
+    }
+    ];
     let products = this.props.data.items;
-    const form = config.form;
-    const buttons = config.buttons;
 
     return (
       <Dashoard>
         <PHeader PageName="User info" toggle={this.toggle}>
-          <Form data={form} buttons={buttons} add={this.addfun} />
+          <Form add={this.addfun} />
         </PHeader>
 
         <Row>
@@ -82,13 +245,68 @@ class Item extends Component {
           toggle={this.toggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Add user</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Update user</ModalHeader>
           <ModalBody>
-            <Form data={form} buttons={buttons} />
+            <Row form>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Username</Label>
+                  <Input
+                    type="text"
+                    placeholder="Username"
+                    name="name"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.username}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Password</Label>
+                  <Input type="Password" placeholder="password" name="password"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.password}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Email</Label>
+                  <Input type="email" placeholder="Example@mail.com" name="email"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.email}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Job title</Label>
+                  <Input type="text" placeholder="Job title" name="jobtitle"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.jobtitle}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>phone</Label>
+                  <Input type="text" placeholder="09xxxxxxxx" name="phone"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.phone}
+                    invalid={this.state.invalid}
+                  />
+                  <FormFeedback invalid>should include 10 number and have no chares</FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.add}>
-              ADD
+            <Button color="primary" onClick={async () => {
+              this.toggle();
+              await this.props.update(this.state.row);
+              this.props.getData("user");
+            }}>
+              update
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
               Cancel
@@ -106,7 +324,7 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getData, add }, dispatch);
+  return bindActionCreators({ getData, add, update, deleteUserAction }, dispatch);
 };
 export default connect(
   mapStateToProps,

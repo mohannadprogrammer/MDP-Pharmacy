@@ -11,7 +11,8 @@ export const sales = (
 ) => {
   switch (action.type) {
     case "GET_ITEM_TO_SALE":
-      if (action.payload.id) {
+      console.log(action.payload)
+      if (action.payload ){if (action.payload.id) {
         let index = isAddIt(action.payload, state.requist.itemsDetail);
         if (index === -1) {
           if (action.payload.available > 0) {
@@ -30,6 +31,8 @@ export const sales = (
           }
         }
       } else {
+        alert("not found");
+      }}else {
         alert("not found");
       }
       return { ...state };

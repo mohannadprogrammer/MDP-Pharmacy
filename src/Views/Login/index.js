@@ -79,7 +79,12 @@ class Login extends Component {
                 name="password"
                 placeholder="password"
                 onChange={this.setPassword.bind(this)}
-                onKeyPress={this.submit}
+                onKeyPress={(e)=>{
+                  console.log(e.key==="Enter")
+                  if(e.key==="Enter"){
+                    this.submit();
+                  }
+                }}
               />
             </Col>
           </FormGroup>

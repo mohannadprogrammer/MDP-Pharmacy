@@ -28,7 +28,20 @@ export function addItem(item) {
   return axios.post(`${URL}/item/additem`, item)
 
 }
-
+export function updateItem (item){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/item/updateitem`, item)
+}
+export function deleteItem(id){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/item/deleteitem`, id)
+}
 //
 export function addUser(user) {
 
@@ -39,6 +52,21 @@ export function addUser(user) {
   return axios.post(`${URL}/user/register`, user)
 
 }
+export function updateUser (user){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/user/update`, user)
+}
+export function deleteUser(user){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/user/changUserStatus`, user)
+}
+//Store api 
 export function addStore(store) {
 
   axios.defaults.headers = {
@@ -48,7 +76,21 @@ export function addStore(store) {
   return axios.post(`${URL}/store/addstore`, store)
 
 }
-
+export function updateStore (store){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/store/update`, store)
+}
+export function deleteStore (storeid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/store/delete`, storeid)
+}
+// supplier api process 
 export function addSupplier(supplier) {
 
   axios.defaults.headers = {
@@ -57,6 +99,20 @@ export function addSupplier(supplier) {
   }
   return axios.post(`${URL}/supplier/addsupplier`, supplier)
 
+}
+export function updateSupplier (supplier){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/supplier/update`, supplier)
+}
+export function deleteSupplier (supplier){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/supplier/deletesupplier`, supplier)
 }
 //get   item for get items that in spacific store and with bar code 
 export function getItemForSales(search) {
@@ -137,3 +193,4 @@ export function stockStatus (storeid){
   }
   return axios.post(`${URL}/report/stockStatus`, storeid)
 }
+

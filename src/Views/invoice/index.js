@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
 import Form from "../../components/Forms/addInvoice";
 import PHeader from "../../components/PHeader";
-
 import {
   Button,
   Modal,
@@ -12,12 +10,9 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
-
 import config from "./config";
-
 import { connect } from 'react-redux'
 import { getData } from '../../actions/itemsAction'
-
 import { bindActionCreators } from 'redux'
 class Item extends Component {
   constructor(props) {
@@ -39,9 +34,7 @@ class Item extends Component {
 
   render() {
     const form = config.form;
-    const buttons = config.buttons;
-
-    
+    const buttons = config.buttons;    
     return (
       <Dashoard>
         <PHeader PageName="add Invoice" toggle={this.toggle} >
