@@ -67,6 +67,7 @@ class UserForm extends Component {
     this.props.getData("store");
     this.props.getData("item");
     this.props.getData("supplier");
+    this.props.getData("unit");
   }
   add2Invoice = async () => {
     console.log(this.state.temp);
@@ -111,6 +112,7 @@ class UserForm extends Component {
           id: "",
           price: 0,
           quantity: 0,
+          entryunit:"",
           expiredate: "",
           visible: false,
           errmsg: "select item and complete form to add to invoice "
@@ -119,7 +121,9 @@ class UserForm extends Component {
         storeid: "",
         supplierid: "",
         itemsDetail: [
-        ], complete: true
+        ],visible: false,
+        complete: false,
+        errmsg: ""
       });
     } else {
       var errmsg = "";
@@ -156,13 +160,15 @@ class UserForm extends Component {
       case "items":
         if (e.target.value != -1) {
           let name = this.props.data.items.items.find(o => o.id == e.target.value).generalname;
+          let entry = this.props.data.items.items.find(o => o.id == e.target.value).entryunit;
           console.log(name);
           this.setState({
             ...this.state,
             temp: {
               ...this.state.temp,
               id: e.target.value,
-              name: name
+              name: name,
+              entryunit:entry
             }
           });
         } else {
@@ -180,7 +186,7 @@ class UserForm extends Component {
       case "price":
         this.setState({
           ...this.state,
-          temp: { ...this.state.temp, price: e.target.value * this.state.temp.quantity }
+          temp: { ...this.state.temp, price: e.target.value }
         });
         break;
 
@@ -205,12 +211,20 @@ class UserForm extends Component {
     const supplier = this.props.data.items.suppliers;
     const store = this.props.data.items.stores;
     const items = this.props.data.items.items;
+    const units = this.props.data.items.units;
     const  columns = [{
       dataField: 'name',
       text: 'product'
     }, {
-      dataField: 'quantity',
-      text: 'quantity'
+      text: 'quantity',
+      formatter:(cellContent,row)=>{
+        console.log(row)
+        return (
+          <div>
+            {row.quantity +" "+ units.find(o=>o.id===row.entryunit).name  }
+          </div>
+        )
+      }
     }, {
       dataField: 'price',
       text: 'price'
@@ -227,7 +241,11 @@ class UserForm extends Component {
         return (
           <div>
             <Button color="danger" onClick={async () => {
-             
+              var temp = this.state.itemsDetail;
+              await temp.splice(temp.indexOf(row),1);
+              this.setState({
+                  itemsDetail:temp
+              })
             }}> <FontAwesome
                 name="trash"
                 style={{ fontSize: "20px" }}

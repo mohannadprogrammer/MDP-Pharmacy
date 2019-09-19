@@ -29,7 +29,6 @@ import {bindActionCreators} from 'redux'
 
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import { async } from "q";
 
 class Item extends Component {
   constructor(props) {
@@ -116,19 +115,43 @@ class Item extends Component {
     const columns = [
       {
         dataField: "name",
-        text: "Name"
+        text: "Name",
+        formatter:(cellCnotent,row)=>{
+          return(
+            <per style={{fontSize:"20px", maxWidth:"10px",
+            wordWrap:"break-word"}}>{row.name}</per>
+          )
+        }
       },
       {
         dataField: "email",
-        text: "Email"
+        text: "Email",
+        formatter:(cellCnotent,row)=>{
+          return(
+            <per style={{fontSize:"20px", maxWidth:"10px",
+            wordWrap:"break-word"}}>{row.email}</per>
+          )
+        }
       },
       {
         dataField: "address",
-        text: "Address"
+        text: "Address",
+        formatter:(cellCnotent,row)=>{
+          return(
+            <per style={{fontSize:"20px", maxWidth:"10px",
+            wordWrap:"break-word"}}>{row.address}</per>
+          )
+        }
       },
       {
         dataField: "phone",
-        text: "Phone"
+        text: "Phone",
+        formatter:(cellCnotent,row)=>{
+          return(
+            <per style={{fontSize:"20px", maxWidth:"10px",
+            wordWrap:"break-word"}}>{row.phone}</per>
+          )
+        }
       },
       {
         dataField: "updateduser",

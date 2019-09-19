@@ -204,6 +204,8 @@ submit = e => {
                         <option key={i} value ={store.id}>{store.name}</option>
                     )
                 })}
+                <option>add new unit..</option>
+
                 </Input>
             </FormGroup>
           </Col>

@@ -8,7 +8,9 @@ import Items from "./Views/Item"
 import Stores from "./Views/Stores"
 import Users from "./Views/User"
 import suppliers from "./Views/supplier"
+import Unit from "./Views/unit"
 import Stock from "./Views/stock"
+import Permission from "./Views/Permission"
 import Buy from "./Views/invoice"
 import manageInvoice from "./Views/allInvoice"
 import invoiceDetail from "./Views/invoiceDetail"
@@ -30,6 +32,8 @@ class router extends React.Component {
                 <Route path="/buy" exact component={Buy} />
                 <Route path="/manageInvoice" exact component={manageInvoice} />
                 <Route path="/items" exact component={Items} />
+                <Route path="/permission" exact component={Permission} />
+                <Route path="/unit" exact component={Unit} />
                 <Route path="/stores" exact component={Stores} />
                 <Route path="/suppliers" exact component={suppliers} />
                 <Route path="/users" exact component={Users} />

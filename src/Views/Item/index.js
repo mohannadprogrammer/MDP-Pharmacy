@@ -132,6 +132,9 @@ class Item extends Component {
     this.toggle();
   }
   render() {
+    
+    let products = this.props.data.items;
+    const unit=this.props.data.units;
     const columns = [{
       dataField: 'barcode',
       text: 'Barcode',
@@ -179,7 +182,7 @@ class Item extends Component {
         formatter:(cellCnotent,row)=>{
           return(
             <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.salsunit}</per>
+            wordWrap:"break-word"}}>{unit.find(o=>o.id===row.salsunit).name}</per>
           )
         }
       }, {
@@ -188,7 +191,7 @@ class Item extends Component {
         formatter:(cellCnotent,row)=>{
           return(
             <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.entryunit}</per>
+            wordWrap:"break-word"}}>{unit.find(o=>o.id===row.entryunit).name}</per>
           )
         }
       }, {
@@ -250,8 +253,6 @@ class Item extends Component {
           }
       }
     ];
-    let products = this.props.data.items;
-    const unit=this.props.data.units;
 
 
     return (

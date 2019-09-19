@@ -7,7 +7,8 @@ import {
 } from "../../../actions/reportAction";
 import { bindActionCreators } from "redux";
 
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
+import { Col, Row, FormGroup, Input, Label, Button,Alert} from "reactstrap";
+import FontAwesome from "react-fontawesome"
 
 class UserForm extends Component {
   constructor(props) {
@@ -16,8 +17,33 @@ class UserForm extends Component {
       invoicetype:this.props.type,
       startDate: "",
       endDate: "",
-      storeid: ""
+      storeid: "", 
+      visible: false,
+      errmsg: ""
     };
+  }
+  validation(){
+    var {storeid ,startDate ,endDate }=this.state
+    if (storeid===""
+    ||startDate===""
+    || endDate===""
+          ){
+            this.setState({
+              visible:true,
+              errmsg:"complite information "
+            });
+            return false
+          }else{
+            this.setState({
+              visible:false
+            });
+          }
+  
+          return true
+    
+  }
+  onDismiss = () => {
+    this.setState({ visible: false });
   }
   componentDidMount() {
     this.props.getData("store");
@@ -27,8 +53,10 @@ class UserForm extends Component {
   }
 
   submit = e => {
+    if(this.validation()){
     this.props.stockMovementAction(this.state);
-    console.log(this.props.data);
+
+    }
   };
   setData = e => {
     switch (e.target.name) {
@@ -105,6 +133,19 @@ class UserForm extends Component {
             </FormGroup>
           </Col>
         </Row>
+        <Alert
+            color="danger"
+            isOpen={this.state.visible}
+            toggle={this.onDismiss}
+          >
+            {this.state.errmsg + "  "}
+            <FontAwesome
+              name="thumbs-down"
+              style={{
+                fontSize: "20px"
+              }}
+            />
+          </Alert>
         <Button onClick={this.submit.bind()}>filter</Button>
       </div>
     );

@@ -90,6 +90,30 @@ export function deleteStore (storeid){
   }
   return axios.post(`${URL}/store/delete`, storeid)
 }
+//units api 
+export function addUnit(unit) {
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/item/addunit`, unit)
+
+}
+export function updateUnit (store){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/item/updateunit`, store)
+}
+export function deleteUnit (storeid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/store/delete`, storeid)
+}
 // supplier api process 
 export function addSupplier(supplier) {
 
@@ -193,4 +217,6 @@ export function stockStatus (storeid){
   }
   return axios.post(`${URL}/report/stockStatus`, storeid)
 }
+
+
 

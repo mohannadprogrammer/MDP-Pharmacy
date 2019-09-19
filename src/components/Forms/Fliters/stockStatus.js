@@ -4,23 +4,45 @@ import { getData } from "../../../actions/itemsAction";
 import { stockStatusAction } from "../../../actions/reportAction";
 import { bindActionCreators } from "redux";
 
-import { Col, Row, FormGroup, Input, Label, Button } from "reactstrap";
-
+import { Col, Row, FormGroup, Input, Label, Button ,Alert} from "reactstrap";
+import FontAwesome from "react-fontawesome"
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-	    "storeid":0
-     
+	    "storeid":"",
+      visible: false,
+      errmsg: ""
     };
   }
   componentDidMount() {
     this.props.getData("store");
   }
+  validation(){
+    var {storeid  }=this.state
+    if (storeid===""
+          ){
+            this.setState({
+              visible:true,
+              errmsg:"select store "
+            });
+            return false
+          }else{
+            this.setState({
+              visible:false
+            });
+          }
   
+          return true
+    
+  }
+  onDismiss = () => {
+    this.setState({ visible: false });
+  }
   submit = e => {
-     this.props.stockStatusAction(this.state)
+    if(this.validation())
+     {this.props.stockStatusAction(this.state)}
   };
   setData = e => {
     switch (e.target.name) {
@@ -48,7 +70,7 @@ class UserForm extends Component {
                 name="storeid"
                 onChange={this.setData.bind()}
               >
-                <option placeholder="select :">select please</option>
+                <option placeholder="select :" value="">select please</option>
                 <hr />
                 {store.map((store, i) => {
                   return (
@@ -62,6 +84,19 @@ class UserForm extends Component {
           </Col>
          
         </Row>
+        <Alert
+            color="danger"
+            isOpen={this.state.visible}
+            toggle={this.onDismiss}
+          >
+            {this.state.errmsg + "  "}
+            <FontAwesome
+              name="thumbs-down"
+              style={{
+                fontSize: "20px"
+              }}
+            />
+          </Alert>
         <Button onClick={this.submit.bind()}>filter</Button>
 
       </div>

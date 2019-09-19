@@ -79,6 +79,11 @@ class Dashboard extends Component {
               icon: "database"
             },
             {
+              name: "units",
+              link: "/unit",
+              icon: "database"
+            },
+            {
               name: "Users",
               link: "/users",
               icon: "id-card"
@@ -86,6 +91,11 @@ class Dashboard extends Component {
             {
               name: "Suppliers",
               link: "/suppliers",
+              icon: "database"
+            },
+            {
+              name: "Permission",
+              link: "/permission",
               icon: "database"
             }
           ]
@@ -98,9 +108,7 @@ class Dashboard extends Component {
     const items = this.state.item;
     return (
       <div className="page-wrapper">
-        {/* <ul>
-                <li>mohannad</li>
-            </ul> */}
+        
 
         <Nav className="ml-auto" navbar>
           {items.map((item, i) => (
