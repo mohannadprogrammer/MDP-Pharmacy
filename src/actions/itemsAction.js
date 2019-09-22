@@ -26,6 +26,9 @@ export async function getData(type) {
     case "supplier":
       actionName = "GET_SUPPLIERS";
       break;
+    case "permission":
+          actionName = "GET_PERMISSION";
+          break;
     default:
       break;
     

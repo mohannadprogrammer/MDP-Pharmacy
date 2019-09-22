@@ -122,7 +122,7 @@ class UserForm extends Component {
         supplierid: "",
         itemsDetail: [
         ],visible: false,
-        complete: false,
+        complete: true ,
         errmsg: ""
       });
     } else {

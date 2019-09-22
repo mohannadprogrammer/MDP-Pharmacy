@@ -6,6 +6,13 @@ export default (
     units: [],
     stores: [],
     suppliers: [],
+    permission:[{"name": "first",
+    "dashboard": true,
+    "sales": true,
+    "purchase": true,
+    "manageinvoice": true,
+    "reports": true,
+    "setting": true}],
     invoiceDetails: {
       isreturned:false,
       id: "",
@@ -31,6 +38,9 @@ export default (
           return { ...state};
     case "GET_SUPPLIERS":
       return { ...state, suppliers: action.payload };
+      case "GET_PERMISSION":
+        // return { ...state};
+        return { ...state, permission: action.payload };
     case "ADD_USER":
       // const { newusername, ...rest } = action.payload;
       // const user = {

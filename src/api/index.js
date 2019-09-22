@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const URL = "http://172.18.130.102:3000";
+const URL = "http://172.18.130.100:3000";
 
 export function login(username, password) {
   console.log(`${URL} /admin/login`)
@@ -90,6 +90,31 @@ export function deleteStore (storeid){
   }
   return axios.post(`${URL}/store/delete`, storeid)
 }
+//permission api 
+export function addPermission(permission) {
+
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/permission/create`, permission)
+
+}
+export function updatePermission (permission){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/permission/update`, permission)
+}
+export function deletePermission (permissionid){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/permission/delete`, permissionid)
+}
+
 //units api 
 export function addUnit(unit) {
 
