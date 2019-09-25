@@ -14,6 +14,8 @@ import FontAwesome from "react-fontawesome";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    const permission =JSON.parse(localStorage.getItem('permission'));
+    
     this.state = {
       acctive: true,
       item: [
@@ -21,16 +23,19 @@ class Dashboard extends Component {
           name: "Dashboard",
           link: "/dashboard",
           icon: "bar-chart",
+          show: permission.dashboard,
           option: []
         },
         {
           name: "Sales",
           link: "/Sales",
+          show: permission.sales,
           icon: "calculator",
           option: []
         },
         {
           name: "Buy",
+          show: permission.purchase,
           link: "/buy",
           icon: "cog",
           option: []
@@ -38,12 +43,14 @@ class Dashboard extends Component {
 
         {
           name: "Manage Invoice",
+          show: permission.manageinvoice,
           link: "/manageInvoice",
           icon: "cog",
           option: []
         },
         {
           name: "Reports",
+          show: permission.reports,
           
           icon: "database",
           option: [
@@ -66,6 +73,7 @@ class Dashboard extends Component {
         },
         {
           name: "Setting",
+          show: permission.setting,
           icon: "cog",
           option: [
             {
@@ -112,15 +120,15 @@ class Dashboard extends Component {
 
         <Nav className="ml-auto" navbar>
           {items.map((item, i) => (
-            <UncontrolledDropdown className="sideItem" nav inNavbar>
-              <DropdownToggle style={{ color: "black" }} nav>
-              <h7><Link to={item.link} style={{color:"white",fontWeight:"bold"}}>
+            <UncontrolledDropdown className="sideItem" nav inNavbar hidden={!item.show}>
+              <DropdownToggle style={{ color: "black" }} nav >
+              <h6><Link to={item.link} style={{color:"white",fontWeight:"bold"}}>
                   <FontAwesome
                     name={item.icon}
                     style={{ width: "32px", height: "32px" ,color:"#00A697"}}
                   />
                    {item.name} 
-                </Link></h7>
+                </Link></h6>
               </DropdownToggle>
 
               <DropdownMenu right>

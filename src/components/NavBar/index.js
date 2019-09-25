@@ -97,7 +97,7 @@ class NavBar extends Component {
                   ))}
 
                   {/* <DropdownItem>Reset</DropdownItem> */}
-                  <Button style={{width:"100%", height:"50px"}}>load more ></Button>
+                  <Link to="/handleNotification"><Button style={{width:"100%", height:"50px"}}>Handle It</Button></Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <UncontrolledDropdown>

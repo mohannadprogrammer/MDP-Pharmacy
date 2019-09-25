@@ -1,8 +1,9 @@
-import { getDatas, addUser ,deleteUser,updateItem} from "../api";
+import { getDatas, addUser ,disactiveUser,updateItem} from "../api";
 
 
-export function getData(type) {
-  const data = getDatas(type).then(res => {
+
+export async function getData(type) {
+  const data =await getDatas(type).then(res => {
     console.log("------------------------------------");
     console.log(res);
     return res.data.data;
@@ -14,8 +15,8 @@ export function getData(type) {
 }
 
 
-export function add(user) {
-  addUser(user).then(res => {
+export async function add(user) {
+  await addUser(user).then(res => {
     console.log(res)
   })
   return {
@@ -40,7 +41,7 @@ export async function update(user){
 }
 
 export  async function deleteUserAction (user){
-  await deleteUser(user).then(res=>{
+  await disactiveUser(user).then(res=>{
 
   })
   return {

@@ -21,8 +21,16 @@ class Login extends Component {
     let res = await login(this.state.username, this.state.password)
       .then(res => {
         // console.log(res.data.user.token);
-
+        let {dashboard ,sales,purchase,manageinvoice,reports,setting }=res.data.user;
         localStorage.setItem("token", res.data.user.token);
+        localStorage.setItem("permission", JSON.stringify({
+          dashboard,
+          sales,
+          purchase,
+          manageinvoice,
+          reports,
+          setting
+        }));
         return res.data;
       })
       .catch(err => {

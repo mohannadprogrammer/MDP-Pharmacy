@@ -2,8 +2,8 @@ import { addSupplier , updateSupplier ,deleteSupplier, deleteStore} from "../api
 
 
 
-export function add(supplier) {
-    addSupplier(supplier).then(res => {
+export  async function add(supplier) {
+  await addSupplier(supplier).then(res => {
     console.log(supplier)
   })
   return {

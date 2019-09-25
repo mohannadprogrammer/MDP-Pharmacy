@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button} from "reactstrap";
+import { Row, Col, Button, Badge } from "reactstrap";
 import "./index.css";
 import FontAwesome from "react-fontawesome";
 
@@ -24,35 +24,45 @@ class PHeader extends Component {
         <Col sm={12} className="title">
           <Row>
             <Col sm={10}>
-              <font style={{fontSize:"25px",fontWeight:"bold"}} >{data.PageName}</font>
+              <font style={{ fontSize: "25px", fontWeight: "bold" }} >{data.PageName}</font>
+              {
+                data.PageName === "Invioce Details" ?
+                  this.props.isReturn ?
+                    (<h3> <Badge color="danger"> is Rejected </Badge></h3>)
+                    :
+                    (<h3> <Badge color="info">Info</Badge></h3>)
+
+                  : ""
+
+              }
             </Col>
             <Col sm={2}>
               {data.PageName === "Inovice" ||
-              data.PageName === "Sales" ||
-              data.PageName === "Stock" ||
-              data.PageName === "Invioce Details" ||
-              data.PageName === "Store Moviement"? (
-                data.PageName === "Invioce Details" || this.props.isReturn ? (
+                data.PageName === "Sales" ||
+                data.PageName === "Stock" ||
+                data.PageName === "Invioce Details" ||
+                data.PageName === "Store Moviement" ? (
+                 ( data.PageName === "Invioce Details" && !this.props.isReturn) ? (
+                    <Button
+                      color="primary"
+                      onClick={this.props.toggle}
+                      style={{ marginBottom: "1rem", width: "100%" }}
+                    >
+                      Reject 
+                  </Button>
+                  ) : null
+                ) : (
                   <Button
                     color="primary"
-                    onClick={this.props.toggle}
-                    style={{  marginBottom: "1rem", width: "100%" }}
+                    id="toggler"
+                    style={{ float: "right", margin: "0", height: "40px", width: "72px" }}
                   >
-                    return invoice
+                    <FontAwesome
+                      name="plus"
+                      style={{ fontSize: "30px" }}
+                    />
                   </Button>
-                ) : null
-              ) : (
-                <Button
-                  color="primary"
-                  id="toggler"
-                  style={{float:"right", margin: "0",height:"40px", width: "72px" }}
-                >
-                  <FontAwesome
-                    name="plus"
-                    style={{  fontSize: "30px"  }}
-                  />
-                </Button>
-              )}
+                )}
             </Col>
           </Row>
           <Col>{this.props.children}</Col>

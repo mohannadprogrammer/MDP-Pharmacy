@@ -59,7 +59,7 @@ export function updateUser (user){
   }
   return axios.post(`${URL}/user/update`, user)
 }
-export function deleteUser(user){
+export function disactiveUser(user){
   axios.defaults.headers = {
     ContentType: "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -229,10 +229,16 @@ export function stockMovement (filters){
 
 export function stockMovementDownload (filters){
   axios.defaults.headers = {
+    responseType: 'arraybuffer',
     ContentType: "application/pdf",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   }
-  return axios.post(`${URL}/report/movmentReport/download`, filters)
+  return axios.post(`${URL}/report/movmentReport/download`, filters,{
+    responseType: 'arraybuffer',
+    headers: {
+        Accept: 'application/pdf',
+    },
+  })
 }
 
 export function stockStatus (storeid){
@@ -241,6 +247,19 @@ export function stockStatus (storeid){
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   }
   return axios.post(`${URL}/report/stockStatus`, storeid)
+}
+export function stockStatusDownload (filters){
+  axios.defaults.headers = {
+    responseType: 'arraybuffer',
+    ContentType: "application/pdf",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/report/stockStatus/download`, filters,{
+    responseType: 'arraybuffer',
+    headers: {
+        Accept: 'application/pdf',
+    },
+  })
 }
 
 

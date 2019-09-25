@@ -26,8 +26,8 @@ export async function update(store){
   }
 }
 
-export function deletePermissionAction(storeid){
-    deletePermission({id:storeid}).then(res=>{
+export async function deletePermissionAction(storeid){
+    await deletePermission({id:storeid}).then(res=>{
 
   })
   return {

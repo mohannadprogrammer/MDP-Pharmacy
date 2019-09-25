@@ -1,4 +1,7 @@
-module.exports = {
+import React from 'react'
+import {Button} from "reactstrap"
+import FontAwesome from 'react-fontawesome'
+const con = {
     form: [
         {
             //input props   
@@ -48,6 +51,20 @@ module.exports = {
         {
             dataField: "trandate",
             text: "Date"
+        },
+        {
+            
+            text: "Control",
+            formatter: (cellCnotent, row) => {
+                return (
+                        <Button color="primary" onClick={()=>{}}> <FontAwesome
+                    name="edit"
+                    style={{  fontSize: "20px"  }}
+                  /></Button>
+                  
+                );
+              }
         }
     ]
 }
+export default con;

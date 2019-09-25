@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../../actions/itemsAction";
-import { stockStatusAction } from "../../../actions/reportAction";
+import { stockStatusAction ,stockStatustDownloadAction } from "../../../actions/reportAction";
 import { bindActionCreators } from "redux";
 
 import { Col, Row, FormGroup, Input, Label, Button ,Alert} from "reactstrap";
@@ -98,6 +98,15 @@ class UserForm extends Component {
             />
           </Alert>
         <Button onClick={this.submit.bind()}>filter</Button>
+        <Button  style ={{
+          float:"right"
+        }}onClick={()=>
+        {
+          if(this.validation()){
+          this.props.stockStatustDownloadAction(this.state);
+        }
+        }} color="primary">print</Button>
+
 
       </div>
     );
@@ -112,7 +121,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { stockStatusAction, getData },
+    { stockStatusAction, getData ,stockStatustDownloadAction},
     dispatch
   );
 };

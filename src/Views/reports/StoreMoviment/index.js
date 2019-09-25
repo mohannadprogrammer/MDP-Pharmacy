@@ -55,7 +55,6 @@ class Item extends Component {
               keyField="tradname"
               data={row.items}
               columns={itemsColumns}
-              expandRow={expandRow}
               noDataIndication="this invoice have no items in it ."
             />
         </div>

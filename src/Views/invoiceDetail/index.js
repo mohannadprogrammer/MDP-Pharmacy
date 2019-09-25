@@ -21,9 +21,10 @@ import {
 import config from "./config";
 
 import { connect } from "react-redux";
-import { getInvoiceDetailsAction ,disposeInvoiceAction } from "../../actions/invoiceAction";
+import { getInvoiceDetailsAction, disposeInvoiceAction } from "../../actions/invoiceAction";
 import { bindActionCreators } from "redux";
 import Pdf from "react-to-pdf";
+import { async } from "q";
 const ref = React.createRef();
 
 class Item extends Component {
@@ -38,9 +39,9 @@ class Item extends Component {
         "creater": "",
         "name": " ",
         "invoiceItems": [
-            {
-                
-            }
+          {
+
+          }
         ]
       },
       modal: false
@@ -55,35 +56,34 @@ class Item extends Component {
     }));
   }
   componentWillMount() {
-    console.log(this.props.match.params.id);
     this.props.getInvoiceDetailsAction(this.props.match.params.id);
-    
+
   }
   render() {
     console.log(
       this.props.data.items.invoiceDetails,
       "*********************************"
     );
-    
+
     const columns = config.columns;
-    let products =this.props.data.items.invoiceDetails.invoiceItems;
+    let products = this.props.data.items.invoiceDetails.invoiceItems;
     const res = this.props.data.items.invoiceDetails;
     return (
       <Dashoard>
-        <Pdf targetRef={ref} filename="div-blue.pdf">
+        {/* <Pdf targetRef={ref} filename="div-blue.pdf">
           {({ toPdf }) => (
             <Button onClick={toPdf} color="success">
               print pdf
             </Button>
           )}
-        </Pdf>
+        </Pdf> */}
         <div
           ref={ref}
           style={{ height: "100%", width: "100%" }}
           className="container"
         >
           <br />
-          <PHeader PageName="Invioce Details" toggle={this.toggle} isReturn={res.isReturn}>
+          <PHeader PageName="Invioce Details" toggle={this.toggle} isReturn={res.isreturned}>
             <hr />
             <Row>
               <Col sm={6}>
@@ -91,7 +91,7 @@ class Item extends Component {
               </Col>
               <Col sm={6}>
                 <h5>creater : {res.creater}</h5>
-                
+
               </Col>
               <Col sm={6}>
                 <h5>Store : {res.name}</h5>
@@ -126,11 +126,12 @@ class Item extends Component {
             <p>Are Sure that u wont to return this invoice ? </p>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={()=>{
-              console.log(this.state.invoiceDetails.id)
-              this.props.disposeInvoiceAction(this.props.data.items.invoiceDetails.id)
+            <Button color="primary" onClick={async() => {
+              await this.props.disposeInvoiceAction(this.props.data.items.invoiceDetails.id)
+              this.props.getInvoiceDetailsAction(this.props.match.params.id);
+
               this.toggle();
-              }}>
+            }}>
               Yes
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>

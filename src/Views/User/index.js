@@ -171,6 +171,16 @@ class Item extends Component {
         )
       }
     }, {
+      text: 'permission',
+      formatter: (cellCnotent, row) => {
+        return (
+          <per style={{
+            fontSize: "20px", maxWidth: "10px",
+            wordWrap: "break-word"
+          }}>{row.name}</per>
+        )
+      }
+    }, {
       dataField: 'active',
       text: 'active',
       formatter: (cellCnotent, row) => {
@@ -203,8 +213,13 @@ class Item extends Component {
               name="edit"
               style={{ fontSize: "20px" }}
             /></Button> <Button color="danger" onClick={async () => {
-              await this.props.deleteUserAction({ username: row.username, value: 0 });
-              this.props.getData('user')
+              if (row.active===1)
+              {await this.props.deleteUserAction({ name: row.username, value: 0 });
+            }else{
+              await this.props.deleteUserAction({ name: row.username, value: 1 });
+
+            }
+              this.props.getData('users')
             }}> <FontAwesome
                 name="trash"
                 style={{ fontSize: "20px" }}
@@ -304,7 +319,7 @@ class Item extends Component {
             <Button color="primary" onClick={async () => {
               this.toggle();
               await this.props.update(this.state.row);
-              this.props.getData("user");
+              this.props.getData("users");
             }}>
               update
             </Button>{" "}

@@ -37,13 +37,8 @@ class Item extends Component {
       modal: !prevState.modal
     }));
   }
-  componentDidMount() {
-    console.log(this.props.match.params.id)
-    // this.props.getStockData(this.props.match.params.id);
-  }
+  
   addfun = (user) => {
-    console.log('collaback')
-    console.log(user)
     this.props.add(user)
   }
   render() {

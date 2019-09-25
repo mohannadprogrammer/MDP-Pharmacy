@@ -21,7 +21,7 @@ class Dashboard extends Component{
         super();
         this.state = {
           response: false,
-          endpoint: "http://172.18.130.108:3000"
+          endpoint: "http://172.18.130.103:3000"
         };
       }
       componentDidMount()  {
@@ -32,7 +32,7 @@ class Dashboard extends Component{
         const { endpoint } = this.state;
         const socket = socketIOClient(endpoint);
         await socket.on("notification", data =>{
-             
+             console.log("data",data)
              for(let i=0;i<data.length;i++){
                 let msg='<h4>';
                  msg=data[i].generalname +" item ";

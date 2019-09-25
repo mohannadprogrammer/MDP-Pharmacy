@@ -14,6 +14,7 @@ import Permission from "./Views/Permission"
 import Buy from "./Views/invoice"
 import manageInvoice from "./Views/allInvoice"
 import invoiceDetail from "./Views/invoiceDetail"
+import handleNotification from "./Views/notification"
 
 
 //report commponents 
@@ -37,12 +38,15 @@ class router extends React.Component {
                 <Route path="/stores" exact component={Stores} />
                 <Route path="/suppliers" exact component={suppliers} />
                 <Route path="/users" exact component={Users} />
+                <Route path="/handleNotification" exact component={handleNotification} />
 
                 <Route path="/stores/storeDetail/:id" exact component={Stock} />
                 <Route path="/invoice/invoiceDetail/:id" exact component={invoiceDetail} />
                 <Route path="/reports/store" exact component={StoreReport} />
                 <Route path="/reports/storemovement" exact component={StoreMovement} />
                 <Route path="/reports/salesReport" exact component={SalesReport} />
+
+
             </Switch>
         );
     }

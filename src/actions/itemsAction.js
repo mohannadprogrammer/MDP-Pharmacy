@@ -1,4 +1,5 @@
 import { getDatas, addItem,updateItem,deleteItem, getStock, getAllInvoic } from "../api";
+import { async } from "q";
 
 export async function getData(type) {
   let data = await getDatas(type).then(res => {
@@ -67,8 +68,8 @@ export async function update(item){
   }
 }
 
-export function deleteItemAction(itemid){
-  deleteItem({id:itemid}).then(res=>{
+export async function deleteItemAction(itemid){
+  await deleteItem({id:itemid}).then(res=>{
 
   })
   return {
@@ -87,7 +88,7 @@ export function getStockData(storeid) {
   };
 }
 
-export function getAllInvoice() {
+export async function getAllInvoice() {
   const invoice = getAllInvoic().then(res => {
     console.log(res);
     return res.data.data;

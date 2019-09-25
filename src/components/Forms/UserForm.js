@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 import { Col, Row, FormGroup, Input, Label, Button ,UncontrolledCollapse ,Modal,ModalHeader,ModalBody,ModalFooter,FormFeedback} from "reactstrap";
-
+import {getData} from '../../actions/itemsAction'
+import {bindActionCreators} from 'redux' 
+import {connect} from 'react-redux'
 
 
 class UserForm extends Component {
@@ -13,12 +15,16 @@ class UserForm extends Component {
         email: "",
         jobtitle: "",
         phone: "",
+        permission:"",
         invalid: false,
         validationModals:false,
         result:false,
         validMsg:""
     };
     this.toggle = this.toggle.bind(this);
+  }
+  componentWillMount(){
+    this.props.getData("permission")
   }
   reset=()=>{
     this.setState({
@@ -36,15 +42,16 @@ class UserForm extends Component {
     }));
   }
   validation(){
-    var {username , password , email , phone ,invalid }=this.state
+    var {username , password , email , phone ,permission,invalid }=this.state
     if (username==="" 
           || password===""
           || email===""
-          || phone==="" ){
+          || phone==="" 
+            || permission==="" ){
             
             this.setState({
               result:false,
-              validMsg:"make sure that you are enter (username , password , email or phone) at least ."
+              validMsg:"make sure that you are enter (username , password , email ,permission or phone) at least ."
             });
             return false
           }else{
@@ -100,6 +107,12 @@ class UserForm extends Component {
           
         });
         break;
+      case "permission":
+          this.setState({
+            permission: e.target.value
+            
+          });
+          break;
       case "phone":
         if(e.target.value.length===10 && !isNaN( Number(e.target.value))){
           this.setState({
@@ -123,6 +136,8 @@ class UserForm extends Component {
     }
   };
   render() {
+    console.log(this.state)
+    const permission = this.props.data.items.permission;
     return (
       <div>
       <UncontrolledCollapse toggler="#toggler">
@@ -177,6 +192,21 @@ class UserForm extends Component {
                 <FormFeedback invalid>should include 10 number and have no chares</FormFeedback>
             </FormGroup>
           </Col>
+          <Col md={3}>
+            <FormGroup>
+              <Label>permissions</Label>
+              <Input type="select" placeholder="1" name="permission"
+                 onChange={this.setData.bind()}
+                 value={this.state.permission}>
+                <option value="">select permissions </option>
+                {permission.map((permission,i)=>{
+                    return (
+                        <option value ={permission.id}>{permission.name}</option>
+                    )
+                })}
+                </Input>
+            </FormGroup>
+          </Col>
         </Row>
         <Row>
           <Col md={1} ><Button color="success" onClick={this.submit.bind()}>save</Button></Col>
@@ -195,5 +225,14 @@ class UserForm extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+      data: state
+  }
+}
 
-export default UserForm;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getData
+  },dispatch)
+}
+export default connect(mapStateToProps,mapDispatchToProps) (UserForm);

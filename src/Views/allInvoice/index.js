@@ -9,31 +9,30 @@ import { Redirect } from "react-router-dom";
 import {
   Row,
   Col,
+  Button
 } from "reactstrap";
 
+import FontAwesome from 'react-fontawesome'
 
 //import redux states and actions 
 import { connect } from 'react-redux'
-import { getAllInvoice ,getData} from '../../actions/itemsAction'
+import { getAllInvoice, getData } from '../../actions/itemsAction'
 import { bindActionCreators } from 'redux'
 
 //immport configration json .
-import config from "./config";
 class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      id:"",
-      row:{}
+      id: "",
+      row: {}
     };
 
     this.toggle = this.toggle.bind(this);
   }
   componentDidMount() {
     this.props.getAllInvoice();
-    console.log(this.props)
-    console.log("*($*$($($($($$")
   }
   toggle() {
     this.setState(prevState => ({
@@ -47,18 +46,44 @@ class Item extends Component {
         <Redirect to={"/invoice/invoiceDetail/" + this.state.id} />
       )
     }
-    const rowEvents = {
-      onClick: (e, row, rowIndex) => {
-        console.log(row)
-        this.setState({
-          id: row.id,
-          row:row
-        })
+
+    const columns = [
+      {
+        dataField: 'id',
+        text: 'ID'
+      },
+      {
+        dataField: 'transtype',
+        text: 'transaction type'
+      }, {
+        dataField: 'creater',
+        text: 'Creater'
+      },
+      {
+        dataField: "trandate",
+        text: "Date"
+      },
+      {
+
+        text: "Control",
+        formatter: (cellCnotent, row) => {
+          return (
+            <Button color="primary" onClick={() => {
+              this.setState({
+                id: row.id,
+                row: row
+              })
+            }}> <FontAwesome
+                name="edit"
+                style={{ fontSize: "20px" }}
+              /></Button>
+
+          );
+        }
       }
-    };
-    const columns = config.columns;
+    ];
     let products = this.props.data.items.invoice;
-    
+
     return (
       <Dashoard>
         <PHeader PageName="Inovice" toggle={this.toggle} />
@@ -70,12 +95,11 @@ class Item extends Component {
               keyField="id"
               data={products}
               columns={columns}
-              rowEvents={rowEvents}
               noDataIndication="Table is Empty"
               striped
               hover
               condensed
-              pagination={ paginationFactory() }
+              pagination={paginationFactory()}
             />
           </Col>
         </Row>
@@ -90,7 +114,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getAllInvoice,getData
+    getAllInvoice, getData
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Item);

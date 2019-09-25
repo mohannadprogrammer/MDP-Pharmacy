@@ -16,16 +16,17 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,FormGroup, Input, Label
+  FormFeedback,
+  ModalFooter, FormGroup, Input, Label
 } from "reactstrap";
 
 import config from "./config";
 
 
-import {connect} from 'react-redux'
-import {getData} from '../../actions/itemsAction'
-import {add ,update,deleteSupplierAction} from '../../actions/supplierAction'
-import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
+import { getData } from '../../actions/itemsAction'
+import { add, update, deleteSupplierAction } from '../../actions/supplierAction'
+import { bindActionCreators } from 'redux'
 
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -35,7 +36,8 @@ class Item extends Component {
     super(props);
     this.state = {
       modal: false,
-      row:{}
+      row: {},
+
     };
 
     this.toggle = this.toggle.bind(this);
@@ -46,7 +48,7 @@ class Item extends Component {
       modal: !prevState.modal
     }));
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.getData("supplier");
   }
   addfun = async (supplier) => {
@@ -55,55 +57,74 @@ class Item extends Component {
     await this.props.add(supplier)
     this.props.getData("supplier");
   }
-  
+
   setData = e => {
     switch (e.target.name) {
       case "name":
         this.setState({
-          row:{
+          row: {
 
-          
+
             ...this.state.row,
-            name: e.target.value}
-          
+            name: e.target.value
+          }
+
         });
         break;
       case "address":
         this.setState({
-          row:{
+          row: {
             ...this.state.row,
-            address: e.target.value}
-          
+            address: e.target.value
+          }
+
         });
         break;
       case "email":
         this.setState({
-          row:{
+          row: {
             ...this.state.row,
-            email: e.target.value}
-          
+            email: e.target.value
+          }
+
         });
         break;
-        case "accnum":
+      case "accnum":
         this.setState({
-          row:{
+          row: {
             ...this.state.row,
-            accnum: e.target.value}
-          
+            accnum: e.target.value
+          }
+
         });
         break;
       case "phone":
+        if (e.target.value.length === 10 && !isNaN(Number(e.target.value))) {
+          this.setState({
+            invalid: false
+
+          });
+        } else {
+
+          this.setState({
+            invalid: true
+
+          });
+
+        }
         this.setState({
-          row:{
+          row: {
             ...this.state.row,
-            phone: e.target.value}
-          
+            phone: e.target.value
+          }
+
         });
         break;
+
       default:
     }
   };
-  async update (row){
+  async update(row) {
     console.log("asd")
     await this.setState({
       row
@@ -111,55 +132,88 @@ class Item extends Component {
     this.toggle();
   }
   render() {
-    console.log("alskdflkasdf",this.state.row);
+    console.log("alskdflkasdf", this.state.row);
     const columns = [
       {
         dataField: "name",
+        
         text: "Name",
-        formatter:(cellCnotent,row)=>{
-          return(
-            <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.name}</per>
+        formatter: (cellCnotent, row) => {
+          return (
+            <per style={{
+              fontSize: "20px", maxWidth: "10px",
+              wordWrap: "break-word"
+            }}>{row.name}</per>
           )
         }
       },
       {
         dataField: "email",
         text: "Email",
-        formatter:(cellCnotent,row)=>{
-          return(
-            <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.email}</per>
+        formatter: (cellCnotent, row) => {
+          return (
+            <per style={{
+              fontSize: "20px", maxWidth: "10px",
+              wordWrap: "break-word"
+            }}>{row.email}</per>
           )
         }
       },
       {
         dataField: "address",
         text: "Address",
-        formatter:(cellCnotent,row)=>{
-          return(
-            <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.address}</per>
+        formatter: (cellCnotent, row) => {
+          return (
+            <per style={{
+              fontSize: "20px", maxWidth: "10px",
+              wordWrap: "break-word"
+            }}>{row.address}</per>
           )
         }
       },
       {
         dataField: "phone",
         text: "Phone",
-        formatter:(cellCnotent,row)=>{
-          return(
-            <per style={{fontSize:"20px", maxWidth:"10px",
-            wordWrap:"break-word"}}>{row.phone}</per>
+        formatter: (cellCnotent, row) => {
+          return (
+            <per style={{
+              fontSize: "20px", maxWidth: "10px",
+              wordWrap: "break-word"
+            }}>{row.phone}</per>
           )
         }
       },
       {
+        dataField: "registeduser",
+        text: "Registed User",
+        formatter: (cellCnotent, row) => {
+          return (
+            <per style={{
+              fontSize: "20px", maxWidth: "10px",
+              wordWrap: "break-word"
+            }}>{row.registeduser}</per>
+          )
+        }
+      }, {
         dataField: "updateduser",
-        text: "updateduser"
-      },
-      {
-        dataField: "edit",
-        text: "Edit"
+        text: "Update User",
+        formatter: (cellCnotent, row) => {
+          if (row.updateduser !== null) {
+            return (
+              <per style={{
+                fontSize: "20px", maxWidth: "10px",
+                wordWrap: "break-word"
+              }}>{row.updateduser}</per>
+            )
+          } else {
+            return (
+              <per style={{
+                fontSize: "20px", maxWidth: "10px",
+                wordWrap: "break-word"
+              }}>no one</per>
+            )
+          }
+        }
       },
       {
         text: "Control",
@@ -171,9 +225,9 @@ class Item extends Component {
             <div>
               <Button color="primary" >
                 {" "}
-                <FontAwesome name="edit"  style={{ fontSize: "20px" }}  onClick={()=>{this.update(row)}}/>
+                <FontAwesome name="edit" style={{ fontSize: "20px" }} onClick={() => { this.update(row) }} />
               </Button>{" "}
-              <Button color="danger" onClick={()=>{
+              <Button color="danger" onClick={() => {
                 confirmAlert({
                   title: "delete supplier ?",
                   message: "Are you sure to do this.",
@@ -181,7 +235,7 @@ class Item extends Component {
                     {
                       label: "Yes",
                       onClick: async () => {
-                        console.log("delete")
+                        console.log("delete");
                         await this.props.deleteSupplierAction(row.id);
                         this.props.getData("supplier");
                       }
@@ -191,8 +245,8 @@ class Item extends Component {
                     }
                   ]
                 });
-               
-               
+
+
               }}>
                 {" "}
                 <FontAwesome name="trash" style={{ fontSize: "20px" }} />
@@ -202,14 +256,14 @@ class Item extends Component {
         }
       }
     ];
-    let products =this.props.data.suppliers;
+    let products = this.props.data.suppliers;
     const form = config.form;
     const buttons = config.buttons;
-    
+
     return (
       <Dashoard>
         <PHeader PageName="Supplier info" toggle={this.toggle}  >
-            <Form data={form} buttons={buttons} add={this.addfun} />
+          <Form data={form} buttons={buttons} add={this.addfun} />
         </PHeader>
 
         <Row>
@@ -219,7 +273,7 @@ class Item extends Component {
               keyField="id"
               data={products}
               columns={columns}
-              noDataIndication="Table is Empty" 
+              noDataIndication="Table is Empty"
               striped
               hover
               condensed
@@ -235,60 +289,64 @@ class Item extends Component {
         >
           <ModalHeader toggle={this.toggle}>Add supplier</ModalHeader>
           <ModalBody>
-          <Row form>
-          <Col md={12}>
-            <FormGroup>
-              <Label>Name</Label>
-              <Input
-                type="text"
-                placeholder="name"
-                name="name"
-                onChange={this.setData.bind()}
-                value={this.state.row.name}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <Label>Address</Label>
-              <Input type="text" placeholder="address" name="address"
-                onChange={this.setData.bind()} 
-                value={this.state.row.address}
-                />
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <Label>Email</Label>
-              <Input type="email" placeholder="Example@mail.com"name="email"
-                value={this.state.row.email}
-                onChange={this.setData.bind()} />
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <Label>Account number</Label>
-              <Input type="text" placeholder="Acounnt number"name="accnum"
-                value={this.state.row.accnum}
-                onChange={this.setData.bind()} />
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <Label>Phone</Label>
-              <Input type="text" placeholder="09xxxxxxxx" name="phone"
-                onChange={this.setData.bind()}
-                value={this.state.row.phone}
-                />
-            </FormGroup>
-          </Col>
-        </Row>
+            <Row form>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Name</Label>
+                  <Input
+                    type="text"
+                    placeholder="name"
+                    name="name"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.name}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Address</Label>
+                  <Input type="text" placeholder="address" name="address"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.address}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Email</Label>
+                  <Input type="email" placeholder="Example@mail.com" name="email"
+                    value={this.state.row.email}
+                    onChange={this.setData.bind()} />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>Account number</Label>
+                  <Input type="text" placeholder="Acounnt number" name="accnum"
+                    value={this.state.row.accnum}
+                    onChange={this.setData.bind()} />
+                </FormGroup>
+              </Col>
+              <Col md={12}>
+                <FormGroup>
+                  <Label>phone</Label>
+                  <Input type="text" placeholder="09xxxxxxxx" name="phone"
+                    onChange={this.setData.bind()}
+                    value={this.state.row.phone}
+                    invalid={this.state.invalid}
+                  />
+                  <FormFeedback invalid>should include 10 number and have no chares</FormFeedback>
+                </FormGroup>
+              </Col>
+            </Row>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary"  onClick={async ()=>{
-              this.toggle();
-              await this.props.update(this.state.row);
-              this.props.getData("supplier");
+            <Button color="primary" onClick={async () => {
+              if (this.validation()) {
+                // this.toggle();
+                await this.props.update(this.state.row);
+                this.props.getData("supplier");
+              }
             }}>
               update
             </Button>{" "}
@@ -300,6 +358,33 @@ class Item extends Component {
       </Dashoard>
     );
   }
+  validation() {
+    var { name, address, email, phone, invalid } = this.state.row
+    if (name === ""
+      || address === ""
+      || email === ""
+      || phone === "") {
+      this.setState({
+
+        validMsg: "make sure that you are enter (username , password , email or phone) at least ."
+      });
+      return false
+    } else {
+      this.setState({
+
+        validMsg: "successfull"
+      });
+    }
+    if (invalid) {
+      this.setState({
+        result: false,
+        validMsg: "can not register , there is invalid phone number"
+      });
+      return false
+    }
+    return true
+
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -308,8 +393,9 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getData,add,update,deleteSupplierAction
-  },dispatch)
+  return bindActionCreators({
+    getData, add, update, deleteSupplierAction
+  }, dispatch)
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Item);
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
 

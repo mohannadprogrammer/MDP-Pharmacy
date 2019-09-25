@@ -29,8 +29,8 @@ export async function update(store){
   }
 }
 
-export function deleteStoreAction(storeid){
-  deleteStore({id:storeid}).then(res=>{
+export async function deleteStoreAction(storeid){
+  await deleteStore({id:storeid}).then(res=>{
 
   })
   return {

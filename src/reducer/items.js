@@ -67,7 +67,7 @@ export default (
     case "GET_INVOICE":
       return { ...state, invoice: action.payload };
     case "DISPOSE_INVOICE":
-      return { ...state, invoice: action.payload };
+      return state;
     case "GET_INVOICE_DETAILS":
       return { ...state, invoiceDetails: action.payload };
     default:

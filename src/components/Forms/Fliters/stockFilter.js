@@ -84,7 +84,6 @@ class UserForm extends Component {
     }
   };
   render() {
-    console.log(this.state);
     const store = this.props.data.items.stores;
     return (
       <div>
@@ -98,7 +97,7 @@ class UserForm extends Component {
                 name="storeid"
                 onChange={this.setData.bind()}
               >
-                <option placeholder="select :">select please</option>
+                <option placeholder="select :" value="">select please</option>
                 <hr />
                 {store.map((store, i) => {
                   return (
@@ -147,6 +146,15 @@ class UserForm extends Component {
             />
           </Alert>
         <Button onClick={this.submit.bind()}>filter</Button>
+        <Button  style ={{
+          float:"right"
+        }}onClick={()=>
+        {
+          if(this.validation()){
+          this.props.stockMovementDownloadAction(this.state);
+        }
+        }} color="primary">print</Button>
+
       </div>
     );
   }

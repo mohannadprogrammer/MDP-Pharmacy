@@ -60,8 +60,11 @@ module.exports = {
     dataField: 'Qout',
     text: 'out'
   }, {
-    dataField: 'available',
-    text: 'available'
-  },
+    dataField: 'Qdi',
+    text: 'Dispose'
+  }, {
+    dataField: 'ava',
+    text: 'Available'
+  }
   ]
 }
