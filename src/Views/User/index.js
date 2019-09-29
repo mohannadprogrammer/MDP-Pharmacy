@@ -41,6 +41,7 @@ class Item extends Component {
   }
   componentDidMount() {
     this.props.getData("users");
+    this.props.getData("permission");
   }
   toggle() {
     this.setState(prevState => ({
@@ -232,6 +233,7 @@ class Item extends Component {
     }
     ];
     let products = this.props.data.items;
+    let permission = this.props.data.permission;
 
     return (
       <Dashoard>
@@ -313,6 +315,21 @@ class Item extends Component {
                   <FormFeedback invalid>should include 10 number and have no chares</FormFeedback>
                 </FormGroup>
               </Col>
+              <Col md={3}>
+            <FormGroup>
+              <Label>permissions</Label>
+              <Input type="select" placeholder="1" name="permission"
+                 onChange={this.setData.bind()}
+                 value={this.state.permission}>
+                <option value="">select permissions </option>
+                {permission.map((permission,i)=>{
+                    return (
+                        <option value ={permission.id}>{permission.name}</option>
+                    )
+                })}
+                </Input>
+            </FormGroup>
+          </Col>
             </Row>
           </ModalBody>
           <ModalFooter>
@@ -320,7 +337,7 @@ class Item extends Component {
               this.toggle();
               await this.props.update(this.state.row);
               this.props.getData("users");
-            }}>
+            }}>  
               update
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>

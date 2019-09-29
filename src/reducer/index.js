@@ -5,10 +5,12 @@ import {combineReducers} from 'redux'
 import items from './items'
 import {sales} from './sale'
 import {report} from './report'
+import {notification}from './notification'
 const rootReducers = combineReducers({
     items,
     sales,
-    report
+    report,
+    notification
 })
 
 export default rootReducers;

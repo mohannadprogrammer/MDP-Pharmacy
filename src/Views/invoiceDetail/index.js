@@ -21,7 +21,7 @@ import {
 import config from "./config";
 
 import { connect } from "react-redux";
-import { getInvoiceDetailsAction, disposeInvoiceAction } from "../../actions/invoiceAction";
+import { getInvoiceDetailsAction, rejectInvoiceAction } from "../../actions/invoiceAction";
 import { bindActionCreators } from "redux";
 import Pdf from "react-to-pdf";
 import { async } from "q";
@@ -127,9 +127,8 @@ class Item extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={async() => {
-              await this.props.disposeInvoiceAction(this.props.data.items.invoiceDetails.id)
+              await this.props.rejectInvoiceAction(this.props.data.items.invoiceDetails.id)
               this.props.getInvoiceDetailsAction(this.props.match.params.id);
-
               this.toggle();
             }}>
               Yes
@@ -153,7 +152,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       getInvoiceDetailsAction,
-      disposeInvoiceAction
+      rejectInvoiceAction
     },
     dispatch
   );

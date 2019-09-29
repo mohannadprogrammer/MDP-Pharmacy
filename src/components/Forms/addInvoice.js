@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getData } from "../../actions/itemsAction";
-import { addInvoice } from "../../actions/invoiceAction";
+import { addInvoiceAction } from "../../actions/invoiceAction";
 import { bindActionCreators } from "redux";
 
 import { Col, Row, FormGroup, Input, Label, Button, UncontrolledCollapse, Alert } from "reactstrap";
@@ -9,7 +9,6 @@ import FontAwesome from 'react-fontawesome'
 
 //import
 import BootstrapTable from "react-bootstrap-table-next";
-import { async } from "q";
 class UserForm extends Component {
   constructor(props) {
     super(props);
@@ -106,7 +105,7 @@ class UserForm extends Component {
       && this.state.storeid !== "" 
       && this.state.supplierid !== "" 
       ) {
-      await this.props.addInvoice(reset);
+      await this.props.addInvoiceAction(reset);
       this.setState({
         temp: {
           id: "",
@@ -435,7 +434,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { addInvoice, getData },
+    { addInvoiceAction, getData },
     dispatch
   );
 };

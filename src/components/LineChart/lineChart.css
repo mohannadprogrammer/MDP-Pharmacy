@@ -1,0 +1,14 @@
+.chart-card{
+    color:rgba(93, 103, 107, 0.541)
+}
+.chart{
+    /* ?position: relative; */
+    padding: 0 15px;
+    color: rgba(93, 103, 107, 0.541);
+}
+.submition{
+    margin: 15px;
+}
+.submition input{
+    margin: 0px 15px;
+}

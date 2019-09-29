@@ -1,4 +1,4 @@
-import { getItemForSales,sale} from "../api";
+import { getItemForSales,addInvoice} from "../api";
 
 
 export function getItemToSaleAction (info){
@@ -17,7 +17,7 @@ export function deleteFromSaleBill (id){
 }
 export function saleAction (bill,storeid){
     bill.storeid=storeid;
-    const data=sale(bill).then(res=>res.data.data)
+    const data=addInvoice(bill).then(res=>res.data.data)
     console.log(data)
     return{
         type:"SALE",

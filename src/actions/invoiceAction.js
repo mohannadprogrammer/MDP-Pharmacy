@@ -1,4 +1,4 @@
-import { getInvoiceDetails,disposeInvoice,sale} from "../api";
+import { getInvoiceDetails,rejectInvoice,addInvoice} from "../api";
 
 
 
@@ -10,17 +10,17 @@ export function getInvoiceDetailsAction (id){
     }
 }
 
-export async function disposeInvoiceAction (id){
-    const data= await disposeInvoice(id).then(res=>res.data.data)
+export async function rejectInvoiceAction (id){
+    const data= await rejectInvoice(id).then(res=>res.data.data)
     
     return{
-        type:"DISPOSE_INVOICE",
+        type:"REGECT_INVOICE",
         payload:data
     }
 
 }
-export async function addInvoice (bill){
-    const data=await sale(bill).then(res=>res.data.data)
+export async function addInvoiceAction (bill){
+    const data=await addInvoice(bill).then(res=>res.data.data)
     return{
         type:"ADD_INVOICE",
         payload:data

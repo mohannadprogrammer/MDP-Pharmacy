@@ -5,6 +5,11 @@ export const sales = (
       itemsDetail: [],
       storeid: 0,
       discount: 0
+    },
+    dispose: {
+      "transtype": "dispose",
+      "itemsDetail": [{ "id": 1, "quantity": 1, "batch": 15 }],
+      "storeid": 0
     }
   },
   action
@@ -12,27 +17,29 @@ export const sales = (
   switch (action.type) {
     case "GET_ITEM_TO_SALE":
       console.log(action.payload)
-      if (action.payload ){if (action.payload.id) {
-        let index = isAddIt(action.payload, state.requist.itemsDetail);
-        if (index === -1) {
-          if (action.payload.available > 0) {
-            state.requist.itemsDetail.push({ ...action.payload, quantity: 1 });
+      if (action.payload) {
+        if (action.payload.id) {
+          let index = isAddIt(action.payload, state.requist.itemsDetail);
+          if (index === -1) {
+            if (action.payload.available > 0) {
+              state.requist.itemsDetail.push({ ...action.payload, quantity: 1 });
+            } else {
+              alert("the item is unavailable");
+            }
           } else {
-            alert("the item is unavailable");
+            if (
+              action.payload.available >
+              state.requist.itemsDetail[index].quantity + 1
+            ) {
+              state.requist.itemsDetail[index].quantity++;
+            } else {
+              alert("this quantity of item is unavailable");
+            }
           }
         } else {
-          if (
-            action.payload.available >
-            state.requist.itemsDetail[index].quantity + 1
-          ) {
-            state.requist.itemsDetail[index].quantity++;
-          } else {
-            alert("this quantity of item is unavailable");
-          }
+          alert("not found");
         }
       } else {
-        alert("not found");
-      }}else {
         alert("not found");
       }
       return { ...state };
@@ -50,6 +57,15 @@ export const sales = (
         }
       };
       return state;
+      case "DISPOSE":
+        state = {
+          dispose: {
+            transtype: "dispose",
+            itemsDetail: [],
+            storeid: 0
+          }
+        };
+        return state;
     case "ADD_INVOICE":
       return state;
     default:

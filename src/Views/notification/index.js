@@ -6,10 +6,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 import Dashoard from "../../hoc/Dashboard";
 import "./index.css";
-import Form from "../../components/Forms/UserForm";
 import PHeader from "../../components/PHeader";
 
-import FontAwesome from "react-fontawesome"
 import {
   Row,
   Button,
@@ -17,13 +15,13 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter, FormGroup, Input, Label, FormFeedback, Badge
+  ModalFooter
 } from "reactstrap";
 
 
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { connect } from "react-redux";
-import { getData, add, update, deleteUserAction } from "../../actions/userAction";
+import { dispose ,addNotificationItem ,getNotification2Handle } from "../../actions/handleNotification";
 import { bindActionCreators } from "redux";
 
 class Item extends Component {
@@ -36,7 +34,9 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
- 
+  componentWillUnmount(){
+    this.props.getNotification2Handle();
+  }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -63,7 +63,9 @@ class Item extends Component {
         formatter: (cellCnotent, row) => {
             return (
                 <div>
-                    <Button color="primary"> add</Button>
+                    <Button color="primary" onClick={()=>{
+                      this.props.addNotificationItem(row)
+                    }}> add</Button>
                 </div>
                 
               
@@ -72,6 +74,10 @@ class Item extends Component {
       }
 
     ];
+    
+    let miniData = this.props.data.mini;
+    let expiredData = this.props.data.exp;
+    console.log(this.props.data)
     const expired = [
       {
         dataField: 'username',
@@ -85,7 +91,7 @@ class Item extends Component {
         text: 'Store'
       }
       , {
-        dataField: 'Store',
+        dataField: 'patch',
         text: 'Patch'
       },
       {
@@ -96,7 +102,9 @@ class Item extends Component {
         formatter: (cellCnotent, row) => {
             return (
                 <div>
-                    <Button color="danger"> dispatch</Button>
+                    <Button color="danger" onClick={()=>{
+                      this.props.dispose(row)
+                    }}> dispose</Button>
                 </div>
                 
               
@@ -104,10 +112,7 @@ class Item extends Component {
           }
       }
 
-    ]
-    let miniData = [{}]//this.props.data.items;
-    let expiredData = [{}]//this.props.data.items;
-
+    ];
     return (
       <Dashoard>
         <PHeader PageName="handle Notification" toggle={this.toggle}>
@@ -151,7 +156,7 @@ class Item extends Component {
           toggle={this.toggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Update user</ModalHeader>
+          <ModalHeader toggle={this.toggle}>handle resualt</ModalHeader>
           <ModalBody>
 
           </ModalBody>
@@ -166,11 +171,11 @@ class Item extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.items
+    data: state.notification
   };
 };
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getData, add, update, deleteUserAction }, dispatch);
+  return bindActionCreators({  dispose ,addNotificationItem ,getNotification2Handle  }, dispatch);
 };
 export default connect(
   mapStateToProps,

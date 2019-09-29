@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const URL = "http://172.18.130.100:3000";
+const URL = "http://172.18.130.104:3000";
 
 export function login(username, password) {
   console.log(`${URL} /admin/login`)
@@ -176,7 +176,7 @@ export function getItemForSales(search) {
 
 //HEAR  don sale invoice in 
 
-export function sale(saled) {
+export function addInvoice(saled) {
   axios.defaults.headers = {
     ContentType: "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -209,7 +209,7 @@ export function getInvoiceDetails(invoiceid){
   return axios.post(`${URL}/invoice/invoiceDetails`, { invoiceid })
 }
 
-export function disposeInvoice(invoiceid){
+export function rejectInvoice(invoiceid){
   axios.defaults.headers = {
     ContentType: "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,

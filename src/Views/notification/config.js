@@ -23,6 +23,21 @@ const config={
         text: 'Control',
         headerStyle: {
             width:"130px"
+          },
+        formatter: (cellCnotent, row) => {
+            return (
+                <div>
+                    <Button color="primary"> <FontAwesome
+                name="edit"
+                style={{  fontSize: "20px"  }}
+              /></Button> <Button color="danger"> <FontAwesome
+                    name="trash"
+                    style={{  fontSize: "20px" }}
+                  /></Button>
+                </div>
+                
+              
+            );
           }
       }
       
