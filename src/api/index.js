@@ -262,5 +262,13 @@ export function stockStatusDownload (filters){
   })
 }
 
+export function getAllNot (){
+  axios.defaults.headers = {
+    ContentType: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+  return axios.post(`${URL}/notification/getAllNot`)
+}
+
 
 

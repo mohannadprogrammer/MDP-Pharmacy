@@ -1,17 +1,21 @@
 export const notification = (
     state = {
-     mini:[{}],
-     exp:[{}]
+     mini:[],
+     exp:[]
     },
     action
   ) => {
     switch (action.type) {
       case "GET_NOTIFICATION":
         console.log(action.payload, "---------------------");
-        return{ ...state, stockmovement: action.payload };
-        case "DISPOSE":
+        if (!action.payload.done){
+          return state;
+        }else
+       { return{ ...state, mini:action.payload.min , exp: action.payload.exp  }; }
+       
+       case "DISPOSE":
         console.log(action.payload, "---------------------");
-        return{ ...state, stockStatus: action.payload };
+        return{ ...state};
       case "ADD_NOTIFICATION_ITEM":
         return state;
       default:

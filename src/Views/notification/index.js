@@ -34,7 +34,8 @@ class Item extends Component {
 
     this.toggle = this.toggle.bind(this);
   }
-  componentWillUnmount(){
+  componentDidMount(){
+    console.log("alksdfsdfjlaksddjflkajsddlfkjasldkf")
     this.props.getNotification2Handle();
   }
   toggle() {
@@ -46,14 +47,14 @@ class Item extends Component {
   render() {
     const mini = [
       {
-        dataField: 'username',
+        dataField: 'tradname',
         text: 'Scientific name'
       },
       {
-        dataField: 'General name',
+        dataField: 'generalname',
         text: 'General name'
       }, {
-        dataField: 'Store',
+        dataField: 'name',
         text: 'Store'
       }, {
         text: 'Control',
@@ -80,18 +81,18 @@ class Item extends Component {
     console.log(this.props.data)
     const expired = [
       {
-        dataField: 'username',
+        dataField: 'tradname',
         text: 'Scientific name'
       },
       {
-        dataField: 'General name',
+        dataField: 'generalname',
         text: 'General name'
       }, {
-        dataField: 'Store',
+        dataField: 'name',
         text: 'Store'
       }
       , {
-        dataField: 'patch',
+        dataField: 'batch',
         text: 'Patch'
       },
       {
@@ -103,7 +104,7 @@ class Item extends Component {
             return (
                 <div>
                     <Button color="danger" onClick={()=>{
-                      this.props.dispose(row)
+                      this.props.dispose(row,row.id)
                     }}> dispose</Button>
                 </div>
                 

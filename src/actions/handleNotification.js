@@ -1,19 +1,23 @@
-import {}from "../api"
+import {getAllNot,addInvoice}from "../api"
 
 export function getNotification2Handle(){
+    let data =getAllNot().then((res)=>res.data.data)
     return{
         type:"GET_NOTIFICATION",
-        payload:""
+        payload:data
     }
 }
 
 export function dispose(item , storeid ){
     let request = {
         type:"dispose",
-        itemsDetail:{item},
-        storeid
+        itemsDetail:{id:item.id , quantity:1,batch:item.batch},
+        storeid:44
     }
-    // console.log("dispose ", item)
+
+     console.log("dispose ", request)
+    let data =addInvoice(request).then(res=>res)
+    console.log("dispose 33", data)
     
     return{
         type:"DISPOSE",
